@@ -2,17 +2,44 @@ import {
     DataTable,
     DataTableToolbar,
     DataTableHead,
+    TableHead,
     DataTableBody,
+    TableBody,
     DataTableFoot,
     DataTableRow,
     DataTableCell,
     DataTableColumnHeader,
 } from '@dhis2/ui'
 import IndicatorGroupRow from './indicatorGroupRow'
+import { CircularLoader } from '@dhis2/ui'
+import { useDataQuery } from '@dhis2/app-runtime'
 
-function IndicatorFacts(){
-    const det=[{"da":"dfas"}]
+function IndicatorFacts(props){
 
+    let id=props.id
+     
+    const query =  {
+        indicatorGroups:{
+          resource:"indicators",
+           id,
+            params:{
+              fields:["indicatorGroups[id,displayName,indicators[id,displayName]]"]
+            }
+        }
+      }
+
+     
+    const {loading, error, data}   = useDataQuery(query)
+
+    if(loading){
+        return <CircularLoader />
+     }
+ 
+     if(error){
+        return <p> {error} </p> 
+     }  
+ 
+     let count=0
     return (<div>
         <h3>Indicator facts</h3>
 
@@ -39,8 +66,9 @@ function IndicatorFacts(){
         </DataTableRow>
     </TableHead>
     <TableBody>
-        {det.map((group)=>{
-            return  (<IndicatorGroupRow no="1" name="name" code="code" indicators="indicatorsList" />)
+        {data.indicatorGroups.indicatorGroups.map((group)=>{
+            count++
+            return  (<IndicatorGroupRow key={group.id} no={count} name={group.displayName} code={group.id} indicators={group.indicators} />)
         })}
         
         

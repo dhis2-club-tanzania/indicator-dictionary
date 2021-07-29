@@ -1,14 +1,39 @@
 import { useHistory } from "react-router-dom";
 
+import classes from './indicatorGroupRow.module.css'
+
+import {
+    DataTable,
+    DataTableToolbar,
+    DataTableHead,
+    TableHead,
+    DataTableBody,
+    TableBody,
+    DataTableFoot,
+    DataTableRow,
+    DataTableCell,
+    DataTableColumnHeader,
+} from '@dhis2/ui'
+
 function IndicatorGroupRow(props){
 
- 
+ function dispList(list){
+    for(let ind=0;ind<list.length;ind++){
+        return <li className={classes.indicatorRowLink} key={list[ind].id} onClick={()=>navigateToIndicatorHandler(list[ind].id)}>  {list[ind].displayName}
+         
+    </li>
+    }
+ }
+
     const history = useHistory();
 
     function navigateToIndicatorHandler(id){
+       
         history.push("/indicator/"+id);
     }
-
+// console.log(props.indicators)
+const det=[{"id":"fd","displayName":"name1"},{"id":"fd34","displayName":"name2"}]
+console.log(det)
     return (<DataTableRow>
         <DataTableCell bordered>
            {props.no}
@@ -21,12 +46,10 @@ function IndicatorGroupRow(props){
         </DataTableCell>
         <DataTableCell bordered>
             <ol>
-                {props.indicators.map((ind)=>{
-                    <li  key={ind.id} onClick={()=>navigateToIndicatorHandler(ind.id)}>
-                        {ind.displayName}
-                    </li>
-                })}  
+                {dispList(props.indicators)}
             </ol>
+            
+        
            
         </DataTableCell>
     </DataTableRow>)
