@@ -1,4 +1,6 @@
 
 .indicatorRowLink{
-    color:blue
+    color:blue;
+    cursor: pointer;
+    
 }

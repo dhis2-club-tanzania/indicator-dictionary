@@ -14,8 +14,8 @@ function Introduction(props){
           id:indId,
           params:{
             fields:["id","name","displayDescription","numeratorDescription","denominatorDescription",
-            "indicatorType[displayName,id]"
-            ]
+            "indicatorType[displayName,id]",
+            ],pagging:false,
           }
         }
       
