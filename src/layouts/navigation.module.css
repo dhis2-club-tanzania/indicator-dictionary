@@ -1,0 +1,9 @@
+
+.navigationLink{
+    text-decoration: none;
+}
+
+.navigationBar{
+    margin: 3rem auto;
+    width: 90%;
+}
