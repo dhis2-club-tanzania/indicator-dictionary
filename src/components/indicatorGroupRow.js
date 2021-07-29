@@ -31,9 +31,9 @@ function IndicatorGroupRow(props){
        
         history.push("/indicator/"+id);
     }
-// console.log(props.indicators)
-const det=[{"id":"fd","displayName":"name1"},{"id":"fd34","displayName":"name2"}]
-console.log(det)
+console.log(props.indicators)
+
+
     return (<DataTableRow>
         <DataTableCell bordered>
            {props.no}
