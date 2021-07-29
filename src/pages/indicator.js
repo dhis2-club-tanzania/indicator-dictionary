@@ -1,6 +1,10 @@
 import { useParams,useHistory } from 'react-router-dom'
 
-import Introduction from '../components/introduction'
+
+import { CircularLoader } from '@dhis2/ui'
+import { useDataQuery } from '@dhis2/app-runtime'
+import IndicatorFacts from '../components/indicatorFacts'
+
 
 function IndicatiorPage(){
     const { id } = useParams()
@@ -9,6 +13,8 @@ function IndicatiorPage(){
        <Introduction idIndic={id} /> 
 
        </div>)
+
+
 
 }
 
