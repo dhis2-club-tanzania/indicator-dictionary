@@ -5,8 +5,6 @@ function Introduction(props){
 
    const indId=props.idIndic
 
-  
-
     const query = {
   
         indicatorsDetails:{
@@ -21,7 +19,6 @@ function Introduction(props){
       
       }
 
-     
     const {loading, error, data}   = useDataQuery(query)
 
     if(loading){
@@ -38,9 +35,9 @@ function Introduction(props){
       
     return ( <div>
       
-        <h3>{indicatorDetails.name} </h3>
+        <h2>{indicatorDetails.name} </h2>
 
-        <h2>Introduction</h2>
+        <h3>Introduction</h3>
 
         <p>
         <b>{indicatorDetails.name} </b> 
