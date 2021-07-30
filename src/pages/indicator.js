@@ -1,5 +1,6 @@
 import { useParams,useHistory } from 'react-router-dom'
 import CalculationDetails from '../components/calculationDetails'
+import DataElementSIndicator from '../components/dataElementsIndicator'
 
 
 
@@ -19,6 +20,9 @@ function IndicatiorPage(){
        <LegendsAnalysis id={id} />
        <p></p> 
        <CalculationDetails />
+       <p></p>
+       <DataElementSIndicator />
+       <p></p>
 
        </div>)
 
