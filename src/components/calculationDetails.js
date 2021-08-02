@@ -1,17 +1,36 @@
 import {
-    DataTable,
-    DataTableToolbar,
-    DataTableHead,
-    TableHead,
-    DataTableBody,
-    TableBody,
-    DataTableFoot,
-    DataTableRow,
-    DataTableCell,
-    DataTableColumnHeader,
+    DataTable,    DataTableToolbar,    DataTableHead,    TableHead,    DataTableBody,    TableBody,    DataTableFoot,    DataTableRow,    DataTableCell,    DataTableColumnHeader,
 } from '@dhis2/ui'
+import { CircularLoader } from '@dhis2/ui'
+import { useDataQuery } from '@dhis2/app-runtime'
 
-function CalculationDetails(){
+
+function CalculationDetails(props){
+
+    const id=props.id
+
+
+  const query = {
+    calculation:{
+      resource:"indicators",
+         id,
+        params:{
+          fields:["numerator","denominator"]
+        }
+    }
+  }
+
+const {loading, error, data}   = useDataQuery(query)
+
+if(loading){
+    return <CircularLoader />
+ }
+
+ if(error){
+    return <p> {error} </p> 
+ }  
+
+ const numDen=data.calculation
 
 
     return (<div>
@@ -39,7 +58,7 @@ function CalculationDetails(){
                Numerator
             </DataTableCell  >
             <DataTableCell bordered>
-                Numerator Formula
+                {numDen.numerator}
             </DataTableCell>
             <DataTableCell bordered>
              Numerator Sorces
@@ -51,7 +70,7 @@ function CalculationDetails(){
                Denominator
             </DataTableCell>
             <DataTableCell bordered>
-            Denominator Formula
+            {numDen.denominator}
             </DataTableCell>
             <DataTableCell bordered>
             Denominator Sorces

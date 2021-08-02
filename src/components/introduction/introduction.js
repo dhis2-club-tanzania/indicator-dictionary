@@ -1,15 +1,25 @@
 import { CircularLoader } from '@dhis2/ui'
 import { useDataQuery } from '@dhis2/app-runtime'
 
+import classes from './introduction.module.css'
+
 function Introduction(props){
 
-   const indId=props.idIndic
+  function onClickIdentified(){
+   
+    window.open(process.env.REACT_APP_API_LINK+"/api/indicators/"+id+".json");
+
+    // 8082/api/indicators/Uvn6LCg7dVU.json
+  }
+
+
+   const id=props.id
 
     const query = {
   
         indicatorsDetails:{
           resource:"indicators",
-          id:indId,
+          id,
           params:{
             fields:["id","name","displayDescription","numeratorDescription","denominatorDescription",
             "indicatorType[displayName,id]",
@@ -31,7 +41,7 @@ function Introduction(props){
      }  
  
      const indicatorDetails=data.indicatorsDetails;
-     console.log(indicatorDetails)  //having trouble getting indicator description
+    //  console.log(indicatorDetails)  //having trouble getting indicator description
       
     return ( <div>
       
@@ -55,7 +65,7 @@ Its described as {indicatorDetails.displayDescription}
         </p>
 
         <p>
-             <span><i> Identified by: {indicatorDetails.id} </i></span>
+             <span ><i onClick={()=>onClickIdentified(indicatorDetails.id)}> Identified by: <span className={classes.identifylink}> {indicatorDetails.id} </span> </i></span>
         </p>
                 
         

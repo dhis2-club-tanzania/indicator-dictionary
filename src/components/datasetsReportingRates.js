@@ -12,40 +12,39 @@ import {
     DataTableColumnHeader,
 } from '@dhis2/ui'
 
-function ProgramIndicatorIndicator(){
 
-    return (<div>
-       <h3> Program Indicators in indicator </h3>
-        <p> The following is the summary of the program indicators used in calculations:</p>
+function DatasetsReportingRates(){
 
+    return <div>
+        <h3>Datasets (Reporting rates) in indicator</h3>
+        <p>The following is the summary of the datasets (reporting rates) used in calculations:</p>
         <DataTable>
             <TableHead>
                 <DataTableRow>
                     <DataTableColumnHeader bordered>
-                    Program Indicator
+                    Dataset
                     </DataTableColumnHeader>
                     <DataTableColumnHeader bordered>
-                    Expression part 
+                    Description
                     </DataTableColumnHeader>
                     <DataTableColumnHeader>
-                    Filter
+                    Timely Submission
                     </DataTableColumnHeader>
                     <DataTableColumnHeader>
-                    Aggregation type
+                    Expiry days
                     </DataTableColumnHeader>
                     <DataTableColumnHeader>
-                    Analytics type
+                    Period type
                     </DataTableColumnHeader>
                     <DataTableColumnHeader>
-                    Period boundaries
+                    Assigned orgunits
                     </DataTableColumnHeader>
+                    <DataTableColumnHeader>
+                    Data elements
+                    </DataTableColumnHeader>          
                     <DataTableColumnHeader>
                     Legends
-                    </DataTableColumnHeader>
-                    <DataTableColumnHeader>
-                    Groups
-                    </DataTableColumnHeader>          
-                
+                    </DataTableColumnHeader> 
                 </DataTableRow>
             </TableHead>
             <TableBody>
@@ -57,6 +56,10 @@ function ProgramIndicatorIndicator(){
                        
                     </DataTableCell>
                     <DataTableCell bordered>
+                  
+                  </DataTableCell>
+                  
+                    <DataTableCell bordered>
                     
                     </DataTableCell>
                     <DataTableCell bordered>
@@ -69,9 +72,6 @@ function ProgramIndicatorIndicator(){
                     
                     </DataTableCell>
                     <DataTableCell bordered>
-                       
-                       </DataTableCell>
-                       <DataTableCell bordered>
                        
                        </DataTableCell>
                        
@@ -98,17 +98,16 @@ function ProgramIndicatorIndicator(){
                   
                    </DataTableCell>
                    <DataTableCell bordered>
-                       
-                    </DataTableCell>
-                       
-                   
+                  
+                  </DataTableCell>
+                  
                 </DataTableRow>
                 
             </TableBody>
             
         </DataTable>  
 
-    </div>)
+    </div>
 }
 
-export default ProgramIndicatorIndicator
+export default DatasetsReportingRates

@@ -1,29 +1,42 @@
 import { useHistory } from "react-router-dom";
+import { useState } from "react";
 
 import classes from './indicatorGroupRow.module.css'
 
-import {
-    DataTable,
-    DataTableToolbar,
-    DataTableHead,
-    TableHead,
-    DataTableBody,
-    TableBody,
-    DataTableFoot,
-    DataTableRow,
-    DataTableCell,
-    DataTableColumnHeader,
-} from '@dhis2/ui'
+import {  DataTableRow,    DataTableCell,    DataTableColumnHeader,    Button,} from '@dhis2/ui'
 
 function IndicatorGroupRow(props){
 
  function dispList(list){
-    for(let ind=0;ind<list.length;ind++){
-        return <li className={classes.indicatorRowLink} key={list[ind].id} onClick={()=>navigateToIndicatorHandler(list[ind].id)}>  {list[ind].displayName}
-         
-    </li>
+     let items;
+    if(isListFull){ 
+        items= list.map((ind)=>{
+            return(<li className={classes.indicatorRowLink} onClick={()=>navigateToIndicatorHandler(ind.id)}> 
+                     {ind.displayName}
+                   </li>)
+            }
+            )
+            
+    }else{
+     list=list.slice(0,3);  //just first three
+     items= list.map((ind)=>{
+          return(<li className={classes.indicatorRowLink} onClick={()=>navigateToIndicatorHandler(ind.id)}> 
+                   {ind.displayName}
+                 </li>)
+      })
     }
+
+    return items
  }
+
+
+ function toogleIndicatorList(){
+    isListFull ? setListFull(false) : setListFull(true)  
+    dispList(sampleList)
+ }
+
+
+ const [isListFull,setListFull]=useState(false)
 
     const history = useHistory();
 
@@ -31,7 +44,6 @@ function IndicatorGroupRow(props){
        
         history.push("/indicator/"+id);
     }
-console.log(props.indicators)
 
 
     return (<DataTableRow>
@@ -46,11 +58,15 @@ console.log(props.indicators)
         </DataTableCell>
         <DataTableCell bordered>
             <ol>
+              
                 {dispList(props.indicators)}
+               
             </ol>
-            
+           {props.indicators.length>3 ?
+            <Button name="Basic button" onClick={toogleIndicatorList} value="default">
+                {isListFull? 'show less':'show more'}
+             </Button>: null}
         
-           
         </DataTableCell>
     </DataTableRow>)
 }
