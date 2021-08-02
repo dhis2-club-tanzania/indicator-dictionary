@@ -28,6 +28,8 @@ function IndicatorFacts(props){
         }
       }
 
+
+    
      
     const {loading, error, data}   = useDataQuery(query)
 

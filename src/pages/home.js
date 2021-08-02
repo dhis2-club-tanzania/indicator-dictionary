@@ -35,7 +35,7 @@ function HomePage(){
     return(<div>
      
        
-        <p> Select an Indicator for details </p> 
+        <p> <b>Select an Indicator for details </b></p>  
       
             <Menu>
        
