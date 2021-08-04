@@ -3,19 +3,18 @@ import { useDataQuery } from '@dhis2/app-runtime'
 
 import { useHistory } from "react-router-dom";
 
+const query = {
+    indicators: {
+        resource: 'indicators',
+        params: {
+            fields: 'id,displayName',
+        },paging:false,
+    },
+}
+
 function HomePage(){
 
    const history = useHistory();
-
-    const query = {
-        indicators: {
-            resource: 'indicators',
-            params: {
-                fields: 'id,displayName',
-            }
-        },
-    }
-
 
     const {loading, error, data}   = useDataQuery(query)
 

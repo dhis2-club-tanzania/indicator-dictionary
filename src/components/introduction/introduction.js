@@ -3,38 +3,33 @@ import { useDataQuery } from '@dhis2/app-runtime'
 
 import classes from './introduction.module.css'
 
-function Introduction(props){
+   
+const query = {
 
+    indicatorsDetails:{
+      resource:"indicators",
+      id: ({id})=>id,
+      params:{
+        fields:["id","name","displayDescription","numeratorDescription","denominatorDescription",
+        "indicatorType[displayName,id]",
+        ]
+      }
+    }
+  
+  }
+
+function Introduction({id}){
+  console.log(id);
+  const {loading, error, data}   = useDataQuery(query, {variables: {id}})
   function onClickIdentified(){
    
     window.open(process.env.REACT_APP_API_LINK+"/api/indicators/"+id+".json");
 
-    // 8082/api/indicators/Uvn6LCg7dVU.json
-  }
-
-
-   const id=props.id
-
-    const query = {
-  
-        indicatorsDetails:{
-          resource:"indicators",
-          id,
-          params:{
-            fields:["id","name","displayDescription","numeratorDescription","denominatorDescription",
-            "indicatorType[displayName,id]",
-            ],pagging:false,
-          }
-        }
-      
-      }
-
-    const {loading, error, data}   = useDataQuery(query)
-
+   
+  } 
     if(loading){
         return <CircularLoader />
      }
- 
  
      if(error){
         return <p> {error} </p> 

@@ -14,24 +14,19 @@ import IndicatorGroupRow from './indicatorGroupRow'
 import { CircularLoader } from '@dhis2/ui'
 import { useDataQuery } from '@dhis2/app-runtime'
 
-function IndicatorFacts(props){
-
-    let id=props.id
-     
-    const query =  {
-        indicatorGroups:{
-          resource:"indicators",
-           id,
-            params:{
-              fields:["indicatorGroups[id,displayName,indicators[id,displayName]]"]
-            }
+const query =  {
+    indicatorGroups:{
+      resource:"indicators",
+      id: ({id})=>id,
+        params:{
+          fields:["indicatorGroups[id,displayName,indicators[id,displayName]]"]
         }
-      }
+    }
+  }
 
-
-    
+function IndicatorFacts({id}){
      
-    const {loading, error, data}   = useDataQuery(query)
+    const {loading, error, data}   = useDataQuery(query, {variables: {id}})
 
     if(loading){
         return <CircularLoader />

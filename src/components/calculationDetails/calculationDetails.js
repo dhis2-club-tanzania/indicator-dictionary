@@ -3,24 +3,25 @@ import {
 } from '@dhis2/ui'
 import { CircularLoader } from '@dhis2/ui'
 import { useDataQuery } from '@dhis2/app-runtime'
+import CalculationDetailRow from './calculationDetailRow'
 
-
-function CalculationDetails(props){
-
-    const id=props.id
-
-
-  const query = {
+const query = {
     calculation:{
       resource:"indicators",
-         id,
+       id: ({id})=>id,
         params:{
           fields:["numerator","denominator"]
         }
     }
   }
 
-const {loading, error, data}   = useDataQuery(query)
+
+function CalculationDetails({id}){
+
+ 
+  
+
+const {loading, error, data}   = useDataQuery(query, {variables: {id}})
 
 if(loading){
     return <CircularLoader />
@@ -57,24 +58,15 @@ if(loading){
             <DataTableCell bordered>
                Numerator
             </DataTableCell  >
-            <DataTableCell bordered>
-                {numDen.numerator}
-            </DataTableCell>
-            <DataTableCell bordered>
-             Numerator Sorces
-            </DataTableCell>
+            <CalculationDetailRow formula={numDen.numerator} />
            
         </DataTableRow>
         <DataTableRow>
             <DataTableCell bordered >
                Denominator
             </DataTableCell>
-            <DataTableCell bordered>
-            {numDen.denominator}
-            </DataTableCell>
-            <DataTableCell bordered>
-            Denominator Sorces
-            </DataTableCell>
+
+            <CalculationDetailRow formula={numDen.denominator} />
            
         </DataTableRow>
         

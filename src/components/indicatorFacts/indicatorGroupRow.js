@@ -11,7 +11,7 @@ function IndicatorGroupRow(props){
      let items;
     if(isListFull){ 
         items= list.map((ind)=>{
-            return(<li className={classes.indicatorRowLink} onClick={()=>navigateToIndicatorHandler(ind.id)}> 
+            return(<li key={ind.id} className={classes.indicatorRowLink} onClick={()=>navigateToIndicatorHandler(ind.id)}> 
                      {ind.displayName}
                    </li>)
             }
@@ -20,7 +20,7 @@ function IndicatorGroupRow(props){
     }else{
      list=list.slice(0,3);  //just first three
      items= list.map((ind)=>{
-          return(<li className={classes.indicatorRowLink} onClick={()=>navigateToIndicatorHandler(ind.id)}> 
+          return(<li  key={ind.id} className={classes.indicatorRowLink} onClick={()=>navigateToIndicatorHandler(ind.id)}> 
                    {ind.displayName}
                  </li>)
       })
@@ -32,7 +32,7 @@ function IndicatorGroupRow(props){
 
  function toogleIndicatorList(){
     isListFull ? setListFull(false) : setListFull(true)  
-    dispList(sampleList)
+    dispList(props.indicators)
  }
 
 
@@ -42,7 +42,7 @@ function IndicatorGroupRow(props){
 
     function navigateToIndicatorHandler(id){
        
-        history.push("/indicator/"+id);
+        history.replace("/indicator/"+id);
     }
 
 

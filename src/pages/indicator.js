@@ -1,5 +1,6 @@
 import { useParams,useHistory } from 'react-router-dom'
-import CalculationDetails from '../components/calculationDetails'
+import CalculationDetails from '../components/calculationDetails/calculationDetails'
+
 import CompletenessDataSources from '../components/completenessDataSources'
 import DataElementSIndicator from '../components/dataElementsIndicator'
 import DatasetsReportingRates from '../components/datasetsReportingRates'
@@ -13,6 +14,8 @@ import ProgramIndicatorIndicator from '../components/programIndicatorIndicator'
 function IndicatiorPage(){
 
     const { id } = useParams()
+
+  
    
     return (<div>
        <Introduction id={id} />
