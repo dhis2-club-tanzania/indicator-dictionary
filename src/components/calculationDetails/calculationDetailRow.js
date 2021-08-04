@@ -36,6 +36,7 @@ function CalculationDetailRow(props){
     // {"id":arr[i],"val":"apiread value "}
     const formula=props.formula
 
+    var wordDtEl=[]
    
     function setCharAt(str,index,chr) {
         if(index > str.length-1) return str;
@@ -70,6 +71,7 @@ function CalculationDetailRow(props){
        for(let i=0;i<arr.length;i++){
         arrWord.push({"id":arr[i],"val":getValueFromApi(arr[i])})
        }
+       
        return arrWord;
     }
 
@@ -83,30 +85,29 @@ function CalculationDetailRow(props){
     }
 
     function isPureDataElement(str){
-        if(str.search(".")>=0){
-            return false
+        if(str.indexOf(".")==-1){ //didnt find
+            return true
         }else{
-            return true;
+            return false;
         }  
     }
 
     function getValueFromApi(strEle){
-        
+       
         if(isPureDataElement(strEle)){
             //fetch value normally
-           return getValueDataElementOnly(strEle)[0]
+           return getValueDataElementOnly(strEle)[0];
         }else{
             //break to array and just take first element
             let arr= strEle.split(".")
             arr= getValueDataElementOptionCombo(arr[0],arr[1])
-            
             return arr[0]+" "+arr[1];
         }
     }
 
     
     function getValueDataElementOnly(idEle){
-        const { loading, error, data } = useDataQuery(query1,{variables: {idEle,idComb}})
+        const { loading, error, data } = useDataQuery(query2,{variables: {idEle}})
         if(loading){
             return <CircularLoader />
          }
@@ -132,16 +133,22 @@ function CalculationDetailRow(props){
     }
 
     function getFinalWordFormula(formula){
-        let arrSrc=getWordDataEle(getFormulaSorces(formula))
-       return getFormulaInWordsFromFullSources(formula,arrSrc);
+         wordDtEl=getWordDataEle(getFormulaSorces(formula))
+       return getFormulaInWordsFromFullSources(formula,wordDtEl);
     }
 
+    
+  
     return      <>
                 <DataTableCell  bordered>
                     {getFinalWordFormula(formula)}
                 </DataTableCell>
                 <DataTableCell  bordered>
-                     Sources
+                     <ol>
+                         {wordDtEl.map((el)=>{
+                             return <li key={el.id}>{el.val}</li>
+                         })}
+                     </ol>
                 </DataTableCell>
              </>
 }
