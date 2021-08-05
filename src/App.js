@@ -8,6 +8,7 @@ import { Route,Switch, HashRouter } from 'react-router-dom';
 import HomePage from './pages/home';
 import IndicatiorPage from './pages/indicator';
 import Layout from './layouts/layout';
+import { DataElementContextProvider } from './store/dataElementContext';
 
 
 const query = {
@@ -30,7 +31,7 @@ const MyApp = () => (
                          <h3>{i18n.t('Welcome to DHIS2!')}</h3> */}
 
                         
-
+                         <DataElementContextProvider>
                             <HashRouter>
                             <Layout>
                                 <Switch>
@@ -43,7 +44,7 @@ const MyApp = () => (
                                 </Switch>
                                 </Layout>
                             </HashRouter>
-
+                        </DataElementContextProvider>
                         
                     
 

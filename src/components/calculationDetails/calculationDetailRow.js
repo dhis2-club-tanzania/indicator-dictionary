@@ -3,6 +3,9 @@ import {
 } from '@dhis2/ui'
 import { useDataQuery } from '@dhis2/app-runtime'
 import { CircularLoader } from '@dhis2/ui'
+import DataElementContext from '../../store/dataElementContext'
+import { useContext,useEffect } from "react";
+
 
 const query1={
     dataElement:{
@@ -34,10 +37,35 @@ const query1={
 function CalculationDetailRow(props){
 
     // {"id":arr[i],"val":"apiread value "}
+
+let testArr=[]
+//structure of dataElemet in store is 
+    // [
+    //     {
+    //         "id":"dfds3ds.fdaf",
+    //         "val":"value from api",
+    //         "exprPart":"num/den",
+    //     }
+    // ]
+
+
     const formula=props.formula
 
+    const loc=props.location
+
+
+    const dataElements=useContext(DataElementContext)
+
     var wordDtEl=[]
+
+    let allComplete=false
    
+   
+
+    function addDatalementToStore(dat){
+        dataElements.addDataElement(dat);
+    }
+
     function setCharAt(str,index,chr) {
         if(index > str.length-1) return str;
         return str.substring(0,index) + chr + str.substring(index+1);
@@ -69,7 +97,7 @@ function CalculationDetailRow(props){
     function getWordDataEle(arr){
        let arrWord=[]
        for(let i=0;i<arr.length;i++){
-        arrWord.push({"id":arr[i],"val":getValueFromApi(arr[i])})
+        arrWord.push({"id":arr[i],"val":getValueFromApi(arr[i]),"location":loc})
        }
        
        return arrWord;
@@ -103,6 +131,7 @@ function CalculationDetailRow(props){
             arr= getValueDataElementOptionCombo(arr[0],arr[1])
             return arr[0]+" "+arr[1];
         }
+       
     }
 
     
@@ -131,13 +160,36 @@ function CalculationDetailRow(props){
          return [data.dataElement.displayName, data.categoryOptionCombo.displayName]
 
     }
-
-    function getFinalWordFormula(formula){
-         wordDtEl=getWordDataEle(getFormulaSorces(formula))
-       return getFormulaInWordsFromFullSources(formula,wordDtEl);
-    }
-
     
+    function getFinalWordFormula(formula){
+        
+         wordDtEl=getWordDataEle(getFormulaSorces(formula)) 
+        
+        wordDtEl.map((ele)=>{
+            let complete=true
+            if(typeof ele.val==='undefined'){
+                complete=false
+            }
+            else{
+                let tempArr=ele.val.split(" ")
+                if(tempArr.includes("undefined")){
+                    complete=false
+                }  
+             }
+             if(complete){
+                testArr.push(ele)
+             }
+             })
+             if(testArr.length===wordDtEl.length){//all element are entered with values from api 
+                allComplete=true
+                
+             }
+      
+         useEffect(()=>{ addDatalementToStore( testArr.map((el)=>{  return el  }));  },[allComplete])
+        // str.replace(/blue/g, "red");
+       return getFormulaInWordsFromFullSources(formula,wordDtEl).replace(/#/g,"") ;
+    }
+   
   
     return      <>
                 <DataTableCell  bordered>

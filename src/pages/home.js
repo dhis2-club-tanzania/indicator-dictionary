@@ -3,6 +3,10 @@ import { useDataQuery } from '@dhis2/app-runtime'
 
 import { useHistory } from "react-router-dom";
 
+import { useContext,useEffect } from "react";
+import DataElementContext from '../store/dataElementContext';
+
+
 const query = {
     indicators: {
         resource: 'indicators',
@@ -18,7 +22,12 @@ function HomePage(){
 
     const {loading, error, data}   = useDataQuery(query)
 
+    const dataElements=useContext(DataElementContext)
+
+
+
     function navigateToIndicatorHandler(id){
+        dataElements.clearDataElement()
         history.push("/indicator/"+id);
     }
 

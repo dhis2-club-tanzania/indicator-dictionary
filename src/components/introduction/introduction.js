@@ -19,7 +19,7 @@ const query = {
   }
 
 function Introduction({id}){
-  console.log(id);
+  // console.log(id);
   const {loading, error, data}   = useDataQuery(query, {variables: {id}})
   function onClickIdentified(){
    
