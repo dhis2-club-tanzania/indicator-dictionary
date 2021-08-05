@@ -2,23 +2,19 @@ import { CircularLoader } from '@dhis2/ui'
 import { useDataQuery } from '@dhis2/app-runtime'
 import Legend from './legend'
 
-
-function LegendsAnalysis(props){
-
-    let id=props.id
-     
-    const query =    {
-        legendSets:{
-          resource:"indicators",
-          id:"Tt5TAvdfdVK",
-            params:{
-              fields:["legendSets"]
-            }
-        
-        } 
+const query =    {
+  legendSets:{
+    resource:"indicators",
+    id: ({id})=>id,
+      params:{
+        fields:["legendSets"]
       }
+  } 
+}
 
-      const {loading, error, data}   = useDataQuery(query)
+function LegendsAnalysis({id}){
+
+      const {loading, error, data}   = useDataQuery(query, {variables: {id}})
 
       if(loading){
         return <CircularLoader />
@@ -27,6 +23,10 @@ function LegendsAnalysis(props){
      if(error){
         return <p> {error} </p> 
      }  
+   
+     if(data.legendSets.legendSets.length===0){
+       return <></> //no legends sets
+     }
 
      const idLegendSet=data.legendSets.legendSets[0].id
 
