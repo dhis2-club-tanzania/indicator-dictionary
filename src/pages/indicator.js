@@ -5,6 +5,7 @@ import CompletenessDataSources from '../components/completenessDataSources'
 import DataElementSIndicator from '../components/dataElementsInIndicator/dataElementsIndicator'
 
 import DatasetsReportingRates from '../components/datasetsReportingRates'
+import DataSource from '../components/dataSource/dataSource'
 
 import IndicatorFacts from '../components/indicatorFacts/indicatorFacts'
 import Introduction from '../components/introduction/introduction'
@@ -20,6 +21,8 @@ function IndicatiorPage(){
    
     return (<div>
        <Introduction id={id} />
+       <p></p> 
+       <DataSource id={id} />
        <p></p> 
        <IndicatorFacts id={id} /> 
        <p></p> 
