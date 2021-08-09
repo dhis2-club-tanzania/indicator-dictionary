@@ -35,6 +35,11 @@ function IndicatorFacts({id}){
      if(error){
         return <p> {error} </p> 
      }  
+
+
+     if(data.indicatorGroups.indicatorGroups){
+         return <p>No indicator facts</p>
+     }
  
      let count=0
     return (<div>
