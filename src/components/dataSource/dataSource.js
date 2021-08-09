@@ -6,7 +6,8 @@ import { useDataQuery } from '@dhis2/app-runtime'
 const query = {
     sources:{
       resource:"indicators",
-          id: "Uvn6LCg7dVU",
+        //   id: "Uvn6LCg7dVU",
+          id: ({id})=>id,
         params:{
           fields:["id","displayName","dataSets[id,displayName,timelyDays,periodType]"]
         }
@@ -28,7 +29,7 @@ const query = {
        }  
       
       
-       console.log(data.sources)  
+    //    console.log(data.sources)  
       
 
         return (<div>
@@ -38,9 +39,10 @@ const query = {
                 {/* issues of applicable routine dataSources */}
             </p>
             <h5>Datasets</h5>
+               
             <ul>
             {data.sources.dataSets.map((dataSet)=>{
-                return <li><b>{dataSet.displayName}</b> submitting {dataSet.periodType} after every {dataSet.timelyDays}</li>
+                return <li key={dataSet.id}><b>{dataSet.displayName}</b> submitting {dataSet.periodType} after every {dataSet.timelyDays}</li>
             })}
             </ul>
             

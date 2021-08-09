@@ -51,7 +51,7 @@ function Row(props){
             let arr= datEle.id.split(".")
             data=getData(arr[0]).dataElementInIndicator
         }
-        console.log(data)
+        // console.log(data)
         return <>
                 
                 <DataTableCell bordered>
@@ -69,7 +69,7 @@ function Row(props){
                 </DataTableCell>
                 <DataTableCell bordered>
                     <ol>
-                        {typeof data !=='undefined'?  data.dataSetElements.map((dataSet)=>{return <li key={dataSet.id}>{dataSet.dataSet.displayName}</li>}):null}
+                        {typeof data !=='undefined'?  data.dataSetElements.map((dataSet)=>{return <li key={dataSet.dataSet.id}>{dataSet.dataSet.displayName}</li>}):null}
                     </ol>
                 </DataTableCell>
                 <DataTableCell bordered>
@@ -82,9 +82,8 @@ function Row(props){
 
     }
    
-    theRow(datElement)
 
-    return <DataTableRow>
+    return <DataTableRow >
              <DataTableCell bordered>
                      {datElement.val}
                 </DataTableCell  >

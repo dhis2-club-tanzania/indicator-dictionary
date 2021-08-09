@@ -12,17 +12,16 @@ import {
 } from '@dhis2/ui'
 
 
-function Legend(){
+function Legend(props){
 
+    const legendSet=props.legendSet
 
+ 
 
     return (
-        <div>
+        <li key={legendSet.id}>
              <p>
-          {/* {{legendName1}}  */}
-          spread accross
-          {/* {{countOfClasses}} */}
-            classes of for analysis
+                  {legendSet.displayName} spread accross {legendSet.legends.length} classes of for analysis
           </p>
         
           <DataTable>
@@ -43,25 +42,36 @@ function Legend(){
         </DataTableRow>
     </TableHead>
     <TableBody>
-        <DataTableRow>
-            <DataTableCell>
-                Class Data
-            </DataTableCell>
-            <DataTableCell>
-               Upper Data
-            </DataTableCell>
-            <DataTableCell>
-                Lower Data
-            </DataTableCell>
-            <DataTableCell>
-                Color Data
-            </DataTableCell>
-        </DataTableRow>
         
-    </TableBody>
-    
-</DataTable>  
-        </div>
+            {legendSet.legends.map((legend)=>{
+                return <DataTableRow key={legend.id}>
+                            <DataTableCell bordered>
+                               {legend.displayName}
+                            </DataTableCell >
+                            <DataTableCell bordered>
+                                {legend.endValue}
+                            </DataTableCell>
+                            <DataTableCell bordered>
+                                {legend.startValue}
+                            </DataTableCell>
+                            <DataTableCell bordered>
+                               <div style={{
+                                   background: legend.color,
+                                   width:200,
+                                   height:50
+                               }}>
+
+                               </div>
+                            </DataTableCell>
+                        </DataTableRow>
+
+            })}
+            
+        
+        </TableBody>
+        
+    </DataTable>  
+        </li>
     );
 }
 

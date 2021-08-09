@@ -52,6 +52,7 @@ function DataElementSIndicator(){
             </TableHead>
             <TableBody>
                 {dataElements.dataElements.map((dtEle)=>{
+                    console.log(dtEle.id)
                     return <Row key={dtEle.id} datEl={dtEle} />
                 })}
             </TableBody>
