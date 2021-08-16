@@ -5,6 +5,8 @@ import { useHistory } from "react-router-dom";
 
 import { useContext,useEffect } from "react";
 import DataElementContext from '../store/dataElementContext';
+import {useSetRecoilState} from "recoil";
+import {dataElementsState} from "../Components/calculationDetails/calculationDetailRow";
 
 
 const query = {
@@ -22,12 +24,9 @@ function HomePage(){
 
     const {loading, error, data}   = useDataQuery(query)
 
-    const dataElements=useContext(DataElementContext)
-
-
-
+    const updateRecoilHandler=useSetRecoilState(dataElementsState)
     function navigateToIndicatorHandler(id){
-        dataElements.clearDataElement()
+        updateRecoilHandler([])
         history.push("/indicator/"+id);
     }
 
@@ -41,7 +40,7 @@ function HomePage(){
     }
 
     return(<div>
-     
+
        
         <p> <b>Select an Indicator for details </b></p>  
       
