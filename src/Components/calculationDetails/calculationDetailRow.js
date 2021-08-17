@@ -30,8 +30,6 @@ const query1={
         }
     }
 }
-
-
 const query3={
     programIndicator:{
         resource:"programIndicators",
@@ -41,6 +39,7 @@ const query3={
         }
     }
 }
+
 
 function CalculationDetailRow(props){
 
@@ -67,21 +66,23 @@ let testArr=[]
     const updateDataElementHandler= useSetRecoilState(dataElementsStateDictionary)
     const updateProgramIndicatorHandler= useSetRecoilState(programIndicatorStateDictionary)
 
-    useEffect(()=>{
-        let tempArr=getFormulaSources(formula,"#")
-        if(tempArr.length){
-            getWordDataEle(tempArr,0),()=>{}
-        }
+        useEffect(()=>{
+            let tempArr=getFormulaSources(formula,"#")
+            console.log(tempArr)
+            if(tempArr.length){
+                getWordDataEle(tempArr,0),()=>{}
+            }
 
-        },[])
+            },[])
 
-    useEffect(()=>{
-        let tempArr=getFormulaSources(formula,"I{")
-        if(tempArr.length){
-            getWordDataEle(tempArr,1),()=>{}
-        }
+        useEffect(()=>{
+            let tempArr=getFormulaSources(formula,"I{")
+            console.log(tempArr)
+            if(tempArr.length){
+                getWordDataEle(tempArr,1),()=>{}
+            }
 
-        },[])
+            },[])
 
 
     //functions
@@ -97,17 +98,18 @@ let testArr=[]
       let arr=[]
 
         while(formula.search(sourceInitial)>=0){//there is still a dataElement
-            ind1=formula.indexOf("{")
-            ind2=formula.indexOf("}")
-            var datEl = formula.substring(ind1+1,ind2);  
+            ind1=formula.indexOf(sourceInitial) //first occourance
+            let subStr= formula.substr(ind1)
+            ind2=subStr.indexOf("}")
+            ind2=ind2+ind1
 
+            let datEl = formula.substring(ind1+2,ind2);
             arr.push(datEl)
 
             formula= setCharAt(formula,ind1,"")         //remove {
-              
-            formula= setCharAt(formula,ind1-1,"")       //removes # 
-           
+            formula= setCharAt(formula,ind1-1,"")       //removes #
             formula=setCharAt(formula,ind2-2,"")          //removes }
+
         }
 
         return arr
@@ -206,7 +208,7 @@ let testArr=[]
         return [data?.programIndicator?.displayName]
     }
 
-   async function getValueDataElementOptionCombo(idEle,idComb){
+    async function getValueDataElementOptionCombo(idEle,idComb){
         const data= await engine.query(query1,{variables: {idEle,idComb}})
          return [data?.dataElement?.displayName, data?.categoryOptionCombo?.displayName]
 
@@ -218,11 +220,12 @@ let testArr=[]
                 let indexChar=final.search("I{")
                 final = setCharAt(final, indexChar, "")
             }
-
-
                 return final
     }
 
+
+
+    // console.log(getFormulaSources(formula,"R{"))
 
     return      <>
                 <DataTableCell  bordered>
