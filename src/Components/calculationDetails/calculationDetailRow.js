@@ -59,16 +59,18 @@ let testArr=[]
 
     //variables
     let wordDtEl=[]
+    let programInd=[]
+
 
     //hooks
     const[dataElementsArray,setDataElementArray]=useState([])
+    const[programIndicatorArray,setProgramIndicatorArray]=useState([])
     const engine = useDataEngine()
     const updateDataElementHandler= useSetRecoilState(dataElementsStateDictionary)
     const updateProgramIndicatorHandler= useSetRecoilState(programIndicatorStateDictionary)
 
         useEffect(()=>{
             let tempArr=getFormulaSources(formula,"#")
-            console.log(tempArr)
             if(tempArr.length){
                 getWordDataEle(tempArr,0),()=>{}
             }
@@ -77,8 +79,9 @@ let testArr=[]
 
         useEffect(()=>{
             let tempArr=getFormulaSources(formula,"I{")
-            console.log(tempArr)
+
             if(tempArr.length){
+
                 getWordDataEle(tempArr,1),()=>{}
             }
 
@@ -124,28 +127,36 @@ let testArr=[]
         }
         i=0
        await Promise.all(allPromises).then(value => {
-           value.map((val)=>{ //We always return array just for uniformity
-               if(val.length>1){ //array of two elements first element is dataElement second element of array is category option combo
-                   wordDtEl.push({"id":arr[i],"val":val[0]+" "+val[1],"location":loc})
-               }else{   //this is array of one element for data element that are just pure no category options
-                   wordDtEl.push({"id":arr[i],"val":val[0],"location":loc})
-               }
-               ++i;
-           })
-           if(wordDtEl.length==arr.length){ //array is full so we reload to update UI
-               setDataElementArray(wordDtEl)
-               if(type===0){
-                   updateDataElementHandler( (prev)=>{
-                       return  prev.concat(wordDtEl)
-                   } )
-               }
-                if(type===1){
-                    updateProgramIndicatorHandler((prev)=>{
-                        return  prev.concat(wordDtEl)
-                    }  )
-                }
-
+           if(type===0){
+               value.map((val)=>{ //We always return array just for uniformity
+                   if(val.length>1){ //array of two elements first element is dataElement second element of array is category option combo
+                       wordDtEl.push({"id":arr[i],"val":val[0]+" "+val[1],"location":loc})
+                   }else{   //this is array of one element for data element that are just pure no category options
+                       wordDtEl.push({"id":arr[i],"val":val[0],"location":loc})
+                   }
+                   ++i;
+               })
            }
+           if(type===1){
+               value.map((val)=>{ //We always return array just for uniformity
+                   programInd.push({"id":arr[i],"val":val[0]+" "+val[1],"location":loc})
+                   ++i;
+               })
+           }
+
+
+           if(wordDtEl.length===arr.length){ //array is full so we reload to update UI
+               setDataElementArray(wordDtEl)
+               updateDataElementHandler( (prev)=>{
+                   return  prev.concat(wordDtEl)
+               } )
+           }
+            if(programInd.length===arr.length){
+                setProgramIndicatorArray(programInd)
+                updateProgramIndicatorHandler((prev)=>{
+                    return  prev.concat(programInd)
+                }  )
+            }
         })
     }
 
@@ -182,7 +193,6 @@ let testArr=[]
                 resolve(getValueDataElementOptionCombo(arr[0], arr[1]));
             }))
         }
-
     }
     if(type===1){//programIndicator
 
@@ -190,8 +200,6 @@ let testArr=[]
             resolve(getValueProgramIndicator(strEle))
         })
     }
-
-
     }
 
     async function getValueDataElementOnly(idEle){
@@ -204,7 +212,6 @@ let testArr=[]
     async function getValueProgramIndicator(idEle){
 
         const data = await engine.query(query3,{variables: {idEle}})
-
         return [data?.programIndicator?.displayName]
     }
 
@@ -215,7 +222,9 @@ let testArr=[]
     }
 
     function getFinalWordFormula(formula){
+
         let final=getFormulaInWordsFromFullSources(formula,dataElementsArray).replace(/#/g,"")
+        final =getFormulaInWordsFromFullSources(final,programIndicatorArray)
             while(final.search("I{")>=0) {//removes I
                 let indexChar=final.search("I{")
                 final = setCharAt(final, indexChar, "")
@@ -223,20 +232,23 @@ let testArr=[]
                 return final
     }
 
-
-
-    // console.log(getFormulaSources(formula,"R{"))
-
     return      <>
                 <DataTableCell  bordered>
                     {getFinalWordFormula(formula)}
                 </DataTableCell>
                 <DataTableCell  bordered>
+                    <h5>Data Elements</h5>
                      <ol>
                          {dataElementsArray.map((el)=>{
                              return <li key={(el.id)}>{el.val}</li>
                          })}
                      </ol>
+                    <h5>Program Indicators</h5>
+                    <ol>
+                        {programIndicatorArray.map((el)=>{
+                            return <li key={(el.id)}>{el.val}</li>
+                        })}
+                    </ol>
                 </DataTableCell>
              </>
 }
