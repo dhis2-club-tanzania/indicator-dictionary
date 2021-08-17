@@ -5,7 +5,8 @@ import { useHistory } from "react-router-dom";
 
 
 import {useSetRecoilState} from "recoil";
-import {dataElementsStateDictionary} from "../store";
+import {dataElementsStateDictionary, programIndicatorStateDictionary} from "../store";
+
 
 const query = {
     indicators: {
@@ -21,10 +22,14 @@ function HomePage(){
    const history = useHistory();
 
     const {loading, error, data}   = useDataQuery(query)
-
     const updateDataElementHandler=useSetRecoilState(dataElementsStateDictionary)
+    const updateProgramIndicatorHandler= useSetRecoilState(programIndicatorStateDictionary)
+    const updateDataSetReportingRatesHandler= useSetRecoilState(programIndicatorStateDictionary)
+
     function navigateToIndicatorHandler(id){
         updateDataElementHandler([])
+        updateProgramIndicatorHandler([])
+        updateDataSetReportingRatesHandler([])
         history.push("/indicator/"+id);
     }
 

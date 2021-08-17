@@ -17,9 +17,7 @@ import {programIndicatorStateDictionary} from "../../store";
 function ProgramIndicatorIndicator(){
 
     const programIndicators = useRecoilValue(programIndicatorStateDictionary)
-
-
-
+    console.log("programIndicators ara called its a bug")
     let i=0
 
     return (<div>

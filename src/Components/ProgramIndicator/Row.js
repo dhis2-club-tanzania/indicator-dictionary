@@ -34,7 +34,6 @@ export default function Row(props){
 
     const {loading, error, data}   = useDataQuery(query, {variables: {id}})
 
-
     function OtherCells(prog){
         return <>
             <DataTableCell bordered>

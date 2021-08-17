@@ -9,3 +9,8 @@ export const programIndicatorStateDictionary=atom({
     key:'programIndicatorStateDictionary',
     default:[]
 })
+
+export const dataSetReportingRatesStateDictionary=atom({
+    key:'dataSetReportingRatesStateDictionary',
+    default:[]
+})

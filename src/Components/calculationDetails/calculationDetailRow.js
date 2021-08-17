@@ -40,6 +40,17 @@ const query3={
         }
     }
 }
+const query4={
+    dataSets:{
+        resource:"dataSets",
+        id: ({id})=>id,
+        // id:"BfMAe6Itzgt",
+        params:{
+            fields:["id","displayName"]
+        }
+    }
+}
+
 
 
 function CalculationDetailRow(props){
@@ -70,24 +81,31 @@ let testArr=[]
     const engine = useDataEngine()
     const updateDataElementHandler= useSetRecoilState(dataElementsStateDictionary)
     const updateProgramIndicatorHandler= useSetRecoilState(programIndicatorStateDictionary)
+    const updateDataSetReportingRatesHandler= useSetRecoilState(programIndicatorStateDictionary)
 
-        useEffect(()=>{
-            let tempArr=getFormulaSources(formula,"#")
-            if(tempArr.length){
-                getWordDataEle(tempArr,0),()=>{}
-            }
 
-            },[])
+    useEffect(()=>{
+        let tempArr=getFormulaSources(formula,"#{")
 
-        useEffect(()=>{
-            let tempArr=getFormulaSources(formula,"I{")
+        if(tempArr.length){
+            getWordData(tempArr,0),()=>{}
+        }
 
-            if(tempArr.length){
+        },[])
+    useEffect(()=>{
+        let tempArr=getFormulaSources(formula,"I{")
+        if(tempArr.length){
+            getWordData(tempArr,1),()=>{}
+        }
 
-                getWordDataEle(tempArr,1),()=>{}
-            }
+        },[])
+    useEffect(()=>{
+        let tempArr=getFormulaSources(formula,"R{")
+        if(tempArr.length){
+            getWordData(tempArr,2),()=>{}
+        }
 
-            },[])
+    },[])
 
 
     //functions
@@ -117,10 +135,18 @@ let testArr=[]
 
         }
 
+        if(sourceInitial==="R{"){
+            let resultedArr=[]
+            arr.filter((ele)=>{
+                resultedArr.push(ele.split(".")[0])  //elements comes as BfMAe6Itzgt.REPORTING_RATE or OsPTWNqq26W.EXPECTED_REPORTS so we do this to just take the id
+            })
+            arr=resultedArr
+        }
+
         return arr
     }
 
-    async function getWordDataEle(arr,type){ //arr for array of id of datas to get their values, type indicates the data type of data eg dataElement=0 program indicator=1
+    async function getWordData(arr,type){ //arr for array of id of datas to get their values, type indicates the data type of data eg dataElement=0 program indicator=1, reporting rates=2
         let allPromises=[];
         let i=0
         for(i=0;i<arr.length;i++){
@@ -130,6 +156,7 @@ let testArr=[]
         i=0
        await Promise.all(allPromises).then(value => {
            if(type===0){
+               console.log("type0")
                value.map((val)=>{ //We always return array just for uniformity
                    if(val.length>1){ //array of two elements first element is dataElement second element of array is category option combo
                        wordDtEl.push({"id":arr[i],"val":val[0]+" "+val[1],"location":loc})
@@ -140,8 +167,16 @@ let testArr=[]
                })
            }
            if(type===1){
+               console.log("type1")
                value.map((val)=>{ //We always return array just for uniformity
-                   programInd.push({"id":arr[i],"val":val[0]+" "+val[1],"location":loc})
+                   programInd.push({"id":arr[i],"val":val[0],"location":loc})
+                   ++i;
+               })
+           }
+           if(type===2){
+               console.log("type2")
+               value.map((val)=>{ //We always return array just for uniformity
+                   dataSetReportingRates.push({"id":arr[i],"val":val[0],"location":loc})
                    ++i;
                })
            }
@@ -158,6 +193,12 @@ let testArr=[]
                 updateProgramIndicatorHandler((prev)=>{
                     return  prev.concat(programInd)
                 }  )
+            }
+            if(dataSetReportingRates.length===arr.length){
+                setDataSetReportingRatesArray(dataSetReportingRates)
+                updateDataSetReportingRatesHandler((prev)=>{
+                    return prev.concat(dataSetReportingRates)
+                })
             }
         })
     }
@@ -197,9 +238,13 @@ let testArr=[]
         }
     }
     if(type===1){//programIndicator
-
         return new Promise((resolve, reject) => {
             resolve(getValueProgramIndicator(strEle))
+        })
+    }
+    if(type===2){
+        return new Promise((resolve, reject) => {
+            resolve(getValueDataSetReportingRates(strEle))
         })
     }
     }
@@ -212,10 +257,15 @@ let testArr=[]
     }
 
     async function getValueProgramIndicator(idEle){
-
         const data = await engine.query(query3,{variables: {idEle}})
         return [data?.programIndicator?.displayName]
     }
+
+    async function getValueDataSetReportingRates(id){
+            const data=await engine.query(query4,{variables:{id}})
+            return [data?.dataSets?.displayName]
+    }
+
 
     async function getValueDataElementOptionCombo(idEle,idComb){
         const data= await engine.query(query1,{variables: {idEle,idComb}})
@@ -227,12 +277,23 @@ let testArr=[]
 
         let final=getFormulaInWordsFromFullSources(formula,dataElementsArray).replace(/#/g,"")
         final =getFormulaInWordsFromFullSources(final,programIndicatorArray)
+        final =getFormulaInWordsFromFullSources(final,dataSetReportingRatesArray)
             while(final.search("I{")>=0) {//removes I
                 let indexChar=final.search("I{")
                 final = setCharAt(final, indexChar, "")
             }
+
+        while(final.search("R{")>=0) {//removes R
+            let indexChar=final.search("R{")
+            final = setCharAt(final, indexChar, "")
+        }
                 return final
     }
+
+
+    console.log(dataSetReportingRatesArray)
+
+
 
     return      <>
                 <DataTableCell  bordered>
@@ -241,6 +302,7 @@ let testArr=[]
                 <DataTableCell  bordered>
                     {dataElementsArray.length>0? <DisplaySource title={"Data Elements"} data={dataElementsArray} /> :""}
                     {dataElementsArray.length>0?  <DisplaySource title={"Program Indicators"} data={programIndicatorArray} />:""}
+                    {dataSetReportingRatesArray.length>0?  <DisplaySource title={"Data Sets"} data={dataSetReportingRatesArray} />:""}
                 </DataTableCell>
              </>
 }
