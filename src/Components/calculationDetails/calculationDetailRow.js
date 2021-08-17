@@ -2,7 +2,7 @@ import {CircularLoader, DataTableCell,} from '@dhis2/ui'
 import {useDataEngine, useDataQuery} from '@dhis2/app-runtime'
 import {useEffect, useState} from "react";
 import {atom, useRecoilState, useRecoilValue, useSetRecoilState} from "recoil";
-import {dataElementsState} from "../../store";
+import {dataElementsStateDictionary, programIndicatorStateDictionary} from "../../store";
 
 
 const query1={
@@ -32,6 +32,15 @@ const query1={
 }
 
 
+const query3={
+    programIndicator:{
+        resource:"programIndicators",
+        id: ({idEle})=>idEle,
+        params:{
+            fields:["id","displayName"]
+        }
+    }
+}
 
 function CalculationDetailRow(props){
 
@@ -51,28 +60,43 @@ let testArr=[]
 
     //variables
     let wordDtEl=[]
+
+    //hooks
     const[dataElementsArray,setDataElementArray]=useState([])
     const engine = useDataEngine()
-    const [currentValue,updateRecoilHandler]= useRecoilState(dataElementsState)
+    const updateDataElementHandler= useSetRecoilState(dataElementsStateDictionary)
+    const updateProgramIndicatorHandler= useSetRecoilState(programIndicatorStateDictionary)
 
-    useEffect(()=>{getWordDataEle(getFormulaSorces(formula)) },[])
+    useEffect(()=>{
+        let tempArr=getFormulaSources(formula,"#")
+        if(tempArr.length){
+            getWordDataEle(tempArr,0),()=>{}
+        }
+
+        },[])
+
+    useEffect(()=>{
+        let tempArr=getFormulaSources(formula,"I{")
+        if(tempArr.length){
+            getWordDataEle(tempArr,1),()=>{}
+        }
+
+        },[])
 
 
+    //functions
 
-    const generateKey = (pre) => {
-        return `${ pre }_${ new Date().getTime() }`;
-    }
     function setCharAt(str,index,chr) {
         if(index > str.length-1) return str;
         return str.substring(0,index) + chr + str.substring(index+1);
     }
 
-    function getFormulaSorces(formula){
+    function getFormulaSources(formula,sourceInitial){
         let ind1=0
         let ind2=0
       let arr=[]
 
-        while(formula.search("#")>=0){//there is still a dataElement
+        while(formula.search(sourceInitial)>=0){//there is still a dataElement
             ind1=formula.indexOf("{")
             ind2=formula.indexOf("}")
             var datEl = formula.substring(ind1+1,ind2);  
@@ -89,11 +113,11 @@ let testArr=[]
         return arr
     }
 
-  async function getWordDataEle(arr){
+    async function getWordDataEle(arr,type){ //arr for array of id of datas to get their values, type indicates the data type of data eg dataElement=0 program indicator=1
         let allPromises=[];
         let i=0
         for(i=0;i<arr.length;i++){
-            let proms=getValueFromApi(arr[i])
+            let proms=getValueFromApi(arr[i],type)
             allPromises.push(proms)
         }
         i=0
@@ -108,17 +132,23 @@ let testArr=[]
            })
            if(wordDtEl.length==arr.length){ //array is full so we reload to update UI
                setDataElementArray(wordDtEl)
-               updateRecoilHandler( (prev)=>{
-                  return  prev.concat(wordDtEl)
-               } )
+               if(type===0){
+                   updateDataElementHandler( (prev)=>{
+                       return  prev.concat(wordDtEl)
+                   } )
+               }
+                if(type===1){
+                    updateProgramIndicatorHandler((prev)=>{
+                        return  prev.concat(wordDtEl)
+                    }  )
+                }
 
            }
-
         })
-
     }
 
     function getFormulaInWordsFromFullSources(formula,arrOfSources){
+
         for( let i=0;i<arrOfSources.length;i++){
             if(formula.search(arrOfSources[i].id)>=0){
                 formula=formula.replace(arrOfSources[i].id,arrOfSources[i].val);   
@@ -135,13 +165,14 @@ let testArr=[]
         }  
     }
 
-    function getValueFromApi(strEle){
+    function getValueFromApi(strEle,type){
 
+    if(type===0){ //dataElement
         if(isPureDataElement(strEle)){
             //fetch value normally
             return new Promise((resolve, reject) => {
-               resolve(getValueDataElementOnly(strEle))
-           })
+                resolve(getValueDataElementOnly(strEle))
+            })
         }else{
             //break to array and just take first element
             return new Promise(((resolve, reject) => {
@@ -151,12 +182,28 @@ let testArr=[]
         }
 
     }
+    if(type===1){//programIndicator
 
-   async function getValueDataElementOnly(idEle){
+        return new Promise((resolve, reject) => {
+            resolve(getValueProgramIndicator(strEle))
+        })
+    }
+
+
+    }
+
+    async function getValueDataElementOnly(idEle){
 
         const data = await engine.query(query2,{variables: {idEle}})
 
          return [data?.dataElement?.displayName]
+    }
+
+    async function getValueProgramIndicator(idEle){
+
+        const data = await engine.query(query3,{variables: {idEle}})
+
+        return [data?.programIndicator?.displayName]
     }
 
    async function getValueDataElementOptionCombo(idEle,idComb){
@@ -166,45 +213,25 @@ let testArr=[]
     }
 
     function getFinalWordFormula(formula){
+        let final=getFormulaInWordsFromFullSources(formula,dataElementsArray).replace(/#/g,"")
+            while(final.search("I{")>=0) {//removes I
+                let indexChar=final.search("I{")
+                final = setCharAt(final, indexChar, "")
+            }
 
-        //
-        // wordDtEl.map((ele)=>{
-        //     let complete=true
-        //     if(typeof ele.val==='undefined'){
-        //         complete=false
-        //     }
-        //     else{
-        //         let tempArr=ele.val.split(" ")
-        //         if(tempArr.includes("undefined")){
-        //             complete=false
-        //         }
-        //      }
-        //      if(complete){
-        //         testArr.push(ele)
-        //      }
-        //      })
-        //      if(testArr.length===wordDtEl.length){//all element are entered with values from api
-        //         allComplete=true
-        //
-        //      }
-        //
-        //  useEffect(()=>{ addDatalementToStore( testArr.map((el)=>{
-        //      console.log("called useeEffect")
-        //      return el  }));  },[allComplete])
 
-       return getFormulaInWordsFromFullSources(formula,dataElementsArray).replace(/#/g,"")
+                return final
     }
 
+
     return      <>
-
-
                 <DataTableCell  bordered>
                     {getFinalWordFormula(formula)}
                 </DataTableCell>
                 <DataTableCell  bordered>
                      <ol>
                          {dataElementsArray.map((el)=>{
-                             return <li key={generateKey(el.id)}>{el.val}</li>
+                             return <li key={(el.id)}>{el.val}</li>
                          })}
                      </ol>
                 </DataTableCell>

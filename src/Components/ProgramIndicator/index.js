@@ -10,8 +10,17 @@ import {
     DataTableCell,
     DataTableColumnHeader,
 } from '@dhis2/ui'
+import Row from "./Row";
+import {useRecoilValue} from "recoil";
+import {programIndicatorStateDictionary} from "../../store";
 
 function ProgramIndicatorIndicator(){
+
+    const programIndicators = useRecoilValue(programIndicatorStateDictionary)
+
+
+
+    let i=0
 
     return (<div>
         <h3> Program Indicators in indicator </h3>
@@ -48,61 +57,12 @@ function ProgramIndicatorIndicator(){
                 </DataTableRow>
             </TableHead>
             <TableBody>
-                <DataTableRow>
-                    <DataTableCell bordered>
-
-                    </DataTableCell  >
-                    <DataTableCell bordered>
-
-                    </DataTableCell>
-                    <DataTableCell bordered>
-
-                    </DataTableCell>
-                    <DataTableCell bordered>
-
-                    </DataTableCell  >
-                    <DataTableCell bordered>
-
-                    </DataTableCell>
-                    <DataTableCell bordered>
-
-                    </DataTableCell>
-                    <DataTableCell bordered>
-
-                    </DataTableCell>
-                    <DataTableCell bordered>
-
-                    </DataTableCell>
 
 
-                </DataTableRow>
-                <DataTableRow>
-                    <DataTableCell bordered >
-
-                    </DataTableCell>
-                    <DataTableCell bordered>
-
-                    </DataTableCell>
-                    <DataTableCell bordered>
-                    </DataTableCell>
-                    <DataTableCell bordered >
-
-                    </DataTableCell>
-                    <DataTableCell bordered>
-
-                    </DataTableCell>
-                    <DataTableCell bordered>
-                    </DataTableCell>
-                    <DataTableCell bordered>
-
-                    </DataTableCell>
-                    <DataTableCell bordered>
-
-                    </DataTableCell>
-
-
-                </DataTableRow>
-
+                {programIndicators.map((programInd) => {
+                    i++
+                    return <Row key={i} programInd={programInd}/>
+                })}
             </TableBody>
 
         </DataTable>

@@ -22,90 +22,90 @@ function DatasetsReportingRates(){
             <TableHead>
                 <DataTableRow>
                     <DataTableColumnHeader bordered>
-                    Dataset
+                        Dataset
                     </DataTableColumnHeader>
                     <DataTableColumnHeader bordered>
-                    Description
+                        Description
                     </DataTableColumnHeader>
                     <DataTableColumnHeader>
-                    Timely Submission
+                        Timely Submission
                     </DataTableColumnHeader>
                     <DataTableColumnHeader>
-                    Expiry days
+                        Expiry days
                     </DataTableColumnHeader>
                     <DataTableColumnHeader>
-                    Period type
+                        Period type
                     </DataTableColumnHeader>
                     <DataTableColumnHeader>
-                    Assigned orgunits
+                        Assigned orgunits
                     </DataTableColumnHeader>
                     <DataTableColumnHeader>
-                    Data elements
-                    </DataTableColumnHeader>          
+                        Data elements
+                    </DataTableColumnHeader>
                     <DataTableColumnHeader>
-                    Legends
-                    </DataTableColumnHeader> 
+                        Legends
+                    </DataTableColumnHeader>
                 </DataTableRow>
             </TableHead>
             <TableBody>
                 <DataTableRow>
                     <DataTableCell bordered>
-                   
+
                     </DataTableCell  >
                     <DataTableCell bordered>
-                       
+
                     </DataTableCell>
                     <DataTableCell bordered>
-                  
-                  </DataTableCell>
-                  
+
+                    </DataTableCell>
+
                     <DataTableCell bordered>
-                    
+
                     </DataTableCell>
                     <DataTableCell bordered>
-                   
+
                     </DataTableCell  >
                     <DataTableCell bordered>
-                       
+
                     </DataTableCell>
                     <DataTableCell bordered>
-                    
+
                     </DataTableCell>
                     <DataTableCell bordered>
-                       
-                       </DataTableCell>
-                       
-                
+
+                    </DataTableCell>
+
+
                 </DataTableRow>
                 <DataTableRow>
                     <DataTableCell bordered >
-                   
+
                     </DataTableCell>
                     <DataTableCell bordered>
-                   
+
                     </DataTableCell>
                     <DataTableCell bordered>
                     </DataTableCell>
                     <DataTableCell bordered >
-                   
-                   </DataTableCell>
-                   <DataTableCell bordered>
-                  
-                   </DataTableCell>
-                   <DataTableCell bordered>
-                   </DataTableCell>
-                   <DataTableCell bordered>
-                  
-                   </DataTableCell>
-                   <DataTableCell bordered>
-                  
-                  </DataTableCell>
-                  
+
+                    </DataTableCell>
+                    <DataTableCell bordered>
+
+                    </DataTableCell>
+                    <DataTableCell bordered>
+                    </DataTableCell>
+                    <DataTableCell bordered>
+
+                    </DataTableCell>
+                    <DataTableCell bordered>
+
+                    </DataTableCell>
+
                 </DataTableRow>
-                
+
             </TableBody>
-            
-        </DataTable>  
+
+        </DataTable>
 
     </div>
 }

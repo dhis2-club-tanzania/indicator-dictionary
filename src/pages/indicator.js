@@ -4,17 +4,17 @@ import CalculationDetails from '../Components/calculationDetails/calculationDeta
 import CompletenessDataSources from '../Components/completenessDataSources'
 import DataElementSIndicator from '../Components/dataElementsInIndicator/dataElementsIndicator'
 
-import DatasetsReportingRates from '../Components/datasetsReportingRates'
 import DataSource from '../Components/dataSource/dataSource'
 
 import IndicatorFacts from '../Components/indicatorFacts/indicatorFacts'
 import Introduction from '../Components/introduction/introduction'
 import LegendsAnalysis from '../Components/legendsAnalysis/legendsAnalysis'
 import ProgramIndicatorIndicator from "../Components/ProgramIndicator";
+import DatasetsReportingRates from "../Components/DataSetReportingRate";
 
 
 
-export default function IndicatiorPage(){
+export default function IndicatorPage(){
 
     const { id } = useParams()
 
@@ -24,7 +24,7 @@ export default function IndicatiorPage(){
 
        <DataSource id={id} />
 
-       <IndicatorFacts id={id} /> 
+       <IndicatorFacts id={id} />
 
        <LegendsAnalysis id={id} />
 

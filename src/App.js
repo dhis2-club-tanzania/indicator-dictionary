@@ -6,7 +6,7 @@ import classes from './App.module.css'
 
 import { Route,Switch, HashRouter } from 'react-router-dom';
 import HomePage from './pages/home';
-import IndicatiorPage from './pages/indicator';
+import IndicatorPage from './pages/indicator';
 import Layout from './layouts/layout';
 
 import {RecoilRoot} from "recoil";
@@ -22,7 +22,7 @@ const MyApp = () => (
                             <HomePage />
                         </Route>
                         <Route path="/indicator/:id">
-                            <IndicatiorPage />
+                            <IndicatorPage />
                         </Route>
                     </Switch>
                 </Layout>

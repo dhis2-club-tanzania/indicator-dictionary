@@ -14,11 +14,11 @@ import {
 import Row from './row'
 
 import {selector, useRecoilValue} from "recoil";
-import {dataElementsState} from "../../store";
+import {dataElementsStateDictionary} from "../../store";
 
 function DataElementSIndicator() {
 
-    const dataElements = useRecoilValue(dataElementsState)
+    const dataElements = useRecoilValue(dataElementsStateDictionary)
 
     let i = 0
     return (<div>
