@@ -3,6 +3,7 @@ import {useDataEngine, useDataQuery} from '@dhis2/app-runtime'
 import {useEffect, useState} from "react";
 import {atom, useRecoilState, useRecoilValue, useSetRecoilState} from "recoil";
 import {dataElementsStateDictionary, programIndicatorStateDictionary} from "../../store";
+import DisplaySource from "./DisplaySource";
 
 
 const query1={
@@ -60,11 +61,12 @@ let testArr=[]
     //variables
     let wordDtEl=[]
     let programInd=[]
-
+    let dataSetReportingRates=[]
 
     //hooks
     const[dataElementsArray,setDataElementArray]=useState([])
     const[programIndicatorArray,setProgramIndicatorArray]=useState([])
+    const[dataSetReportingRatesArray,setDataSetReportingRatesArray]=useState([])
     const engine = useDataEngine()
     const updateDataElementHandler= useSetRecoilState(dataElementsStateDictionary)
     const updateProgramIndicatorHandler= useSetRecoilState(programIndicatorStateDictionary)
@@ -237,18 +239,8 @@ let testArr=[]
                     {getFinalWordFormula(formula)}
                 </DataTableCell>
                 <DataTableCell  bordered>
-                    <h5>Data Elements</h5>
-                     <ol>
-                         {dataElementsArray.map((el)=>{
-                             return <li key={(el.id)}>{el.val}</li>
-                         })}
-                     </ol>
-                    <h5>Program Indicators</h5>
-                    <ol>
-                        {programIndicatorArray.map((el)=>{
-                            return <li key={(el.id)}>{el.val}</li>
-                        })}
-                    </ol>
+                    {dataElementsArray.length>0? <DisplaySource title={"Data Elements"} data={dataElementsArray} /> :""}
+                    {dataElementsArray.length>0?  <DisplaySource title={"Program Indicators"} data={programIndicatorArray} />:""}
                 </DataTableCell>
              </>
 }
