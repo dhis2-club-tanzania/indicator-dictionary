@@ -2,6 +2,7 @@ import {CircularLoader, DataTableCell,} from '@dhis2/ui'
 import {useDataEngine, useDataQuery} from '@dhis2/app-runtime'
 import {useEffect, useState} from "react";
 import {atom, useRecoilState, useRecoilValue, useSetRecoilState} from "recoil";
+import {dataElementsState} from "../../store";
 
 
 const query1={
@@ -29,11 +30,6 @@ const query1={
         }
     }
 }
-
-export const dataElementsState = atom({
-    key: 'dataElementsStoreDictionary', // unique ID (with respect to other atoms/selectors)
-    default: [], // default value (aka initial value)
-});
 
 
 

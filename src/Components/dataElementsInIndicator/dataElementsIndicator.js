@@ -12,8 +12,9 @@ import {
 } from '@dhis2/ui'
 
 import Row from './row'
-import {dataElementsState} from "../calculationDetails/calculationDetailRow";
+
 import {selector, useRecoilValue} from "recoil";
+import {dataElementsState} from "../../store";
 
 function DataElementSIndicator() {
 

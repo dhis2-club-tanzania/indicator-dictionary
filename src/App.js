@@ -8,7 +8,7 @@ import { Route,Switch, HashRouter } from 'react-router-dom';
 import HomePage from './pages/home';
 import IndicatiorPage from './pages/indicator';
 import Layout from './layouts/layout';
-import { DataElementContextProvider } from './store/dataElementContext';
+
 import {RecoilRoot} from "recoil";
 
 

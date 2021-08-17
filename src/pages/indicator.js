@@ -10,7 +10,8 @@ import DataSource from '../Components/dataSource/dataSource'
 import IndicatorFacts from '../Components/indicatorFacts/indicatorFacts'
 import Introduction from '../Components/introduction/introduction'
 import LegendsAnalysis from '../Components/legendsAnalysis/legendsAnalysis'
-import ProgramIndicatorIndicator from '../Components/programIndicatorIndicator'
+import ProgramIndicatorIndicator from "../Components/ProgramIndicator";
+
 
 
 export default function IndicatiorPage(){

@@ -3,11 +3,9 @@ import { useDataQuery } from '@dhis2/app-runtime'
 
 import { useHistory } from "react-router-dom";
 
-import { useContext,useEffect } from "react";
-import DataElementContext from '../store/dataElementContext';
-import {useSetRecoilState} from "recoil";
-import {dataElementsState} from "../Components/calculationDetails/calculationDetailRow";
 
+import {useSetRecoilState} from "recoil";
+import {dataElementsState} from "../store";
 
 const query = {
     indicators: {

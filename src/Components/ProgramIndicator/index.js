@@ -1,4 +1,3 @@
-
 import {
     DataTable,
     DataTableToolbar,
@@ -15,98 +14,98 @@ import {
 function ProgramIndicatorIndicator(){
 
     return (<div>
-       <h3> Program Indicators in indicator </h3>
+        <h3> Program Indicators in indicator </h3>
         <p> The following is the summary of the program indicators used in calculations:</p>
 
         <DataTable>
             <TableHead>
                 <DataTableRow>
                     <DataTableColumnHeader bordered>
-                    Program Indicator
+                        Program Indicator
                     </DataTableColumnHeader>
                     <DataTableColumnHeader bordered>
-                    Expression part 
+                        Expression part
                     </DataTableColumnHeader>
                     <DataTableColumnHeader>
-                    Filter
+                        Filter
                     </DataTableColumnHeader>
                     <DataTableColumnHeader>
-                    Aggregation type
+                        Aggregation type
                     </DataTableColumnHeader>
                     <DataTableColumnHeader>
-                    Analytics type
+                        Analytics type
                     </DataTableColumnHeader>
                     <DataTableColumnHeader>
-                    Period boundaries
+                        Period boundaries
                     </DataTableColumnHeader>
                     <DataTableColumnHeader>
-                    Legends
+                        Legends
                     </DataTableColumnHeader>
                     <DataTableColumnHeader>
-                    Groups
-                    </DataTableColumnHeader>          
-                
+                        Groups
+                    </DataTableColumnHeader>
+
                 </DataTableRow>
             </TableHead>
             <TableBody>
                 <DataTableRow>
                     <DataTableCell bordered>
-                   
+
                     </DataTableCell  >
                     <DataTableCell bordered>
-                       
+
                     </DataTableCell>
                     <DataTableCell bordered>
-                    
+
                     </DataTableCell>
                     <DataTableCell bordered>
-                   
+
                     </DataTableCell  >
                     <DataTableCell bordered>
-                       
+
                     </DataTableCell>
                     <DataTableCell bordered>
-                    
+
                     </DataTableCell>
                     <DataTableCell bordered>
-                       
-                       </DataTableCell>
-                       <DataTableCell bordered>
-                       
-                       </DataTableCell>
-                       
-                
+
+                    </DataTableCell>
+                    <DataTableCell bordered>
+
+                    </DataTableCell>
+
+
                 </DataTableRow>
                 <DataTableRow>
                     <DataTableCell bordered >
-                   
+
                     </DataTableCell>
                     <DataTableCell bordered>
-                   
+
                     </DataTableCell>
                     <DataTableCell bordered>
                     </DataTableCell>
                     <DataTableCell bordered >
-                   
-                   </DataTableCell>
-                   <DataTableCell bordered>
-                  
-                   </DataTableCell>
-                   <DataTableCell bordered>
-                   </DataTableCell>
-                   <DataTableCell bordered>
-                  
-                   </DataTableCell>
-                   <DataTableCell bordered>
-                       
+
                     </DataTableCell>
-                       
-                   
+                    <DataTableCell bordered>
+
+                    </DataTableCell>
+                    <DataTableCell bordered>
+                    </DataTableCell>
+                    <DataTableCell bordered>
+
+                    </DataTableCell>
+                    <DataTableCell bordered>
+
+                    </DataTableCell>
+
+
                 </DataTableRow>
-                
+
             </TableBody>
-            
-        </DataTable>  
+
+        </DataTable>
 
     </div>)
 }
