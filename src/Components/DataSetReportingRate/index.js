@@ -11,10 +11,15 @@ import {
     DataTableCell,
     DataTableColumnHeader,
 } from '@dhis2/ui'
+import {useRecoilValue} from "recoil";
+import {dataSetReportingRatesStateDictionary} from "../../store";
+import Row from "./Row";
 
 
 function DatasetsReportingRates(){
 
+    const dataSetReportingRates = useRecoilValue(dataSetReportingRatesStateDictionary)
+    let i=0
     return <div>
         <h3>Datasets (Reporting rates) in indicator</h3>
         <p>The following is the summary of the datasets (reporting rates) used in calculations:</p>
@@ -48,60 +53,14 @@ function DatasetsReportingRates(){
                 </DataTableRow>
             </TableHead>
             <TableBody>
-                <DataTableRow>
-                    <DataTableCell bordered>
-
-                    </DataTableCell  >
-                    <DataTableCell bordered>
-
-                    </DataTableCell>
-                    <DataTableCell bordered>
-
-                    </DataTableCell>
-
-                    <DataTableCell bordered>
-
-                    </DataTableCell>
-                    <DataTableCell bordered>
-
-                    </DataTableCell  >
-                    <DataTableCell bordered>
-
-                    </DataTableCell>
-                    <DataTableCell bordered>
-
-                    </DataTableCell>
-                    <DataTableCell bordered>
-
-                    </DataTableCell>
 
 
-                </DataTableRow>
-                <DataTableRow>
-                    <DataTableCell bordered >
+                {dataSetReportingRates.map( (dataSet)=>{
+                    ++i
+                    return <Row key={i} dataSet={dataSet} />
+                })}
 
-                    </DataTableCell>
-                    <DataTableCell bordered>
 
-                    </DataTableCell>
-                    <DataTableCell bordered>
-                    </DataTableCell>
-                    <DataTableCell bordered >
-
-                    </DataTableCell>
-                    <DataTableCell bordered>
-
-                    </DataTableCell>
-                    <DataTableCell bordered>
-                    </DataTableCell>
-                    <DataTableCell bordered>
-
-                    </DataTableCell>
-                    <DataTableCell bordered>
-
-                    </DataTableCell>
-
-                </DataTableRow>
 
             </TableBody>
 

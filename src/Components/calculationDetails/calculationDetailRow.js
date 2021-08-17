@@ -2,7 +2,11 @@ import {CircularLoader, DataTableCell,} from '@dhis2/ui'
 import {useDataEngine, useDataQuery} from '@dhis2/app-runtime'
 import {useEffect, useState} from "react";
 import {atom, useRecoilState, useRecoilValue, useSetRecoilState} from "recoil";
-import {dataElementsStateDictionary, programIndicatorStateDictionary} from "../../store";
+import {
+    dataElementsStateDictionary,
+    dataSetReportingRatesStateDictionary,
+    programIndicatorStateDictionary
+} from "../../store";
 import DisplaySource from "./DisplaySource";
 
 
@@ -81,7 +85,7 @@ let testArr=[]
     const engine = useDataEngine()
     const updateDataElementHandler= useSetRecoilState(dataElementsStateDictionary)
     const updateProgramIndicatorHandler= useSetRecoilState(programIndicatorStateDictionary)
-    const updateDataSetReportingRatesHandler= useSetRecoilState(programIndicatorStateDictionary)
+    const updateDataSetReportingRatesHandler= useSetRecoilState(dataSetReportingRatesStateDictionary)
 
 
     useEffect(()=>{
@@ -156,7 +160,6 @@ let testArr=[]
         i=0
        await Promise.all(allPromises).then(value => {
            if(type===0){
-               console.log("type0")
                value.map((val)=>{ //We always return array just for uniformity
                    if(val.length>1){ //array of two elements first element is dataElement second element of array is category option combo
                        wordDtEl.push({"id":arr[i],"val":val[0]+" "+val[1],"location":loc})
@@ -167,14 +170,12 @@ let testArr=[]
                })
            }
            if(type===1){
-               console.log("type1")
                value.map((val)=>{ //We always return array just for uniformity
                    programInd.push({"id":arr[i],"val":val[0],"location":loc})
                    ++i;
                })
            }
            if(type===2){
-               console.log("type2")
                value.map((val)=>{ //We always return array just for uniformity
                    dataSetReportingRates.push({"id":arr[i],"val":val[0],"location":loc})
                    ++i;
@@ -195,6 +196,7 @@ let testArr=[]
                 }  )
             }
             if(dataSetReportingRates.length===arr.length){
+                console.log(dataSetReportingRates)
                 setDataSetReportingRatesArray(dataSetReportingRates)
                 updateDataSetReportingRatesHandler((prev)=>{
                     return prev.concat(dataSetReportingRates)
@@ -289,10 +291,6 @@ let testArr=[]
         }
                 return final
     }
-
-
-    console.log(dataSetReportingRatesArray)
-
 
 
     return      <>

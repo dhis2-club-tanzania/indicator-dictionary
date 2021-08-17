@@ -17,7 +17,6 @@ import {programIndicatorStateDictionary} from "../../store";
 function ProgramIndicatorIndicator(){
 
     const programIndicators = useRecoilValue(programIndicatorStateDictionary)
-    console.log("programIndicators ara called its a bug")
     let i=0
 
     return (<div>
@@ -56,9 +55,8 @@ function ProgramIndicatorIndicator(){
             </TableHead>
             <TableBody>
 
-
                 {programIndicators.map((programInd) => {
-                    i++
+                    ++i
                     return <Row key={i} programInd={programInd}/>
                 })}
             </TableBody>
