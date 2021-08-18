@@ -1,0 +1,9 @@
+
+
+const dataTypes={
+    DATA_ELEMENT:0,
+    PROGRAM_INDICATOR:1,
+    DATASET_REPORTING_RATES:2,
+    ATTRIBUTES:3,
+    CONSTANTS:4
+}

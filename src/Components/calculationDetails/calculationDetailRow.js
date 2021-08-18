@@ -2,11 +2,7 @@ import {CircularLoader, DataTableCell,} from '@dhis2/ui'
 import {useDataEngine, useDataQuery} from '@dhis2/app-runtime'
 import {useEffect, useState} from "react";
 import {useSetRecoilState} from "recoil";
-import {
-    dataElementsStateDictionary,
-    dataSetReportingRatesStateDictionary,
-    programIndicatorStateDictionary
-} from "../../store";
+import {    dataElementsStateDictionary,    dataSetReportingRatesStateDictionary,    programIndicatorStateDictionary} from "../../store";
 import DisplaySource from "./DisplaySource";
 import {getFormulaSources, getValueFromApi, setCharAt} from "../../utils/Functions/FormulaFunctions";
 

@@ -21,12 +21,12 @@ export  default function Row(props){
     const id=dataSet.id
 
     const {loading, error, data}   = useDataQuery(query, {variables: {id}})
-    if(loading){
-        return <CircularLoader />
-    }
-    if(error){
-        return <i>Something went wrong</i>
-    }
+    // if(loading){
+    //     return <CircularLoader />
+    // }
+    // if(error){
+    //     return <i>Something went wrong</i>
+    // }
 
     function OtherCells(dataSet){
         return <>
