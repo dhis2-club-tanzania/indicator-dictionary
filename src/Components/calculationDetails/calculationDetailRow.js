@@ -55,7 +55,6 @@ function CalculationDetailRow(props){
 
     },[])
 
-
     //functions
     async function getWordData(arr,type){ //arr for array of id of datas to get their values, type indicates the data type of data eg dataElement=0 program indicator=1, reporting rates=2
         let allPromises=[];
