@@ -1,18 +1,5 @@
-import {
-    DataTable,
-    DataTableToolbar,
-    DataTableHead,
-    TableHead,
-    DataTableBody,
-    TableBody,
-    DataTableFoot,
-    DataTableRow,
-    DataTableCell,
-    DataTableColumnHeader,
-} from '@dhis2/ui'
+import {DataTableRow, DataTableCell,CircularLoader} from '@dhis2/ui'
 import {useDataQuery} from "@dhis2/app-runtime";
-
-
 
 const query={
    programIndicator:{
@@ -33,6 +20,13 @@ export default function Row(props){
     const id=programIndicator.id
 
     const {loading, error, data}   = useDataQuery(query, {variables: {id}})
+
+    if(loading){
+        return <CircularLoader />
+    }
+    if(error){
+        return <i>Something went wrong</i>
+    }
 
     function OtherCells(prog){
         return <>

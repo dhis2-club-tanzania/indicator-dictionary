@@ -1,35 +1,85 @@
 
 
-import {DataTableRow, DataTableCell,} from '@dhis2/ui'
+import {DataTableRow, DataTableCell,CircularLoader} from '@dhis2/ui'
+import {useDataQuery} from "@dhis2/app-runtime";
+
+
+const query={
+    dataSets:{
+        resource:"dataSets",
+        id:({id})=>id,
+        params:{
+            fields:["id","displayName","displayDescription","timelyDays","expiryDays","periodType","organisationUnits[id,displayName]","dataSetElements[dataElement[id,displayName]]","legendSets[id,displayName]"]
+        }
+    }
+}
+
+
 export  default function Row(props){
     const dataSet=props.dataSet
-    console.log(dataSet)
 
+    const id=dataSet.id
+
+    const {loading, error, data}   = useDataQuery(query, {variables: {id}})
+    if(loading){
+        return <CircularLoader />
+    }
+    if(error){
+        return <i>Something went wrong</i>
+    }
 
     function OtherCells(dataSet){
         return <>
             <DataTableCell bordered>
-
-            </DataTableCell>
-
-            <DataTableCell bordered>
-
+                {dataSet?.timelyDays}
             </DataTableCell>
             <DataTableCell bordered>
-
+                {dataSet?.expiryDays}
+            </DataTableCell>
+            <DataTableCell bordered>
+                {dataSet?.periodType}
             </DataTableCell  >
-            <DataTableCell bordered>
+            <DataTableCell bordered >
+                <div style={{maxHeight:"80px", overflow:"auto" }}>
+                    <ol>
+                        {dataSet?.organisationUnits.map((org)=>{
+                           return(<li key={org?.id}>
+                               {org?.displayName}
+                                 </li>)
+                        })}
+                    </ol>
+                </div>
 
             </DataTableCell>
             <DataTableCell bordered>
+                <div style={{maxHeight:"80px", overflow:"auto" }}>
+                    <ol>
+                        {dataSet?.dataSetElements.map((dt)=>{
+
+                            return (
+                                <li key={dt?.dataElement?.id} >{dt?.dataElement?.displayName}</li>
+                            )
+                        })}
+                    </ol>
+                </div>
 
             </DataTableCell>
             <DataTableCell bordered>
+                <div style={{maxHeight:"80px", overflow:"auto" }}>
+                    <ol>
+                        {dataSet?.legendSets.map((leg)=>{
+                            return (
+                                <li key={leg.id}>{leg.displayName}</li>
+                            )
+                        })}
+                    </ol>
+                </div>
 
             </DataTableCell>
 
         </>
     }
+
 
     return <>
         <DataTableRow>
@@ -39,7 +89,7 @@ export  default function Row(props){
             <DataTableCell bordered>
                 {dataSet?.location}
             </DataTableCell>
-            {OtherCells("Dataset")}
+            {OtherCells(data?.dataSets)}
         </DataTableRow>
      </>
 }
