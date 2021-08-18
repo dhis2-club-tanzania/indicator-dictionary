@@ -55,7 +55,7 @@ if(loading){
             <DataTableCell bordered>
                Numerator
             </DataTableCell  >
-            {/*<CalculationDetailRow formula={numDen.numerator} location="numerator" />*/}
+            <CalculationDetailRow formula={numDen.numerator} location="numerator" />
 
         </DataTableRow>
         <DataTableRow>

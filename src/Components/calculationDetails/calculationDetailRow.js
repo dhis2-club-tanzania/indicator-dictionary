@@ -8,53 +8,8 @@ import {
     programIndicatorStateDictionary
 } from "../../store";
 import DisplaySource from "./DisplaySource";
-import {getFormulaSources,setCharAt} from "../../utils/Functions/FormulaFunctions";
+import {getFormulaSources, getValueFromApi, setCharAt} from "../../utils/Functions/FormulaFunctions";
 
-
-const query1={
-    dataElement:{
-      resource:"dataElements",
-      id: ({idEle})=>idEle,
-        params:{
-          fields:["id","displayName"]
-        }
-    },
-    categoryOptionCombo:{
-      resource:"categoryOptionCombos",
-      id: ({idComb})=>idComb,
-      params:{
-        fields:["id","displayName"]
-      }
-    }
-  }
-  const query2={
-    dataElement:{
-      resource:"dataElements",
-      id: ({idEle})=>idEle,
-        params:{
-          fields:["id","displayName"]
-        }
-    }
-}
-const query3={
-    programIndicator:{
-        resource:"programIndicators",
-        id: ({idEle})=>idEle,
-        params:{
-            fields:["id","displayName"]
-        }
-    }
-}
-const query4={
-    dataSets:{
-        resource:"dataSets",
-        id: ({id})=>id,
-        // id:"BfMAe6Itzgt",
-        params:{
-            fields:["id","displayName"]
-        }
-    }
-}
 
 
 
@@ -89,14 +44,14 @@ let testArr=[]
     const updateDataSetReportingRatesHandler= useSetRecoilState(dataSetReportingRatesStateDictionary)
 
 
-    // useEffect(()=>{
-    //     let tempArr=getFormulaSources(formula,"#{")
-    //
-    //     if(tempArr.length){
-    //         getWordData(tempArr,0),()=>{}
-    //     }
-    //
-    //     },[])
+    useEffect(()=>{
+        let tempArr=getFormulaSources(formula,"#{")
+
+        if(tempArr.length){
+            getWordData(tempArr,0),()=>{}
+        }
+
+        },[])
     useEffect(()=>{
         let tempArr=getFormulaSources(formula,"I{")
         if(tempArr.length){
@@ -104,25 +59,21 @@ let testArr=[]
         }
 
         },[])
-    // useEffect(()=>{
-    //     let tempArr=getFormulaSources(formula,"R{")
-    //     if(tempArr.length){
-    //         getWordData(tempArr,2),()=>{}
-    //     }
-    //
-    // },[])
+    useEffect(()=>{
+        let tempArr=getFormulaSources(formula,"R{")
+        if(tempArr.length){
+            getWordData(tempArr,2),()=>{}
+        }
+
+    },[])
 
 
     //functions
-
-
-
-
     async function getWordData(arr,type){ //arr for array of id of datas to get their values, type indicates the data type of data eg dataElement=0 program indicator=1, reporting rates=2
         let allPromises=[];
         let i=0
         for(i=0;i<arr.length;i++){
-            let proms=getValueFromApi(arr[i],type)
+            let proms=getValueFromApi(engine,arr[i],type)
             allPromises.push(proms)
         }
         i=0
@@ -182,65 +133,6 @@ let testArr=[]
         return formula
     }
 
-    function isPureDataElement(str){
-        if(str.indexOf(".")==-1){ //didnt find
-            return true
-        }else{
-            return false;
-        }  
-    }
-
-    function getValueFromApi(strEle,type){
-
-    if(type===0){ //dataElement
-        if(isPureDataElement(strEle)){
-            //fetch value normally
-            return new Promise((resolve, reject) => {
-                resolve(getValueDataElementOnly(strEle))
-            })
-        }else{
-            //break to array and just take first element
-            return new Promise(((resolve, reject) => {
-                let arr = strEle.split(".")
-                resolve(getValueDataElementOptionCombo(arr[0], arr[1]));
-            }))
-        }
-    }
-    if(type===1){//programIndicator
-        return new Promise((resolve, reject) => {
-            resolve(getValueProgramIndicator(strEle))
-        })
-    }
-    if(type===2){
-        return new Promise((resolve, reject) => {
-            resolve(getValueDataSetReportingRates(strEle))
-        })
-    }
-    }
-
-    async function getValueDataElementOnly(idEle){
-
-        const data = await engine.query(query2,{variables: {idEle}})
-
-         return [data?.dataElement?.displayName]
-    }
-
-    async function getValueProgramIndicator(idEle){
-        const data = await engine.query(query3,{variables: {idEle}})
-        return [data?.programIndicator?.displayName]
-    }
-
-    async function getValueDataSetReportingRates(id){
-            const data=await engine.query(query4,{variables:{id}})
-            return [data?.dataSets?.displayName]
-    }
-
-
-    async function getValueDataElementOptionCombo(idEle,idComb){
-        const data= await engine.query(query1,{variables: {idEle,idComb}})
-         return [data?.dataElement?.displayName, data?.categoryOptionCombo?.displayName]
-
-    }
 
     function getFinalWordFormula(formula){
 
