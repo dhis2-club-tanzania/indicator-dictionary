@@ -1,5 +1,6 @@
 import {DataTableRow, DataTableCell,CircularLoader} from '@dhis2/ui'
 import {useDataQuery} from "@dhis2/app-runtime";
+import {getFormulaSources} from "../../utils/Functions/FormulaFunctions";
 
 const query={
    programIndicator:{
@@ -8,10 +9,8 @@ const query={
        params:{
            fields:["id","displayName","aggregationType","analyticsType","analyticsPeriodBoundaries[id,analyticsPeriodBoundaryType,boundaryTarget]","filter","programIndicatorGroups[id,displayName]","legendSets[id,displayName]"]
        }
-
    }
 }
-
 
 
 export default function Row(props){
@@ -27,6 +26,12 @@ export default function Row(props){
     if(error){
         return <i>Something went wrong</i>
     }
+
+
+    // console.log(getFormulaSources((data?.programIndicator?.filter),"A{"))
+    // console.log(getFormulaSources((data?.programIndicator?.filter),"C{"))
+    // console.log(getFormulaSources((data?.programIndicator?.filter),"#{"))
+    // console.log(getFormulaSources((data?.programIndicator?.filter),"V{"))
 
     function OtherCells(prog){
         return <>

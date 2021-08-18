@@ -1,15 +1,4 @@
-import {
-    DataTable,
-    DataTableToolbar,
-    DataTableHead,
-    TableHead,
-    DataTableBody,
-    TableBody,
-    DataTableFoot,
-    DataTableRow,
-    DataTableCell,
-    DataTableColumnHeader,
-} from '@dhis2/ui'
+import {    DataTable,    TableHead,    TableBody,    DataTableRow,    DataTableColumnHeader} from '@dhis2/ui'
 import Row from "./Row";
 import {useRecoilValue} from "recoil";
 import {programIndicatorStateDictionary} from "../../store";
