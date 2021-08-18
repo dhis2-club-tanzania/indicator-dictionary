@@ -2,24 +2,17 @@ import {CircularLoader, DataTableCell,} from '@dhis2/ui'
 import {useDataEngine, useDataQuery} from '@dhis2/app-runtime'
 import {useEffect, useState} from "react";
 import {useSetRecoilState} from "recoil";
-import {    dataElementsStateDictionary,    dataSetReportingRatesStateDictionary,    programIndicatorStateDictionary} from "../../store";
+import {  dataElementsStateDictionary,    dataSetReportingRatesStateDictionary,    programIndicatorStateDictionary} from "../../store";
 import DisplaySource from "./DisplaySource";
-import {getFormulaSources, getValueFromApi, setCharAt} from "../../utils/Functions/FormulaFunctions";
-
-
+import {
+    getFinalWordFormula,
+    getFormulaSources,
+    getValueFromApi
+} from "../../utils/Functions/FormulaFunctions";
+import {dataTypes} from "../../utils/Models";
 
 
 function CalculationDetailRow(props){
-
-let testArr=[]
-//structure of dataElemet in store is 
-    // [
-    //     {
-    //         "id":"dfds3ds.fdaf",
-    //         "val":"value from api",
-    //         "exprPart":"num/den",
-    //     }
-    // ]
 
     //props
     const formula=props.formula
@@ -38,7 +31,6 @@ let testArr=[]
     const updateDataElementHandler= useSetRecoilState(dataElementsStateDictionary)
     const updateProgramIndicatorHandler= useSetRecoilState(programIndicatorStateDictionary)
     const updateDataSetReportingRatesHandler= useSetRecoilState(dataSetReportingRatesStateDictionary)
-
 
     useEffect(()=>{
         let tempArr=getFormulaSources(formula,"#{")
@@ -74,7 +66,7 @@ let testArr=[]
         }
         i=0
        await Promise.all(allPromises).then(value => {
-           if(type===0){
+           if(type===dataTypes.DATA_ELEMENT){
                value.map((val)=>{ //We always return array just for uniformity
                    if(val.length>1){ //array of two elements first element is dataElement second element of array is category option combo
                        wordDtEl.push({"id":arr[i],"val":val[0]+" "+val[1],"location":loc})
@@ -84,19 +76,18 @@ let testArr=[]
                    ++i;
                })
            }
-           if(type===1){
+           if(type===dataTypes.PROGRAM_INDICATOR){
                value.map((val)=>{ //We always return array just for uniformity
                    programInd.push({"id":arr[i],"val":val[0],"location":loc})
                    ++i;
                })
            }
-           if(type===2){
+           if(type===dataTypes.DATASET_REPORTING_RATES){
                value.map((val)=>{ //We always return array just for uniformity
                    dataSetReportingRates.push({"id":arr[i],"val":val[0],"location":loc})
                    ++i;
                })
            }
-
 
            if(wordDtEl.length===arr.length){ //array is full so we reload to update UI
                setDataElementArray(wordDtEl)
@@ -119,38 +110,9 @@ let testArr=[]
         })
     }
 
-    function getFormulaInWordsFromFullSources(formula,arrOfSources) {
-
-        for( let i=0;i<arrOfSources.length;i++){
-            if(formula.search(arrOfSources[i].id)>=0){
-                formula=formula.replace(arrOfSources[i].id,arrOfSources[i].val);   
-            }  
-        }
-        return formula
-    }
-
-
-    function getFinalWordFormula(formula){
-
-        let final=getFormulaInWordsFromFullSources(formula,dataElementsArray).replace(/#/g,"")
-        final =getFormulaInWordsFromFullSources(final,programIndicatorArray)
-        final =getFormulaInWordsFromFullSources(final,dataSetReportingRatesArray)
-            while(final.search("I{")>=0) {//removes I
-                let indexChar=final.search("I{")
-                final = setCharAt(final, indexChar, "")
-            }
-
-        while(final.search("R{")>=0) {//removes R
-            let indexChar=final.search("R{")
-            final = setCharAt(final, indexChar, "")
-        }
-                return final
-    }
-
-
     return      <>
                 <DataTableCell  bordered>
-                    {getFinalWordFormula(formula)}
+                    {getFinalWordFormula(formula,dataElementsArray,programIndicatorArray,dataSetReportingRatesArray,[],[])}
                 </DataTableCell>
                 <DataTableCell  bordered>
                     {dataElementsArray.length>0? <DisplaySource title={"Data Elements"} data={dataElementsArray} /> :""}

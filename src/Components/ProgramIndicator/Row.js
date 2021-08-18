@@ -1,7 +1,12 @@
 import {DataTableRow, DataTableCell,CircularLoader} from '@dhis2/ui'
 import {useDataEngine, useDataQuery} from "@dhis2/app-runtime";
-import {extractAllFormulaSource, getFormulaSources, getValueFromApi} from "../../utils/Functions/FormulaFunctions";
+import {
+    getFinalWordFormula,
+    getFormulaSources,
+    getValueFromApi
+} from "../../utils/Functions/FormulaFunctions";
 import {useEffect, useState} from "react";
+import {dataTypes} from "../../utils/Models";
 
 const query={
    programIndicator:{
@@ -15,27 +20,11 @@ const query={
 
 
 export default function Row(props){
-
     //props
     const programIndicator=props.programInd
     const id=programIndicator.id
 
-
-    //variables
-    let wordDtEl=[]
-    let attributes=[]
-    let constants=[]
-
-
     const {loading, error, data}   = useDataQuery(query, {variables: {id}})
-
-    // if(loading){
-    //     return <CircularLoader />
-    // }
-    // if(error){
-    //     return <i>Something went wrong</i>
-    // }
-
 
     //hooks
     const engine = useDataEngine()
@@ -53,7 +42,6 @@ export default function Row(props){
         }
 
     },[data])
-
     useEffect(()=>{
         let tempArr=getFormulaSources((data?.programIndicator?.filter),"A{")
 
@@ -71,6 +59,22 @@ export default function Row(props){
 
     },[data])
 
+    //variables
+    let wordDtEl=[]
+    let attributes=[]
+    let constants=[]
+    let final_filter_result=getFinalWordFormula((data?.programIndicator?.filter),dataElementsArray,[],[],attributesArray,constantsArray)
+
+
+
+    // if(loading){
+    //     return <CircularLoader />
+    // }
+    // if(error){
+    //     return <i>Something went wrong</i>
+    // }
+
+
     async function getWordData(arr,type){ //arr for array of id of datas to get their values, type indicates the data type of data eg dataElement=0 program indicator=1, reporting rates=2
         let allPromises=[];
         let i=0
@@ -81,7 +85,7 @@ export default function Row(props){
         }
         i=0
         await Promise.all(allPromises).then(value => {
-            if(type===0){
+            if(type===dataTypes.DATA_ELEMENT){
                 value.map((val)=>{ //We always return array just for uniformity
                     if(val.length>1){ //array of two elements first element is dataElement second element of array is category option combo
                         wordDtEl.push({"id":arr[i],"val":val[0]+" "+val[1]})
@@ -91,13 +95,13 @@ export default function Row(props){
                     ++i;
                 })
             }
-            if(type===3){ //for Attribute
+            if(type===dataTypes.ATTRIBUTES){ //for Attribute
                 value.map((val)=>{ //We always return array just for uniformity
                     attributes.push({"id":arr[i],"val":val[0]})
                     ++i;
                 })
             }
-            if(type===4){
+            if(type===dataTypes.CONSTANTS){
                 value.map((val)=>{ //We always return array just for uniformity
                     constants.push({"id":arr[i],"val":val[0]})
                     ++i;
@@ -122,7 +126,7 @@ export default function Row(props){
     function OtherCells(prog){
         return <>
             <DataTableCell bordered>
-                {prog?.filter}
+                {final_filter_result}
             </DataTableCell>
             <DataTableCell bordered>
                 {prog?.aggregationType}
@@ -157,9 +161,7 @@ export default function Row(props){
     }
 
 
-    console.log(dataElementsArray)
-    console.log(attributesArray)
-    console.log(constantsArray)
+
 
     return (
         <DataTableRow>

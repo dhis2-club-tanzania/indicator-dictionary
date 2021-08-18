@@ -1,49 +1,6 @@
+import {dataTypes} from "../Models";
 
 const query1={
-    dataElement:{
-        resource:"dataElements",
-        id: ({id})=>id,
-        params:{
-            fields:["id","displayName"]
-        }
-    },
-    categoryOptionCombo:{
-        resource:"categoryOptionCombos",
-        id: ({idComb})=>idComb,
-        params:{
-            fields:["id","displayName"]
-        }
-    }
-}
-const query2={
-    dataElement:{
-        resource:"dataElements",
-        id: ({id})=>id,
-        params:{
-            fields:["id","displayName"]
-        }
-    }
-}
-const query3={
-    programIndicator:{
-        resource:"programIndicators",
-        id: ({id})=>id,
-        params:{
-            fields:["id","displayName"]
-        }
-    }
-}
-const query4={
-    dataSets:{
-        resource:"dataSets",
-        id: ({id})=>id,
-        params:{
-            fields:["id","displayName"]
-        }
-    }
-}
-
-const query5={
     identifiableObjects:{
         resource:"identifiableObjects",
         id: ({id})=>id,
@@ -53,7 +10,7 @@ const query5={
     }
 }
 
-const query6={
+const query2={
     identifiableObjects:{
         resource:"identifiableObjects",
         id: ({id})=>id,
@@ -107,45 +64,62 @@ export function setCharAt(str,index,chr) {
     return str.substring(0,index) + chr + str.substring(index+1);
 }
 
- async function getValueDataElementOnly(engine,id){
-
-    const data = await engine.query(query2,{variables: {id}})
-
-    return [data?.dataElement?.displayName]
-}
-
- async function getValueProgramIndicator(engine,id){
-    const data = await engine.query(query3,{variables: {id}})
-    return [data?.programIndicator?.displayName]
-}
-
- async function getValueDataSetReportingRates(engine,id){
-    const data=await engine.query(query4,{variables:{id}})
-    return [data?.dataSets?.displayName]
-}
-
-
- async function getValueDataElementOptionCombo(engine,id,idComb){
-    const data= await engine.query(query1,{variables: {id,idComb}})
-    return [data?.dataElement?.displayName, data?.categoryOptionCombo?.displayName]
-
-}
 async function getValueIdentifiableObjects2(engine,id,id2){
-    const data= await engine.query(query6,{variables: {id,id2}})
+    const data= await engine.query(query2,{variables: {id,id2}})
     return [data?.identifiableObjects?.displayName, data?.identifiableObjects2.displayName]
 }
 
-async function getValueAttribute(engine,id){
-    const data=await engine.query(query5,{variables:{id}})
-    return [data?.attribute?.displayName]
-}
-
 async function getValueIdentifiableObjects(engine,id){
-    const data=await engine.query(query5,{variables:{id}})
+    const data=await engine.query(query1,{variables:{id}})
     return [data?.identifiableObjects?.displayName]
 }
 
 
+export function getFormulaInWordsFromFullSources(formula,arrOfSources) {
+
+    for( let i=0;i<arrOfSources.length;i++){
+        if(formula?.search(arrOfSources[i].id)>=0){
+            formula=formula.replace(arrOfSources[i].id,arrOfSources[i].val);
+        }
+    }
+    return formula
+}
+
+export function getFinalWordFormula(formula,dataElementsArray,programIndicatorArray,dataSetReportingRatesArray,attributes,constants){
+
+    let final=getFormulaInWordsFromFullSources(formula,dataElementsArray)?.replace(/#/g,"")
+    final =getFormulaInWordsFromFullSources(final,programIndicatorArray)
+    final =getFormulaInWordsFromFullSources(final,dataSetReportingRatesArray)
+    final =getFormulaInWordsFromFullSources(final,attributes)
+    final =getFormulaInWordsFromFullSources(final,constants)
+
+
+    while(final?.search("I{")>=0) {//removes I
+        let indexChar=final.search("I{")
+        final = setCharAt(final, indexChar, "")
+    }
+
+    while(final?.search("R{")>=0) {//removes R
+        let indexChar=final.search("R{")
+        final = setCharAt(final, indexChar, "")
+    }
+
+    while(final?.search("A{")>=0) {//removes A
+        let indexChar=final.search("A{")
+        final = setCharAt(final, indexChar, "")
+    }
+    while(final?.search("C{")>=0) {//removes C
+        let indexChar=final.search("C{")
+        final = setCharAt(final, indexChar, "")
+    }
+    while(final?.search("V{")>=0) {//removes C
+        let indexChar=final.search("V{")
+        final = setCharAt(final, indexChar, "")
+    }
+
+
+    return cleanBrackets(final)
+}
 
 export function getValueFromApi(engine,id){
 
@@ -208,14 +182,17 @@ export function getValueFromApi(engine,id){
     // }
 }
 
-//
-// export function extractAllFormulaSource(formula){
-//     let arr= formula.split("{");
-//     arr=arr.join("")
-//     arr=arr.split("}")
-//     arr=arr.slice(0,arr.length-1)
-//     return arr
-// }
+ function cleanBrackets(formula){
+    if(typeof(formula) !=dataTypes.UNDEFINED){
+        let arr= formula.split("{");
+        arr=arr.join("")
+        arr=arr.split("}")
+        //string = array.join("")
+        arr=arr.join(" ")
+        return arr
+    }
+
+}
 
 function isPureDataElement(str){
     if(str.indexOf(".")==-1){ //didnt find
