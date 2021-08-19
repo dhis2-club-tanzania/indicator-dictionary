@@ -29,7 +29,7 @@ function LegendsAnalysis({id}){
      }  
    
      if(data.legendAnalysis.legendSets.length===0){
-       return <><p>No legends</p></> //no legends sets
+       return <><p>There are no legends associated with these indicator</p></> //no legends sets
      }
 
      const legendSet=data.legendAnalysis.legendSets

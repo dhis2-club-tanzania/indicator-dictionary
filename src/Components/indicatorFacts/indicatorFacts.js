@@ -40,7 +40,7 @@ function IndicatorFacts({id}){
 
 
      if(data.indicatorGroups.indicatorGroups){
-         return <p>No indicator facts</p>
+         return <p>There are no indicator facts associated with this indicator</p>
      }
  
      let count=0

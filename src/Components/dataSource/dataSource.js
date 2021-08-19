@@ -3,7 +3,6 @@ import { CircularLoader } from '@dhis2/ui'
 import { useDataQuery } from '@dhis2/app-runtime'
 import { useEffect} from 'react'
 
-
 const query = {
     sources:{
       resource:"indicators",
@@ -31,9 +30,6 @@ const query = {
           return <p> {error} </p> 
        }  
       
-      
-    //    console.log(data.sources)  
-      
 
         return (<div>
            <h3>Data sources (Datasets/Programs)</h3> 
@@ -45,7 +41,7 @@ const query = {
                
             <ul>
             {data.sources.dataSets.map((dataSet)=>{
-                return <li key={dataSet.id}><b>{dataSet.displayName}</b> submitting {dataSet.periodType} after every {dataSet.timelyDays}</li>
+                return <li key={dataSet.id}><b>{dataSet.displayName}</b> submitting {dataSet.periodType} after every {dataSet.timelyDays} days</li>
             })}
             </ul>
             

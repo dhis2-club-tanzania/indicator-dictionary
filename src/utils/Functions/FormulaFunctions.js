@@ -150,7 +150,7 @@ export function getValueDataSourcePromise(engine,id){
 }
 
 
- function cleanBrackets(formula){
+function cleanBrackets(formula){
     if(typeof(formula) !=dataTypes.UNDEFINED){
         let arr= formula.split("{");
         arr=arr.join("")
@@ -159,6 +159,7 @@ export function getValueDataSourcePromise(engine,id){
         arr=arr.join(" ")
         return arr
     }
+    return formula
 
 }
 
