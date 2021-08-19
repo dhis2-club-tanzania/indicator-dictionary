@@ -26,6 +26,32 @@ const query2={
         }
     }
 }
+const query3={
+    dataElementSource:{
+        resource:"dataElements",
+        id: ({id})=>id,
+        params:{
+            fields:["id","displayName","dataSetElements[dataSet[id,displayName]]"]
+        }
+    }
+}
+const query4={
+    dataElementSource:{
+        resource:"dataElements",
+        id: ({id})=>id,
+        params:{
+            fields:["id","displayName","dataSetElements[dataSet[id,displayName]]"]
+        }
+    },
+    identifiableObjects:{
+        resource:"identifiableObjects",
+        id: ({idCombo})=>idCombo,
+        params:{
+            fields:["id","displayName"]
+        }
+    }
+}
+
 
 
 export function getFormulaSources(formula,sourceInitial){
@@ -72,6 +98,15 @@ async function getValueIdentifiableObjects2(engine,id,id2){
 async function getValueIdentifiableObjects(engine,id){
     const data=await engine.query(query1,{variables:{id}})
     return [data?.identifiableObjects?.displayName]
+}
+
+async function getValueDataElementSource(engine,id){
+    const data=await engine.query(query3,{variables:{id}})
+    return [data?.dataElementSource]
+}
+async function getValueDataElementSourceWithCombo(engine,id,idCombo){
+   const data=await engine.query(query4,{variables:{id,idCombo}})
+    return [data?.dataElementSource, data?.identifiableObjects.displayName]
 }
 
 async function getValueDataSource(engine,id){
@@ -125,8 +160,7 @@ export function getFinalWordFormula(formula,dataElementsArray,programIndicatorAr
     return cleanBrackets(final)
 }
 
-export function getValueFromApi(engine,id){
-
+export function getSummaryValueFromApi(engine, id){
     if(isPureDataElement(id)){
         //fetch value normally
         return new Promise((resolve, reject) => {
@@ -139,7 +173,22 @@ export function getValueFromApi(engine,id){
             resolve(getValueIdentifiableObjects2(engine,arr[0], arr[1]));
         }))
     }
-
+}
+export function getDetailedValueFromApi(engine,id,type){
+    if(type===dataTypes.DATA_ELEMENT){
+        if(isPureDataElement(id)){
+            //fetch value normally
+            return new Promise((resolve, reject) => {
+                resolve(getValueDataElementSource(engine,id))
+            })
+        }else{
+            //break to array and just take first element
+            return new Promise(((resolve, reject) => {
+                let arr = id.split(".")
+                resolve(getValueDataElementSourceWithCombo(engine,arr[0], arr[1]));
+            }))
+        }
+    }
 
 }
 

@@ -58,7 +58,8 @@ if(loading){
             <DataTableCell bordered>
                Numerator
             </DataTableCell  >
-            <CalculationDetailRow formula={numDen.numerator} location="numerator" />
+            {/*<CalculationDetailRow formula={numDen.numerator} location="numerator" />*/}
+            <CalculationDetailRow formula={"#{RF4VFVGdFRO.jOkIbJVhECg}"} location="numerator" />
 
         </DataTableRow>
         <DataTableRow>
@@ -66,7 +67,7 @@ if(loading){
                Denominator
             </DataTableCell>
 
-            <CalculationDetailRow formula={numDen.denominator} location="denominator" />
+            {/*<CalculationDetailRow formula={numDen.denominator} location="denominator" />*/}
            
         </DataTableRow>
         
