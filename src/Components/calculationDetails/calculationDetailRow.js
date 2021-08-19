@@ -115,7 +115,7 @@ function CalculationDetailRow(props){
                 </DataTableCell>
                 <DataTableCell  bordered>
                     {dataElementsArray.length>0? <DisplaySource title={"Data Elements"} data={dataElementsArray} /> :""}
-                    {dataElementsArray.length>0?  <DisplaySource title={"Program Indicators"} data={programIndicatorArray} />:""}
+                    {programIndicatorArray.length>0?  <DisplaySource title={"Program Indicators"} data={programIndicatorArray} />:""}
                     {dataSetReportingRatesArray.length>0?  <DisplaySource title={"Data Sets"} data={dataSetReportingRatesArray} />:""}
                 </DataTableCell>
              </>
