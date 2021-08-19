@@ -11,6 +11,8 @@ import {
     DataTableColumnHeader,
 } from '@dhis2/ui'
 
+import classes from  './table.module.css'
+
 
 function Legend(props){
 
@@ -23,54 +25,58 @@ function Legend(props){
              <p>
                   {legendSet.displayName} spread accross {legendSet.legends.length} classes of for analysis
           </p>
-        
-          <DataTable>
-    <TableHead>
-        <DataTableRow>
-            <DataTableColumnHeader>
-                Class
-            </DataTableColumnHeader>
-            <DataTableColumnHeader>
-               Upper
-            </DataTableColumnHeader>
-            <DataTableColumnHeader>
-              Lower
-            </DataTableColumnHeader>
-            <DataTableColumnHeader>
-                Color
-            </DataTableColumnHeader>
-        </DataTableRow>
-    </TableHead>
-    <TableBody>
-        
-            {legendSet.legends.map((legend)=>{
-                return <DataTableRow key={legend.id}>
-                            <DataTableCell bordered>
-                               {legend.displayName}
-                            </DataTableCell >
-                            <DataTableCell bordered>
-                                {legend.endValue}
-                            </DataTableCell>
-                            <DataTableCell bordered>
-                                {legend.startValue}
-                            </DataTableCell>
-                            <DataTableCell bordered>
-                               <div style={{
-                                   background: legend.color,
-                                   width:200,
-                                   height:50
-                               }}>
 
-                               </div>
-                            </DataTableCell>
+            <div>
+                <DataTable  >
+
+                    <TableHead>
+                        <DataTableRow>
+                            <DataTableColumnHeader>
+                                Class
+                            </DataTableColumnHeader>
+                            <DataTableColumnHeader>
+                                Upper
+                            </DataTableColumnHeader>
+                            <DataTableColumnHeader>
+                                Lower
+                            </DataTableColumnHeader>
+                            <DataTableColumnHeader >
+                                Color
+                            </DataTableColumnHeader>
                         </DataTableRow>
+                    </TableHead>
+                    <TableBody>
 
-            })}
-            
-        
-        </TableBody>
-        
-    </DataTable>  
+                        {legendSet.legends.map((legend)=>{
+                            return <DataTableRow key={legend.id}>
+                                <DataTableCell bordered>
+                                    {legend.displayName}
+                                </DataTableCell >
+                                <DataTableCell bordered>
+                                    {legend.endValue}
+                                </DataTableCell>
+                                <DataTableCell bordered>
+                                    {legend.startValue}
+                                </DataTableCell>
+                                <DataTableCell bordered >
+                                    <div style={{
+                                        background: legend.color,
+                                        width:"inherit",
+                                        height:50
+                                    }}>
+
+                                    </div>
+                                </DataTableCell>
+                            </DataTableRow>
+
+                        })}
+
+
+                    </TableBody>
+
+                </DataTable>
+            </div>
+
         </li>
     );
 }

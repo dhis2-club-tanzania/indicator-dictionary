@@ -79,7 +79,6 @@ function CalculationDetailRow(props){
                })
            }
            if(type===dataTypes.PROGRAM_INDICATOR){
-
                value.map((val)=>{ //We always return array just for uniformity
                    programInd.push({"id":arr[i],"val":val[0],"location":loc})
                    ++i;
