@@ -12,7 +12,6 @@ export default function DisplaySource (props){
 
          <ul>
              {data.map((el)=>{
-                 console.log(el)
                  return <li key={el.id}>
                      <h6>{el.val}</h6>
                      <ol>

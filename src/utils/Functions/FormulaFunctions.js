@@ -189,6 +189,12 @@ export function getDetailedValueFromApi(engine,id,type){
             }))
         }
     }
+    else{
+        return new Promise((resolve, reject) => {
+            resolve(getValueIdentifiableObjects(engine,id))
+        })
+    }
+
 
 }
 

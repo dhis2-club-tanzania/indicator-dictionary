@@ -78,18 +78,19 @@ function CalculationDetailRow(props){
                    ++i;
                })
            }
-           // if(type===dataTypes.PROGRAM_INDICATOR){
-           //     value.map((val)=>{ //We always return array just for uniformity
-           //         programInd.push({"id":arr[i],"val":val[0],"location":loc})
-           //         ++i;
-           //     })
-           // }
-           // if(type===dataTypes.DATASET_REPORTING_RATES){
-           //     value.map((val)=>{ //We always return array just for uniformity
-           //         dataSetReportingRates.push({"id":arr[i],"val":val[0],"location":loc})
-           //         ++i;
-           //     })
-           // }
+           if(type===dataTypes.PROGRAM_INDICATOR){
+
+               value.map((val)=>{ //We always return array just for uniformity
+                   programInd.push({"id":arr[i],"val":val[0],"location":loc})
+                   ++i;
+               })
+           }
+           if(type===dataTypes.DATASET_REPORTING_RATES){
+               value.map((val)=>{ //We always return array just for uniformity
+                   dataSetReportingRates.push({"id":arr[i],"val":val[0],"location":loc})
+                   ++i;
+               })
+           }
 
            if(wordDtEl.length===arr.length){ //array is full so we reload to update UI
                setDataElementArray(wordDtEl)
@@ -119,8 +120,8 @@ function CalculationDetailRow(props){
                 </DataTableCell>
                 <DataTableCell  bordered>
                     {dataElementsArray.length>0? <DisplaySource title={"Data Elements"} data={dataElementsArray} /> :""}
-                    {programIndicatorArray.length>0?  <DisplaySource title={"Program Indicators"} data={programIndicatorArray} />:""}
-                    {dataSetReportingRatesArray.length>0?  <DisplaySource title={"Data Sets"} data={dataSetReportingRatesArray} />:""}
+                    {/*{programIndicatorArray.length>0?  <DisplaySource title={"Program Indicators"} data={programIndicatorArray} />:""}*/}
+                    {/*{dataSetReportingRatesArray.length>0?  <DisplaySource title={"Data Sets"} data={dataSetReportingRatesArray} />:""}*/}
                 </DataTableCell>
              </>
 }
