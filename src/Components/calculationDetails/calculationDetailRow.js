@@ -5,9 +5,10 @@ import {useSetRecoilState} from "recoil";
 import {  dataElementsStateDictionary,    dataSetReportingRatesStateDictionary,    programIndicatorStateDictionary} from "../../store";
 import DisplaySource from "./DisplaySource";
 import {
+    getDetailedValueFromApi,
     getFinalWordFormula,
     getFormulaSources,
-    getValueFromApi
+    getSummaryValueFromApi
 } from "../../utils/Functions/FormulaFunctions";
 import {dataTypes} from "../../utils/Models";
 
@@ -60,17 +61,19 @@ function CalculationDetailRow(props){
         let allPromises=[];
         let i=0
         for(i=0;i<arr.length;i++){
-            let proms=getValueFromApi(engine,arr[i],type)
+            let proms=getDetailedValueFromApi(engine,arr[i],type)
             allPromises.push(proms)
         }
         i=0
        await Promise.all(allPromises).then(value => {
            if(type===dataTypes.DATA_ELEMENT){
+
                value.map((val)=>{ //We always return array just for uniformity
-                   if(val.length>1){ //array of two elements first element is dataElement second element of array is category option combo
-                       wordDtEl.push({"id":arr[i],"val":val[0]+" "+val[1],"location":loc})
-                   }else{   //this is array of one element for data element that are just pure no category options
-                       wordDtEl.push({"id":arr[i],"val":val[0],"location":loc})
+                   if(val.length===2){ //array of two elements first element is dataElement second element of array is category option combo
+                       wordDtEl.push({id:arr[i],val:val[0].displayName+" "+val[1],location:loc,sources:val[0].dataSetElements})
+                   }if(val.length===1){   //this is array of one element for data element that are just pure no category options
+
+                       wordDtEl.push({id:arr[i],val:val[0].displayName,"location":loc,sources:val[0].dataSetElements})
                    }
                    ++i;
                })
@@ -109,14 +112,15 @@ function CalculationDetailRow(props){
         })
     }
 
+
     return      <>
                 <DataTableCell  bordered>
                     {getFinalWordFormula(formula,dataElementsArray,programIndicatorArray,dataSetReportingRatesArray,[],[])}
                 </DataTableCell>
                 <DataTableCell  bordered>
                     {dataElementsArray.length>0? <DisplaySource title={"Data Elements"} data={dataElementsArray} /> :""}
-                    {dataElementsArray.length>0?  <DisplaySource title={"Program Indicators"} data={programIndicatorArray} />:""}
-                    {dataSetReportingRatesArray.length>0?  <DisplaySource title={"Data Sets"} data={dataSetReportingRatesArray} />:""}
+                    {/*{programIndicatorArray.length>0?  <DisplaySource title={"Program Indicators"} data={programIndicatorArray} />:""}*/}
+                    {/*{dataSetReportingRatesArray.length>0?  <DisplaySource title={"Data Sets"} data={dataSetReportingRatesArray} />:""}*/}
                 </DataTableCell>
              </>
 }

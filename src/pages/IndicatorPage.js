@@ -14,9 +14,12 @@ import DatasetsReportingRates from "../Components/DataSetReportingRate";
 
 
 
-export default function IndicatorPage(){
+export default function IndicatorPage(props){
 
-    const { id } = useParams()
+    // const { id } = useParams()
+
+    const id=props.id
+
 
 
     return (<div style={{display:"flex",flexDirection:"column"}}>

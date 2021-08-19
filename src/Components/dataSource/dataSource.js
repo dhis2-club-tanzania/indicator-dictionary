@@ -1,8 +1,8 @@
 
 import { CircularLoader } from '@dhis2/ui'
 import { useDataQuery } from '@dhis2/app-runtime'
+import { useEffect} from 'react'
 
-   
 const query = {
     sources:{
       resource:"indicators",
@@ -14,11 +14,13 @@ const query = {
     } 
   }
   
-  
     function DataSource({id}){
 
 
-        const {loading, error, data}   = useDataQuery(query, {variables: {id}})
+        const {loading, error, data,refetch}  = useDataQuery(query, {variables: {id}})
+
+        useEffect(()=>{refetch({id})},[id])
+
 
         if(loading){
           return <CircularLoader />
@@ -27,9 +29,6 @@ const query = {
        if(error){
           return <p> {error} </p> 
        }  
-      
-      
-    //    console.log(data.sources)  
       
 
         return (<div>
@@ -42,7 +41,7 @@ const query = {
                
             <ul>
             {data.sources.dataSets.map((dataSet)=>{
-                return <li key={dataSet.id}><b>{dataSet.displayName}</b> submitting {dataSet.periodType} after every {dataSet.timelyDays}</li>
+                return <li key={dataSet.id}><b>{dataSet.displayName}</b> submitting {dataSet.periodType} after every {dataSet.timelyDays} days</li>
             })}
             </ul>
             

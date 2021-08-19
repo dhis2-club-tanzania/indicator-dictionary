@@ -6,7 +6,7 @@ import classes from './App.module.css'
 
 import { Route,Switch, HashRouter } from 'react-router-dom';
 import HomePage from './pages/home';
-import IndicatorPage from './pages/indicator';
+import IndicatorPage from './pages/IndicatorPage';
 import Layout from './layouts/layout';
 
 import {RecoilRoot} from "recoil";

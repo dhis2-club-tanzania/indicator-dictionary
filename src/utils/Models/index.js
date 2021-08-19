@@ -10,6 +10,11 @@ export const dataTypes={
     UNDEFINED:'undefined'
 }
 
+export const dataSourceTypes={
+    INDICATOR: 0,
+    DATA_ELEMENT: 1
+}
+
 //structure of dataElemet in store is
 // [
 //     {

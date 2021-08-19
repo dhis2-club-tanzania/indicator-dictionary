@@ -5,7 +5,7 @@ const query1={
         resource:"identifiableObjects",
         id: ({id})=>id,
         params:{
-            fields:["id","displayName"]
+            fields:["id","displayName","href"]
         }
     }
 }
@@ -15,17 +15,43 @@ const query2={
         resource:"identifiableObjects",
         id: ({id})=>id,
         params:{
-            fields:["id","displayName"]
+            fields:["id","displayName","href"]
         }
     },
     identifiableObjects2:{
         resource:"identifiableObjects",
         id: ({id2})=>id2,
         params:{
+            fields:["id","displayName","href"]
+        }
+    }
+}
+const query3={
+    dataElementSource:{
+        resource:"dataElements",
+        id: ({id})=>id,
+        params:{
+            fields:["id","displayName","dataSetElements[dataSet[id,displayName]]"]
+        }
+    }
+}
+const query4={
+    dataElementSource:{
+        resource:"dataElements",
+        id: ({id})=>id,
+        params:{
+            fields:["id","displayName","dataSetElements[dataSet[id,displayName]]"]
+        }
+    },
+    identifiableObjects:{
+        resource:"identifiableObjects",
+        id: ({idCombo})=>idCombo,
+        params:{
             fields:["id","displayName"]
         }
     }
 }
+
 
 
 export function getFormulaSources(formula,sourceInitial){
@@ -74,6 +100,19 @@ async function getValueIdentifiableObjects(engine,id){
     return [data?.identifiableObjects?.displayName]
 }
 
+async function getValueDataElementSource(engine,id){
+    const data=await engine.query(query3,{variables:{id}})
+    return [data?.dataElementSource]
+}
+async function getValueDataElementSourceWithCombo(engine,id,idCombo){
+   const data=await engine.query(query4,{variables:{id,idCombo}})
+    return [data?.dataElementSource, data?.identifiableObjects.displayName]
+}
+
+async function getValueDataSource(engine,id){
+    const data=await engine.query(query1,{variables:{id}})
+    return [data?.identifiableObjects]
+}
 
 export function getFormulaInWordsFromFullSources(formula,arrOfSources) {
 
@@ -121,8 +160,7 @@ export function getFinalWordFormula(formula,dataElementsArray,programIndicatorAr
     return cleanBrackets(final)
 }
 
-export function getValueFromApi(engine,id){
-
+export function getSummaryValueFromApi(engine, id){
     if(isPureDataElement(id)){
         //fetch value normally
         return new Promise((resolve, reject) => {
@@ -135,54 +173,39 @@ export function getValueFromApi(engine,id){
             resolve(getValueIdentifiableObjects2(engine,arr[0], arr[1]));
         }))
     }
+}
+export function getDetailedValueFromApi(engine,id,type){
+    if(type===dataTypes.DATA_ELEMENT){
+        if(isPureDataElement(id)){
+            //fetch value normally
+            return new Promise((resolve, reject) => {
+                resolve(getValueDataElementSource(engine,id))
+            })
+        }else{
+            //break to array and just take first element
+            return new Promise(((resolve, reject) => {
+                let arr = id.split(".")
+                resolve(getValueDataElementSourceWithCombo(engine,arr[0], arr[1]));
+            }))
+        }
+    }
+    else{
+        return new Promise((resolve, reject) => {
+            resolve(getValueIdentifiableObjects(engine,id))
+        })
+    }
 
-    // if(type===0){ //dataElement
-    //     if(isPureDataElement(id)){
-    //         //fetch value normally
-    //         return new Promise((resolve, reject) => {
-    //             resolve(getValueDataElementOnly(engine,id))
-    //         })
-    //     }else{
-    //         //break to array and just take first element
-    //         return new Promise(((resolve, reject) => {
-    //             let arr = id.split(".")
-    //             resolve(getValueDataElementOptionCombo(engine,arr[0], arr[1]));
-    //         }))
-    //     }
-    // }
-    // if(type===1){//programIndicator
-    //     return new Promise((resolve, reject) => {
-    //         resolve(getValueProgramIndicator(engine,id))
-    //     })
-    // }
-    // if(type===2){
-    //     return new Promise((resolve, reject) => {
-    //         resolve(getValueDataSetReportingRates(engine,id))
-    //     })
-    // }
-    // if(type===3){
-    //     return new Promise((resolve, reject) => {
-    //         resolve(getValueAttribute(engine,id))
-    //     })
-    // }
-    // if(type===4){//for identifiable objects
-    //     if(isPureDataElement(id)){
-    //         //fetch value normally
-    //         return new Promise((resolve, reject) => {
-    //             resolve(getValueIdentifiableObjects(engine,id))
-    //         })
-    //     }else{
-    //         //break to array and just take first element
-    //         return new Promise(((resolve, reject) => {
-    //             let arr = id.split(".")
-    //             resolve(getValueIdentifiableObjects2(engine,arr[0], arr[1]));
-    //         }))
-    //     }
-    //
-    // }
+
 }
 
- function cleanBrackets(formula){
+export function getValueDataSourcePromise(engine,id){
+    return new Promise((resolve, reject) => {
+        resolve(getValueDataSource(engine,id))
+    })
+}
+
+
+function cleanBrackets(formula){
     if(typeof(formula) !=dataTypes.UNDEFINED){
         let arr= formula.split("{");
         arr=arr.join("")
@@ -191,6 +214,7 @@ export function getValueFromApi(engine,id){
         arr=arr.join(" ")
         return arr
     }
+    return formula
 
 }
 

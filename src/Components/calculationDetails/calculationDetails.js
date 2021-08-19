@@ -4,6 +4,7 @@ import {
 import { CircularLoader } from '@dhis2/ui'
 import { useDataQuery } from '@dhis2/app-runtime'
 import CalculationDetailRow from './calculationDetailRow'
+import { useEffect} from 'react'
 
 const query = {
     calculation:{
@@ -18,7 +19,9 @@ const query = {
 
 function CalculationDetails({id}){
 
-const {loading, error, data}   = useDataQuery(query, {variables: {id}})
+    const {loading, error, data,refetch}  = useDataQuery(query, {variables: {id}})
+
+    useEffect(()=>{refetch({id})},[id])
 
 if(loading){
     return <CircularLoader />
@@ -56,6 +59,7 @@ if(loading){
                Numerator
             </DataTableCell  >
             <CalculationDetailRow formula={numDen.numerator} location="numerator" />
+            {/*<CalculationDetailRow formula={"#{RF4VFVGdFRO.jOkIbJVhECg}"} location="numerator" />*/}
 
         </DataTableRow>
         <DataTableRow>

@@ -3,7 +3,7 @@ import {useDataEngine, useDataQuery} from "@dhis2/app-runtime";
 import {
     getFinalWordFormula,
     getFormulaSources,
-    getValueFromApi
+    getSummaryValueFromApi
 } from "../../utils/Functions/FormulaFunctions";
 import {useEffect, useState} from "react";
 import {dataTypes} from "../../utils/Models";
@@ -80,7 +80,7 @@ export default function Row(props){
         let i=0
         for(i=0;i<arr.length;i++){
             //reverse the element since here, for dataElement it goes as programStage, then
-            let proms=getValueFromApi(engine,arr[i])
+            let proms=getSummaryValueFromApi(engine,arr[i])
             allPromises.push(proms)
         }
         i=0

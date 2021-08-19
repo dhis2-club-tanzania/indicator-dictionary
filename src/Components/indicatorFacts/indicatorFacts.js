@@ -13,7 +13,7 @@ import {
 import IndicatorGroupRow from './indicatorGroupRow'
 import { CircularLoader } from '@dhis2/ui'
 import { useDataQuery } from '@dhis2/app-runtime'
-
+import { useEffect} from 'react'
 const query =  {
     indicatorGroups:{
       resource:"indicators",
@@ -25,8 +25,10 @@ const query =  {
   }
 
 function IndicatorFacts({id}){
-     
-    const {loading, error, data}   = useDataQuery(query, {variables: {id}})
+
+    const {loading, error, data,refetch}  = useDataQuery(query, {variables: {id}})
+
+    useEffect(()=>{refetch({id})},[id])
 
     if(loading){
         return <CircularLoader />
@@ -38,7 +40,7 @@ function IndicatorFacts({id}){
 
 
      if(data.indicatorGroups.indicatorGroups){
-         return <p>No indicator facts</p>
+         return <p>There are no indicator facts associated with this indicator</p>
      }
  
      let count=0
