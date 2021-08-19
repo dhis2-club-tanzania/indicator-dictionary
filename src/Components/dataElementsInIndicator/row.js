@@ -58,7 +58,7 @@ function Row(props){
                     {typeof data !=='undefined'? data.valueType :"some value" }
                 </DataTableCell>
                 
-               
+
                 <DataTableCell bordered>
                     {typeof data !=='undefined'? JSON.stringify(data.zeroIsSignificant) :null}
                 </DataTableCell>

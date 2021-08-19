@@ -3,8 +3,9 @@ import { useDataQuery } from '@dhis2/app-runtime'
 
 import { useHistory } from "react-router-dom";
 
-import { useContext,useEffect } from "react";
-import DataElementContext from '../store/dataElementContext';
+
+import {useSetRecoilState} from "recoil";
+import {dataElementsStateDictionary, programIndicatorStateDictionary} from "../store";
 
 
 const query = {
@@ -21,13 +22,14 @@ function HomePage(){
    const history = useHistory();
 
     const {loading, error, data}   = useDataQuery(query)
-
-    const dataElements=useContext(DataElementContext)
-
-
+    const updateDataElementHandler=useSetRecoilState(dataElementsStateDictionary)
+    const updateProgramIndicatorHandler= useSetRecoilState(programIndicatorStateDictionary)
+    const updateDataSetReportingRatesHandler= useSetRecoilState(programIndicatorStateDictionary)
 
     function navigateToIndicatorHandler(id){
-        dataElements.clearDataElement()
+        updateDataElementHandler([])
+        updateProgramIndicatorHandler([])
+        updateDataSetReportingRatesHandler([])
         history.push("/indicator/"+id);
     }
 
@@ -41,7 +43,7 @@ function HomePage(){
     }
 
     return(<div>
-     
+
        
         <p> <b>Select an Indicator for details </b></p>  
       

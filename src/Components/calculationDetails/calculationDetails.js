@@ -18,9 +18,6 @@ const query = {
 
 function CalculationDetails({id}){
 
- 
-  
-
 const {loading, error, data}   = useDataQuery(query, {variables: {id}})
 
 if(loading){
@@ -59,7 +56,7 @@ if(loading){
                Numerator
             </DataTableCell  >
             <CalculationDetailRow formula={numDen.numerator} location="numerator" />
-           
+
         </DataTableRow>
         <DataTableRow>
             <DataTableCell bordered >

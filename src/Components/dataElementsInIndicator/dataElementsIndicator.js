@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import {useContext} from "react";
 import {
     DataTable,
     DataTableToolbar,
@@ -8,56 +8,58 @@ import {
     TableBody,
     DataTableFoot,
     DataTableRow,
-    DataTableCell,
     DataTableColumnHeader,
 } from '@dhis2/ui'
-import DataElementContext from '../../store/dataElementContext'
+
 import Row from './row'
 
-function DataElementSIndicator(){
+import {selector, useRecoilValue} from "recoil";
+import {dataElementsStateDictionary} from "../../store";
 
-    const dataElements=useContext(DataElementContext)
-    
+function DataElementSIndicator() {
 
+    const dataElements = useRecoilValue(dataElementsStateDictionary)
+
+    let i = 0
     return (<div>
-       <h3> Data elements in indicator </h3>
+        <h3> Data elements in indicator </h3>
         <p> The following is the summary of the data elements used in calculations:</p>
-        
+
         <DataTable>
             <TableHead>
                 <DataTableRow>
                     <DataTableColumnHeader bordered>
-                    Data Element
+                        Data Element
                     </DataTableColumnHeader>
                     <DataTableColumnHeader bordered>
-                    Expression part (Numerator/ Denominator)
+                        Expression part (Numerator/ Denominator)
                     </DataTableColumnHeader>
                     <DataTableColumnHeader>
-                    Value Type
+                        Value Type
                     </DataTableColumnHeader>
                     <DataTableColumnHeader>
-                    Zero Significance
+                        Zero Significance
                     </DataTableColumnHeader>
                     <DataTableColumnHeader>
-                    Categories
+                        Categories
                     </DataTableColumnHeader>
                     <DataTableColumnHeader>
-                    Datasets/ Programs
+                        Datasets/ Programs
                     </DataTableColumnHeader>
                     <DataTableColumnHeader>
-                    Groups
-                    </DataTableColumnHeader>          
-                
+                        Groups
+                    </DataTableColumnHeader>
+
                 </DataTableRow>
             </TableHead>
             <TableBody>
-                {dataElements.dataElements.map((dtEle)=>{
-                    console.log(dtEle.id)
-                    return <Row key={dtEle.id} datEl={dtEle} />
+                {dataElements.map((dtEle) => {
+                    i++
+                    return <Row key={i} datEl={dtEle}/>
                 })}
             </TableBody>
-            
-        </DataTable>  
+
+        </DataTable>
 
 
     </div>)

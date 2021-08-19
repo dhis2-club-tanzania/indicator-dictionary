@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="indicator-dictionary-1.0.0">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/build/bundle/indicator-dictionary-1.0.0.zip!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

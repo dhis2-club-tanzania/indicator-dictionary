@@ -1,46 +1,42 @@
 import { useParams,useHistory } from 'react-router-dom'
-import CalculationDetails from '../components/calculationDetails/calculationDetails'
+import CalculationDetails from '../Components/calculationDetails/calculationDetails'
 
-import CompletenessDataSources from '../components/completenessDataSources'
-import DataElementSIndicator from '../components/dataElementsInIndicator/dataElementsIndicator'
+import CompletenessDataSources from '../Components/completenessDataSources'
+import DataElementSIndicator from '../Components/dataElementsInIndicator/dataElementsIndicator'
 
-import DatasetsReportingRates from '../components/datasetsReportingRates'
-import DataSource from '../components/dataSource/dataSource'
+import DataSource from '../Components/dataSource/dataSource'
 
-import IndicatorFacts from '../components/indicatorFacts/indicatorFacts'
-import Introduction from '../components/introduction/introduction'
-import LegendsAnalysis from '../components/legendsAnalysis/legendsAnalysis'
-import ProgramIndicatorIndicator from '../components/programIndicatorIndicator'
+import IndicatorFacts from '../Components/indicatorFacts/indicatorFacts'
+import Introduction from '../Components/introduction/introduction'
+import LegendsAnalysis from '../Components/legendsAnalysis/legendsAnalysis'
+import ProgramIndicatorIndicator from "../Components/ProgramIndicator";
+import DatasetsReportingRates from "../Components/DataSetReportingRate";
 
 
-function IndicatiorPage(){
+
+export default function IndicatorPage(){
 
     const { id } = useParams()
 
-  
-   
-    return (<div>
-       <Introduction id={id} />
-       <p></p> 
-       <DataSource id={id} />
-       <p></p> 
-       <IndicatorFacts id={id} /> 
-       <p></p> 
-       <LegendsAnalysis id={id} />
-       <p></p> 
-       <CalculationDetails id={id} />
-       <p></p>
-       <DataElementSIndicator />
-       <p></p>
-       <ProgramIndicatorIndicator    />
-        <p></p>
-        <DatasetsReportingRates />
-        <p></p>
-        
-        <CompletenessDataSources />
-        <p></p>
 
-        <p></p>
+    return (<div style={{display:"flex",flexDirection:"column"}}>
+       <Introduction id={id} />
+
+       <DataSource id={id} />
+
+       <IndicatorFacts id={id} />
+
+       <LegendsAnalysis id={id} />
+
+       <CalculationDetails id={id} />
+
+       <DataElementSIndicator />
+
+       <ProgramIndicatorIndicator    />
+
+        <DatasetsReportingRates />
+
+        <CompletenessDataSources />
 
        </div>)
 
@@ -49,4 +45,4 @@ function IndicatiorPage(){
 }
 
 
-export default IndicatiorPage;
+ 
