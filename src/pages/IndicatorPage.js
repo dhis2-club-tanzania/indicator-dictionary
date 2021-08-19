@@ -25,21 +25,21 @@ export default function IndicatorPage(props){
     return (<div style={{display:"flex",flexDirection:"column"}}>
        <Introduction id={id} />
 
-       {/*<DataSource id={id} />*/}
+       <DataSource id={id} />
 
-       {/*<IndicatorFacts id={id} />*/}
+       <IndicatorFacts id={id} />
 
-       {/*<LegendsAnalysis id={id} />*/}
+       <LegendsAnalysis id={id} />
 
-       {/*<CalculationDetails id={id} />*/}
+       <CalculationDetails id={id} />
 
-       {/*<DataElementSIndicator />*/}
+       <DataElementSIndicator />
 
-       {/*<ProgramIndicatorIndicator    />*/}
+       <ProgramIndicatorIndicator    />
 
-       {/* <DatasetsReportingRates />*/}
+        <DatasetsReportingRates />
 
-       {/* <CompletenessDataSources />*/}
+        <CompletenessDataSources />
 
        </div>)
 

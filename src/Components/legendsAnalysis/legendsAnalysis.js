@@ -1,6 +1,7 @@
 import { CircularLoader } from '@dhis2/ui'
 import { useDataQuery } from '@dhis2/app-runtime'
 import Legend from './legend'
+import { useEffect} from 'react'
 
 const query =    {
   legendAnalysis:{
@@ -15,9 +16,11 @@ const query =    {
 
 function LegendsAnalysis({id}){
 
-      const {loading, error, data}   = useDataQuery(query, {variables: {id}})
+    const {loading, error, data,refetch}  = useDataQuery(query, {variables: {id}})
 
-      if(loading){
+    useEffect(()=>{refetch({id})},[id])
+
+    if(loading){
         return <CircularLoader />
      }
  
