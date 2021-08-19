@@ -5,7 +5,7 @@ const query1={
         resource:"identifiableObjects",
         id: ({id})=>id,
         params:{
-            fields:["id","displayName"]
+            fields:["id","displayName","href"]
         }
     }
 }
@@ -15,14 +15,14 @@ const query2={
         resource:"identifiableObjects",
         id: ({id})=>id,
         params:{
-            fields:["id","displayName"]
+            fields:["id","displayName","href"]
         }
     },
     identifiableObjects2:{
         resource:"identifiableObjects",
         id: ({id2})=>id2,
         params:{
-            fields:["id","displayName"]
+            fields:["id","displayName","href"]
         }
     }
 }
@@ -74,6 +74,10 @@ async function getValueIdentifiableObjects(engine,id){
     return [data?.identifiableObjects?.displayName]
 }
 
+async function getValueDataSource(engine,id){
+    const data=await engine.query(query1,{variables:{id}})
+    return [data?.identifiableObjects]
+}
 
 export function getFormulaInWordsFromFullSources(formula,arrOfSources) {
 
@@ -136,51 +140,15 @@ export function getValueFromApi(engine,id){
         }))
     }
 
-    // if(type===0){ //dataElement
-    //     if(isPureDataElement(id)){
-    //         //fetch value normally
-    //         return new Promise((resolve, reject) => {
-    //             resolve(getValueDataElementOnly(engine,id))
-    //         })
-    //     }else{
-    //         //break to array and just take first element
-    //         return new Promise(((resolve, reject) => {
-    //             let arr = id.split(".")
-    //             resolve(getValueDataElementOptionCombo(engine,arr[0], arr[1]));
-    //         }))
-    //     }
-    // }
-    // if(type===1){//programIndicator
-    //     return new Promise((resolve, reject) => {
-    //         resolve(getValueProgramIndicator(engine,id))
-    //     })
-    // }
-    // if(type===2){
-    //     return new Promise((resolve, reject) => {
-    //         resolve(getValueDataSetReportingRates(engine,id))
-    //     })
-    // }
-    // if(type===3){
-    //     return new Promise((resolve, reject) => {
-    //         resolve(getValueAttribute(engine,id))
-    //     })
-    // }
-    // if(type===4){//for identifiable objects
-    //     if(isPureDataElement(id)){
-    //         //fetch value normally
-    //         return new Promise((resolve, reject) => {
-    //             resolve(getValueIdentifiableObjects(engine,id))
-    //         })
-    //     }else{
-    //         //break to array and just take first element
-    //         return new Promise(((resolve, reject) => {
-    //             let arr = id.split(".")
-    //             resolve(getValueIdentifiableObjects2(engine,arr[0], arr[1]));
-    //         }))
-    //     }
-    //
-    // }
+
 }
+
+export function getValueDataSourcePromise(engine,id){
+    return new Promise((resolve, reject) => {
+        resolve(getValueDataSource(engine,id))
+    })
+}
+
 
  function cleanBrackets(formula){
     if(typeof(formula) !=dataTypes.UNDEFINED){
