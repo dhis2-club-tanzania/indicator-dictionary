@@ -1,8 +1,8 @@
-import CalculationDetails from "./calculationDetails";
+import CalculationDetails from "../../../Index";
 import PropTypes from "prop-types";
 
 
-export default function DisplaySource (props){
+export default function DisplaySourceDataElement (props){
 
     const title=props.title;
     const data=props.data;
@@ -29,6 +29,6 @@ export default function DisplaySource (props){
 }
 
 
-DisplaySource.prototype={
+DisplaySourceDataElement.prototype={
     id:PropTypes.string.isRequired
 }

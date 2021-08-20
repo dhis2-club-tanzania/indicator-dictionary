@@ -1,5 +1,5 @@
 import { useParams,useHistory } from 'react-router-dom'
-import CalculationDetails from './Components/calculationDetails/calculationDetails'
+import CalculationDetails from './Components/calculationDetails/Index'
 
 import CompletenessDataSources from './Components/CompletenessDataSource/completenessDataSources'
 import DataElementSIndicator from './Components/dataElementsInIndicator/dataElementsIndicator'

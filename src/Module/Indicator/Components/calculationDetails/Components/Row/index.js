@@ -2,17 +2,20 @@ import {CircularLoader, DataTableCell,} from '@dhis2/ui'
 import {useDataEngine, useDataQuery} from '@dhis2/app-runtime'
 import {useEffect, useState} from "react";
 import {useSetRecoilState} from "recoil";
-import {  dataElementsStateDictionary,    dataSetReportingRatesStateDictionary,    programIndicatorStateDictionary} from "../../../../Store";
-import DisplaySource from "./DisplaySource";
+import {  dataElementsStateDictionary,    dataSetReportingRatesStateDictionary,    programIndicatorStateDictionary} from "../../../../../../Store";
+import DisplaySource from "./Components/DisplaySourceDataElement";
 import {
     getDetailedValueFromApi,
     getFinalWordFormula,
     getFormulaSources,
     getSummaryValueFromApi
-} from "../../../../Utils/Functions/FormulaFunctions";
-import {dataTypes} from "../../../../Utils/Models";
-import CalculationDetails from "./calculationDetails";
+} from "../../../../../../Utils/Functions/FormulaFunctions";
+import {dataTypes} from "../../../../../../Utils/Models";
+import CalculationDetails from "../../Index";
 import PropTypes from "prop-types";
+import DisplaySourceDataElement from "./Components/DisplaySourceDataElement";
+import DisplaySourceProgramIndicator from "./Components/DisplaySourceProgramIndicator";
+import DisplaySourceDataSet from "./Components/DisplaySourceDataSet";
 
 
 export default function CalculationDetailRow(props){
@@ -82,7 +85,7 @@ export default function CalculationDetailRow(props){
            }
            if(type===dataTypes.PROGRAM_INDICATOR){
                value.map((val)=>{ //We always return array just for uniformity
-                   programInd.push({"id":arr[i],"val":val[0],"location":loc})
+                   programInd.push({"id":arr[i],"val":val[0].displayName,"location":loc,sources:val[0].program})
                    ++i;
                })
            }
@@ -119,9 +122,9 @@ export default function CalculationDetailRow(props){
                     {getFinalWordFormula(formula,dataElementsArray,programIndicatorArray,dataSetReportingRatesArray,[],[])}
                 </DataTableCell>
                 <DataTableCell  bordered>
-                    {dataElementsArray.length>0? <DisplaySource title={"Data Elements"} data={dataElementsArray} /> :""}
-                    {/*{programIndicatorArray.length>0?  <DisplaySource title={"Program Indicators"} data={programIndicatorArray} />:""}*/}
-                    {/*{dataSetReportingRatesArray.length>0?  <DisplaySource title={"Data Sets"} data={dataSetReportingRatesArray} />:""}*/}
+                    {dataElementsArray.length>0? <DisplaySourceDataElement title={"Data Elements"} data={dataElementsArray} /> :""}
+                    {programIndicatorArray.length>0?  <DisplaySourceProgramIndicator title={"Program Indicators"} data={programIndicatorArray} />:""}
+                    {dataSetReportingRatesArray.length>0?  <DisplaySourceDataSet title={"Data Sets"} data={dataSetReportingRatesArray} />:""}
                 </DataTableCell>
              </>
 }
