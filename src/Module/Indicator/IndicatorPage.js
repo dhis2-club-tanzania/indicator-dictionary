@@ -4,7 +4,7 @@ import CalculationDetails from './Components/calculationDetails/Index'
 import CompletenessDataSources from './Components/CompletenessDataSource/completenessDataSources'
 import DataElementSIndicator from './Components/dataElementsInIndicator/dataElementsIndicator'
 
-import DataSource from './Components/dataSource/dataSource'
+import DataSource from './Components/DataSource/dataSource'
 
 import IndicatorFacts from './Components/indicatorFacts/indicatorFacts'
 import Introduction from './Components/introduction/introduction'

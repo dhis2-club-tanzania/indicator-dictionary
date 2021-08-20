@@ -10,9 +10,9 @@ export default function IndicatorGroupRow(props){
  function dispList(list){
      let items;
     if(isListFull){ 
-        items= list.map((ind)=>{
-            return(<li key={ind.id} className={classes.indicatorRowLink} onClick={()=>navigateToIndicatorHandler(ind.id)}> 
-                     {ind.displayName}
+        items= list?.map((ind)=>{
+            return(<li key={ind.id} className={classes.indicatorRowLink} onClick={()=>navigateToIndicatorHandler(ind?.id)}>
+                     {ind?.displayName}
                    </li>)
             }
             )
@@ -20,8 +20,8 @@ export default function IndicatorGroupRow(props){
     }else{
      list=list.slice(0,3);  //just first three
      items= list.map((ind)=>{
-          return(<li  key={ind.id} className={classes.indicatorRowLink} onClick={()=>navigateToIndicatorHandler(ind.id)}> 
-                   {ind.displayName}
+          return(<li  key={ind?.id} className={classes.indicatorRowLink} onClick={()=>navigateToIndicatorHandler(ind?.id)}>
+                   {ind?.displayName}
                  </li>)
       })
     }
@@ -59,7 +59,7 @@ export default function IndicatorGroupRow(props){
         <DataTableCell bordered>
             <ol>
               
-                {dispList(props.indicators)}
+                {dispList(props?.indicators)}
                
             </ol>
            {props.indicators.length>3 ?

@@ -16,14 +16,14 @@ import classes from './table.module.css'
 
 export default function Legend(props){
 
-    const legendSet=props.legendSet
+    const legendSet=props?.legendSet
 
  
 
     return (
-        <li key={legendSet.id}>
+        <li key={legendSet?.id}>
              <p>
-                  {legendSet.displayName} spread accross {legendSet.legends.length} classes of for analysis
+                  {legendSet?.displayName} spread accross {legendSet?.legends?.length} classes of for analysis
           </p>
 
             <div>

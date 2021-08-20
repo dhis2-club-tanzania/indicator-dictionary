@@ -28,21 +28,21 @@ export default function LegendsAnalysis({id}){
         return <p> {error} </p> 
      }  
    
-     if(data.legendAnalysis.legendSets.length===0){
+     if(data?.legendAnalysis?.legendSets?.length===0){
        return <><p>There are no legends associated with these indicator</p></> //no legends sets
      }
 
-     const legendSet=data.legendAnalysis.legendSets
+     const legendSet=data?.legendAnalysis?.legendSets
 
      return (
        <div>
           <h3>Legends for analysis</h3>
           <p>
-              Uses {legendSet.length} legends for for analysis, spread accross multiple cut-off points of interest, existing legends are:
+              Uses {legendSet?.length} legends for for analysis, spread accross multiple cut-off points of interest, existing legends are:
           </p>
           <ul>
-            {legendSet.map((legendSet)=>{
-              return <Legend key={legendSet.id} legendSet={legendSet} />
+            {legendSet?.map((legendSet)=>{
+              return <Legend key={legendSet?.id} legendSet={legendSet} />
             })}
           </ul>
          

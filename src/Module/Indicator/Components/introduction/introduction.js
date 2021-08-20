@@ -37,32 +37,32 @@ export default function Introduction({id}){
         return <p> {error} </p>
      }
 
-     const indicatorDetails=data.indicatorsDetails;
+     const indicatorDetails=data?.indicatorsDetails;
     //  console.log(indicatorDetails)  //having trouble getting indicator description
       
     return ( <div>
       
-        <h2>{indicatorDetails.name} </h2>
+        <h2>{indicatorDetails?.name} </h2>
 
         <h3>Introduction</h3>
 
         <p>
-        <b>{indicatorDetails.name} </b>
+        <b>{indicatorDetails?.name} </b>
          is a
-         <b> {indicatorDetails.indicatorType.displayName} </b>
+         <b> {indicatorDetails?.indicatorType?.displayName} </b>
           indicator, measured by
-        <b> {indicatorDetails.numeratorDescription} </b>
-         to  <b> {indicatorDetails.denominatorDescription} </b>
+        <b> {indicatorDetails?.numeratorDescription} </b>
+         to  <b> {indicatorDetails?.denominatorDescription} </b>
          </p>
 
 
         <p>
 
-Its described as {indicatorDetails.displayDescription}
+Its described as {indicatorDetails?.displayDescription}
         </p>
 
         <p>
-             <span ><i onClick={()=>onClickIdentified(indicatorDetails.id)}> Identified by: <span className={classes.identifylink}> {indicatorDetails.id} </span> </i></span>
+             <span ><i onClick={()=>onClickIdentified(indicatorDetails?.id)}> Identified by: <span className={classes.identifylink}> {indicatorDetails?.id} </span> </i></span>
         </p>
 
 

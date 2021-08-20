@@ -1,4 +1,5 @@
 import Introduction from "./Components/introduction/introduction";
+import DataSource from "./Components/DataSource/dataSource";
 
 
 export default function DataElementPage(props){
@@ -7,6 +8,8 @@ export default function DataElementPage(props){
 
     return (<div style={{display:"flex",flexDirection:"column"}}>
         <Introduction id={id} />
+
+            {/*<DataSource />*/}
 
     </div>
     )
