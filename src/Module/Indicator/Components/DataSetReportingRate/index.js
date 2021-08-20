@@ -19,6 +19,16 @@ import Row from "./Row";
 export default function DatasetsReportingRates(){
 
     const dataSetReportingRates = useRecoilValue(dataSetReportingRatesStateDictionary)
+
+    if(dataSetReportingRates.length===0){
+        return (
+            <div>
+                <h3> Datasets (Reporting rates) in indicator</h3>
+                <p>There were no Datasets (Reporting rates) in the Indicator Calculations</p>
+            </div>
+        )
+    }
+
     let i=0
     return <div>
         <h3>Datasets (Reporting rates) in indicator</h3>

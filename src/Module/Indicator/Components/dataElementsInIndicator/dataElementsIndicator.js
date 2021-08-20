@@ -20,6 +20,15 @@ export default function DataElementSIndicator() {
 
     const dataElements = useRecoilValue(dataElementsStateDictionary)
 
+    if(dataElements.length===0){
+        return (
+            <div>
+                <h3> Data elements in indicator </h3>
+                <p>There were no Data Elements in the Indicator Calculations</p>
+            </div>
+        )
+    }
+
     let i = 0
     return (<div>
         <h3> Data elements in indicator </h3>

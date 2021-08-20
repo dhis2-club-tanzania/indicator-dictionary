@@ -11,6 +11,12 @@ import Introduction from './Components/introduction/introduction'
 import LegendsAnalysis from './Components/legendsAnalysis/legendsAnalysis'
 import ProgramIndicatorIndicator from "./Components/ProgramIndicator";
 import DatasetsReportingRates from "./Components/DataSetReportingRate";
+import {useSetRecoilState} from "recoil";
+import {
+    dataElementsStateDictionary,
+    dataSetReportingRatesStateDictionary,
+    programIndicatorStateDictionary
+} from "../../Store";
 
 
 
@@ -19,6 +25,10 @@ export default function IndicatorPage(props){
     // const { id } = useParams()
 
     const id=props.id
+
+    useSetRecoilState(dataElementsStateDictionary)([])
+useSetRecoilState(programIndicatorStateDictionary)([])
+useSetRecoilState(dataSetReportingRatesStateDictionary)([])
 
 
 

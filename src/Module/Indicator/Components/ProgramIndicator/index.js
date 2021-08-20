@@ -6,6 +6,19 @@ import {programIndicatorStateDictionary} from "../../../../Store";
 export default function ProgramIndicatorIndicator(){
 
     const programIndicators = useRecoilValue(programIndicatorStateDictionary)
+
+
+    if(programIndicators.length===0){
+        return (
+            <div>
+                <h3> Program Indicators in indicator </h3>
+                <p>There were no Program Indicators in the Indicator Calculations</p>
+            </div>
+        )
+    }
+
+
+
     let i=0
 
     return (<div>
