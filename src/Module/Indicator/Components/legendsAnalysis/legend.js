@@ -47,20 +47,20 @@ export default function Legend(props){
                     </TableHead>
                     <TableBody>
 
-                        {legendSet.legends.map((legend)=>{
+                        {legendSet?.legends.map((legend)=>{
                             return <DataTableRow key={legend.id}>
                                 <DataTableCell bordered>
-                                    {legend.displayName}
+                                    {legend?.displayName}
                                 </DataTableCell >
                                 <DataTableCell bordered>
-                                    {legend.endValue}
+                                    {legend?.endValue}
                                 </DataTableCell>
                                 <DataTableCell bordered>
-                                    {legend.startValue}
+                                    {legend?.startValue}
                                 </DataTableCell>
                                 <DataTableCell bordered >
                                     <div style={{
-                                        background: legend.color,
+                                        background: legend?.color,
                                         width:"inherit",
                                         height:50
                                     }}>
