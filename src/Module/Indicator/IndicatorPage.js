@@ -49,7 +49,7 @@ export default function IndicatorPage(props){
 
         <DatasetsReportingRates />
 
-        <CompletenessDataSources />
+        {/*<CompletenessDataSources />*/}
 
        </div>)
 }
