@@ -5,7 +5,7 @@ import { Chip } from '@dhis2/ui'
 
 import classes from './navigation.module.css'
 
-function Navigation(){
+export default function Navigation(){
 
     return(
         <div className={classes.navigationBar}>
@@ -26,5 +26,3 @@ function Navigation(){
     )
 }
 
-
-export default Navigation;

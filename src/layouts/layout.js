@@ -2,7 +2,7 @@ import Navigation from "./navigation";
 
 import classes from './layout.module.css'
 
-function Layout(props){
+export default function Layout(props){
     return <div>
         <Navigation />
 
@@ -12,5 +12,3 @@ function Layout(props){
     </div>
 }
 
-
-export default Layout
