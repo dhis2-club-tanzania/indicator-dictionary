@@ -4,18 +4,14 @@ import {useEffect, useState} from "react";
 import {useSetRecoilState} from "recoil";
 import {  dataElementsStateDictionary,    dataSetReportingRatesStateDictionary,    programIndicatorStateDictionary} from "../../../../../../Store";
 import DisplaySource from "./Components/DisplaySourceDataElement";
-import {
-    getDetailedValueFromApi,
-    getFinalWordFormula,
-    getFormulaSources,
-    getSummaryValueFromApi
-} from "../../../../../../Utils/Functions/FormulaFunctions";
+import {    getDetailedValueFromApi,    getFinalWordFormula,    getFormulaSources,    getSummaryValueFromApi} from "../../../../../../Utils/Functions/FormulaFunctions";
 import {dataTypes} from "../../../../../../Utils/Models";
 import CalculationDetails from "../../Index";
 import PropTypes from "prop-types";
 import DisplaySourceDataElement from "./Components/DisplaySourceDataElement";
 import DisplaySourceProgramIndicator from "./Components/DisplaySourceProgramIndicator";
 import DisplaySourceDataSet from "./Components/DisplaySourceDataSet";
+import classes from './Components/DataSourceCellStyle.module.css'
 
 
 export default function CalculationDetailRow(props){
@@ -118,13 +114,17 @@ export default function CalculationDetailRow(props){
     }
 
     return      <>
-                <DataTableCell  bordered>
+                <DataTableCell  bordered width={"50%"}>
+
                     {getFinalWordFormula(formula,dataElementsArray,programIndicatorArray,dataSetReportingRatesArray,[],[])}
                 </DataTableCell>
                 <DataTableCell  bordered>
-                    {dataElementsArray.length>0? <DisplaySourceDataElement title={"Data Elements"} data={dataElementsArray} /> :""}
-                    {programIndicatorArray.length>0?  <DisplaySourceProgramIndicator title={"Program Indicators"} data={programIndicatorArray} />:""}
-                    {dataSetReportingRatesArray.length>0?  <DisplaySourceDataSet title={"Data Sets"} data={dataSetReportingRatesArray} />:""}
+                    <div className={classes.sources} >
+                        {dataElementsArray.length>0? <DisplaySourceDataElement title={"Data Elements"} data={dataElementsArray} /> :""}
+                        {programIndicatorArray.length>0?  <DisplaySourceProgramIndicator title={"Program Indicators"} data={programIndicatorArray} />:""}
+                        {dataSetReportingRatesArray.length>0?  <DisplaySourceDataSet title={"Data Sets"} data={dataSetReportingRatesArray} />:""}
+                    </div>
+
                 </DataTableCell>
              </>
 }

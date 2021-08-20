@@ -43,13 +43,13 @@ if(loading){
    <DataTable>
     <TableHead>
         <DataTableRow>
-            <DataTableColumnHeader>
+            <DataTableColumnHeader bordered>
                 Expression
             </DataTableColumnHeader>
-            <DataTableColumnHeader>
+            <DataTableColumnHeader bordered>
                Formula
             </DataTableColumnHeader>
-            <DataTableColumnHeader>
+            <DataTableColumnHeader bordered>
              Sources
             </DataTableColumnHeader>
           
