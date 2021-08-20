@@ -52,6 +52,16 @@ const query4={
     }
 }
 
+const query5={
+    programIndicators:{
+        resource:"programIndicators",
+        id: ({id})=>id,
+        params:{
+            fields:["id","displayName","program[id,displayName]"]
+        }
+    }
+}
+
 
 
 export function getFormulaSources(formula,sourceInitial){
@@ -103,6 +113,11 @@ async function getValueIdentifiableObjects(engine,id){
 async function getValueDataElementSource(engine,id){
     const data=await engine.query(query3,{variables:{id}})
     return [data?.dataElementSource]
+}
+
+async function getValueProgramIndicator(engine,id){
+    const data=await engine.query(query5,{variables:{id}})
+    return [data?.programIndicators]
 }
 async function getValueDataElementSourceWithCombo(engine,id,idCombo){
    const data=await engine.query(query4,{variables:{id,idCombo}})
@@ -188,6 +203,11 @@ export function getDetailedValueFromApi(engine,id,type){
                 resolve(getValueDataElementSourceWithCombo(engine,arr[0], arr[1]));
             }))
         }
+    }
+    if(type===dataTypes.PROGRAM_INDICATOR){
+        return new Promise((resolve, reject) => {
+            resolve(getValueProgramIndicator(engine,id))
+        })
     }
     else{
         return new Promise((resolve, reject) => {

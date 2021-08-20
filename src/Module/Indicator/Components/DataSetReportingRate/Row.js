@@ -2,6 +2,7 @@
 
 import {DataTableRow, DataTableCell,CircularLoader} from '@dhis2/ui'
 import {useDataQuery} from "@dhis2/app-runtime";
+import classes from "../calculationDetails/Components/Row/Components/DataSourceCellStyle.module.css";
 
 
 const query={
@@ -40,7 +41,7 @@ export  default function Row(props){
                 {dataSet?.periodType}
             </DataTableCell  >
             <DataTableCell bordered >
-                <div style={{maxHeight:"80px", overflow:"auto" }}>
+                <div className={classes.sources}>
                     <ol>
                         {dataSet?.organisationUnits.map((org)=>{
                            return(<li key={org?.id}>
@@ -52,7 +53,7 @@ export  default function Row(props){
 
             </DataTableCell>
             <DataTableCell bordered>
-                <div style={{maxHeight:"80px", overflow:"auto" }}>
+                <div className={classes.sources}>
                     <ol>
                         {dataSet?.dataSetElements.map((dt)=>{
 
@@ -65,7 +66,7 @@ export  default function Row(props){
 
             </DataTableCell>
             <DataTableCell bordered>
-                <div style={{maxHeight:"80px", overflow:"auto" }}>
+                <div className={classes.sources}>
                     <ol>
                         {dataSet?.legendSets.map((leg)=>{
                             return (

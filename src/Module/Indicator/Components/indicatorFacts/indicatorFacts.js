@@ -41,7 +41,7 @@ export default function IndicatorFacts({id}){
      }  
 
 
-     if(data.indicatorGroups.indicatorGroups){
+     if(data?.indicatorGroups?.indicatorGroups){
          return <p>There are no indicator facts associated with this indicator</p>
      }
  
@@ -72,9 +72,9 @@ export default function IndicatorFacts({id}){
         </DataTableRow>
     </TableHead>
     <TableBody>
-        {data.indicatorGroups.indicatorGroups.map((group)=>{
+        {data?.indicatorGroups?.indicatorGroups?.map((group)=>{
             count++
-            return  (<IndicatorGroupRow key={group.id} no={count} name={group.displayName} code={group.id} indicators={group.indicators} />)
+            return  (<IndicatorGroupRow key={group?.id} no={count} name={group?.displayName} code={group?.id} indicators={group?.indicators} />)
         })}
         
         

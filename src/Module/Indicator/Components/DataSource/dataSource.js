@@ -31,9 +31,13 @@ export default  function DataSource({id}){
        if(error){
           return <p> {error} </p> 
        }  
-      
+
+       if(data?.sources?.dataSets.length===0){
+           return <div></div>
+       }
 
         return (<div>
+
            <h3>Data sources (Datasets/Programs)</h3> 
            <p>  
                 Indicator is captured from the following sources  
@@ -42,12 +46,13 @@ export default  function DataSource({id}){
             <h5>Datasets</h5>
                
             <ul>
-            {data.sources.dataSets.map((dataSet)=>{
-                return <li key={dataSet.id}><b>{dataSet.displayName}</b> submitting {dataSet.periodType} after every {dataSet.timelyDays} days</li>
+            {data?.sources?.dataSets.map((dataSet)=>{
+                return <li key={dataSet?.id}><b>{dataSet?.displayName}</b> submitting {dataSet?.periodType} after every {dataSet?.timelyDays} days</li>
             })}
             </ul>
             
-            <h5>Programs</h5>
+            {/*<h5>Programs</h5>*/}
+
         </div>)
 
     }

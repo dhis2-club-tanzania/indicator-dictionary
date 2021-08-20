@@ -3,7 +3,7 @@ import {
 } from '@dhis2/ui'
 import { CircularLoader } from '@dhis2/ui'
 import { useDataQuery } from '@dhis2/app-runtime'
-import CalculationDetailRow from './calculationDetailRow'
+import CalculationDetailRow from './Components/Row'
 import { useEffect} from 'react'
 import Introduction from "../introduction/introduction";
 import PropTypes from "prop-types";
@@ -43,13 +43,13 @@ if(loading){
    <DataTable>
     <TableHead>
         <DataTableRow>
-            <DataTableColumnHeader>
+            <DataTableColumnHeader bordered>
                 Expression
             </DataTableColumnHeader>
-            <DataTableColumnHeader>
+            <DataTableColumnHeader bordered>
                Formula
             </DataTableColumnHeader>
-            <DataTableColumnHeader>
+            <DataTableColumnHeader bordered>
              Sources
             </DataTableColumnHeader>
           

@@ -16,14 +16,14 @@ import classes from './table.module.css'
 
 export default function Legend(props){
 
-    const legendSet=props.legendSet
+    const legendSet=props?.legendSet
 
  
 
     return (
-        <li key={legendSet.id}>
+        <li key={legendSet?.id}>
              <p>
-                  {legendSet.displayName} spread accross {legendSet.legends.length} classes of for analysis
+                  {legendSet?.displayName} spread accross {legendSet?.legends?.length} classes of for analysis
           </p>
 
             <div>
@@ -47,20 +47,20 @@ export default function Legend(props){
                     </TableHead>
                     <TableBody>
 
-                        {legendSet.legends.map((legend)=>{
+                        {legendSet?.legends.map((legend)=>{
                             return <DataTableRow key={legend.id}>
                                 <DataTableCell bordered>
-                                    {legend.displayName}
+                                    {legend?.displayName}
                                 </DataTableCell >
                                 <DataTableCell bordered>
-                                    {legend.endValue}
+                                    {legend?.endValue}
                                 </DataTableCell>
                                 <DataTableCell bordered>
-                                    {legend.startValue}
+                                    {legend?.startValue}
                                 </DataTableCell>
                                 <DataTableCell bordered >
                                     <div style={{
-                                        background: legend.color,
+                                        background: legend?.color,
                                         width:"inherit",
                                         height:50
                                     }}>
