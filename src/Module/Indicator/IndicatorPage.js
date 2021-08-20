@@ -27,8 +27,8 @@ export default function IndicatorPage(props){
     const id=props.id
 
     useSetRecoilState(dataElementsStateDictionary)([])
-useSetRecoilState(programIndicatorStateDictionary)([])
-useSetRecoilState(dataSetReportingRatesStateDictionary)([])
+    useSetRecoilState(programIndicatorStateDictionary)([])
+    useSetRecoilState(dataSetReportingRatesStateDictionary)([])
 
 
 

@@ -9,7 +9,6 @@ export default function DataSourceSelector(props){
     const id=props.id;
 
     if(type===dataSourceTypes.INDICATOR){
-
         return  <IndicatorPage id={id} />
     }
     if(type===dataSourceTypes.DATA_ELEMENT){
