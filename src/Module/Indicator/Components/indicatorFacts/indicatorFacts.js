@@ -15,6 +15,7 @@ import { CircularLoader } from '@dhis2/ui'
 import { useDataQuery } from '@dhis2/app-runtime'
 import { useEffect} from 'react'
 import Introduction from "../introduction/introduction";
+import PropTypes from "prop-types";
 const query =  {
     indicatorGroups:{
       resource:"indicators",

@@ -1,7 +1,7 @@
 import { CircularLoader } from '@dhis2/ui'
 import { useDataQuery } from '@dhis2/app-runtime'
 import { useEffect} from 'react'
-
+import PropTypes from "prop-types";
 import classes from './introduction.module.css'
 
    
