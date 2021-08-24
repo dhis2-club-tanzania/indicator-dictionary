@@ -58,8 +58,13 @@ export default function OtherDetailTable(props){
                     <DataTableCell bordered tag="th">
                         Details
                     </DataTableCell>
-                    <DataTableCell bordered>
-                        {detail?.style?.color}
+                    <DataTableCell bordered >
+                        <div style={{
+                            background: detail?.style?.color,
+                            width:"inherit",
+                            height:50
+                        }}></div>
+
                     </DataTableCell>
                     <DataTableCell bordered>
                         {detail?.style?.icon}
