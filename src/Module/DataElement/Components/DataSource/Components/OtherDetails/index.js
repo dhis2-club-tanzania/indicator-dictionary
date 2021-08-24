@@ -1,8 +1,23 @@
 import { TableHead, TableBody,  DataTable,    DataTableRow,    DataTableCell,    DataTableColumnHeader,} from '@dhis2/ui'
 
+const query = {
+    orgUnitLevels: {
+        resource: 'organisationUnitLevels',
+        params: ({levels}) => ({
+            fields: [
+                'id', 'displayName'
+            ],
+            filter: levels?.map(level => (`level:eq: ${level}`)) ?? []
+        })
+    }
+}
+
+
 export default function OtherDetailTable(props){
 
-    const src=props?.res
+    const detail=props?.other
+
+    console.log(detail)
 
     return (
         <DataTable>
@@ -37,19 +52,24 @@ export default function OtherDetailTable(props){
                         Details
                     </DataTableCell>
                     <DataTableCell bordered>
-                        Color
+                        {detail?.style?.color}
                     </DataTableCell>
                     <DataTableCell bordered>
-                        Icon
+                        {detail?.style?.icon}
                     </DataTableCell>
                     <DataTableCell bordered>
-                        Option set
+                        {JSON.stringify(detail?.optionSetValue)}
                     </DataTableCell>
                     <DataTableCell bordered>
-                        Option set for Comments
+                        {detail?.commentOptionSet?.displayName}
                     </DataTableCell>
                     <DataTableCell bordered>
-                        Legends
+                        <ol>
+                            {detail?.legendSets?.map((legend)=>{
+                                return <li>{legend?.displayName}</li>
+                            })}
+                        </ol>
+
                     </DataTableCell>
                     <DataTableCell bordered>
                         Aggregation Levels

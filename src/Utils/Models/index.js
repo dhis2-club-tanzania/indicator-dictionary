@@ -15,6 +15,12 @@ export const dataSourceTypes={
     DATA_ELEMENT: 1
 }
 
+export const dataElementDomainTypes={
+    TRACKER:"TRACKER",
+    AGGREGATE:"AGGREGATE",
+    UNDEFINED:'undefined'
+}
+
 //structure of dataElemet in store is
 // [
 //     {

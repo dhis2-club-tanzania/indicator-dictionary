@@ -5,17 +5,24 @@ import { useEffect} from 'react'
 import Introduction from "../introduction/introduction";
 import PropTypes from "prop-types";
 import OtherDetailTable from "./Components/OtherDetails";
+import {dataElementDomainTypes, dataTypes} from "../../../../Utils/Models";
+import DataSets from "./Components/DataSets";
+import Programs from "./Components/Programs";
 
 const query = {
     sources:{
       resource:"dataElements",
-        //   id: "Uvn6LCg7dVU",
           id: ({id})=>id,
         params:{
-          fields:["id","displayName","dataSetElements[dataSet[id,displayName,periodType,timelyDays]]"]
+          fields:["domainType","style","optionSetValue","commentOptionSet[displayName]","legendSets[id,displayName]","aggregationLevels"]
         }
     } 
   }
+
+
+// https://dhis2.nnkogift.me/api/dataElements/qrur9Dvnyt5.json?fields=style,optionSetValue,commentOptionSet[displayName],legendSets[id,displayName],aggregationLevels
+
+
 
 export default  function DataSource({id}){
 
@@ -34,31 +41,20 @@ export default  function DataSource({id}){
        // }
        //
 
-        return (<div>
-           <h3>Data sources </h3>
-           <p>
-               Data element is captured from following sources
-               {/*{{routineDataSource(if-applicable)}} and {{eventBased_i.e._case_or_individual(if-applicable)}}*/}
-               {/*with */}
+    console.log(data?.sources?.domainType)
 
+    return (
+        <>
+        { (data?.sources?.domainType==dataElementDomainTypes.AGGREGATE && data!==dataElementDomainTypes.UNDEFINED)?  <DataSets id={id} /> : <Programs id={id} />}
 
-           </p>
-            <h5>Datasets</h5>
-               
-            {/*<ul>*/}
-            {/*{data.sources.dataSets.map((dataSet)=>{*/}
-            {/*    return <li key={dataSet.id}><b>{dataSet.displayName}</b> submitting {dataSet.periodType} after every {dataSet.timelyDays} days</li>*/}
-            {/*})}*/}
-            {/*</ul>*/}
-            
-            <h5>Programs</h5>
+            <div>
+                <OtherDetailTable  other={data?.sources}/>
+            </div>
 
-            <OtherDetailTable />
-        </div>)
+        </>
+    )
 
     }
-
-
 
 
 DataSource.prototype={
