@@ -1,4 +1,5 @@
 import { TableHead, TableBody,  DataTable,    DataTableRow,    DataTableCell,    DataTableColumnHeader,} from '@dhis2/ui'
+import {useDataQuery} from "@dhis2/app-runtime";
 
 const query = {
     orgUnitLevels: {
@@ -15,9 +16,15 @@ const query = {
 
 export default function OtherDetailTable(props){
 
+
     const detail=props?.other
 
-    console.log(detail)
+    const levels=detail?.aggregationLevels
+
+    const {loading, error, data,refetch}  = useDataQuery(query, {variables: {levels}})
+
+
+    console.log(data?.orgUnitLevels?.organisationUnitLevels)
 
     return (
         <DataTable>
@@ -72,7 +79,16 @@ export default function OtherDetailTable(props){
 
                     </DataTableCell>
                     <DataTableCell bordered>
-                        Aggregation Levels
+                        <ol>
+                            {data?.orgUnitLevels?.organisationUnitLevels.map((lev)=>{
+                                console.log(lev)
+                                return (
+                                    <li>{lev.displayName}</li>
+                                )
+                            })}
+                        </ol>
+
+
                     </DataTableCell>
 
                 </DataTableRow>

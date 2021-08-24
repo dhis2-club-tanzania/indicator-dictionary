@@ -41,8 +41,6 @@ export default  function DataSource({id}){
        // }
        //
 
-    console.log(data?.sources?.domainType)
-
     return (
         <>
         { (data?.sources?.domainType==dataElementDomainTypes.AGGREGATE && data!==dataElementDomainTypes.UNDEFINED)?  <DataSets id={id} /> : <Programs id={id} />}
