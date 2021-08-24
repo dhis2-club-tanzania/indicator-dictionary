@@ -1,5 +1,5 @@
 import { TableHead, TableBody,  DataTable,    DataTableRow,    DataTableCell,    DataTableColumnHeader,} from '@dhis2/ui'
-import {useDataQuery} from "@dhis2/app-runtime";
+import {useConfig, useDataQuery} from "@dhis2/app-runtime";
 
 const query = {
     orgUnitLevels: {
@@ -16,6 +16,7 @@ const query = {
 
 export default function OtherDetailTable(props){
 
+    const {baseUrl}=useConfig()
 
     const detail=props?.other
 
@@ -23,8 +24,6 @@ export default function OtherDetailTable(props){
 
     const {loading, error, data,refetch}  = useDataQuery(query, {variables: {levels}})
 
-
-    console.log(data?.orgUnitLevels?.organisationUnitLevels)
 
     return (
         <DataTable>
@@ -67,7 +66,9 @@ export default function OtherDetailTable(props){
 
                     </DataTableCell>
                     <DataTableCell bordered>
-                        {detail?.style?.icon}
+
+                        <img src={`${baseUrl}/api/icons/${detail?.style?.icon}/icon.svg`} alt={"icon"} />
+
                     </DataTableCell>
                     <DataTableCell bordered>
                         {JSON.stringify(detail?.optionSetValue)}
@@ -85,10 +86,10 @@ export default function OtherDetailTable(props){
                     </DataTableCell>
                     <DataTableCell bordered>
                         <ol>
-                            {data?.orgUnitLevels?.organisationUnitLevels.map((lev)=>{
-                                console.log(lev)
+                            {data?.orgUnitLevels?.organisationUnitLevels?.map((lev)=>{
+
                                 return (
-                                    <li>{lev.displayName}</li>
+                                    <li>{lev?.displayName}</li>
                                 )
                             })}
                         </ol>
