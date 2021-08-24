@@ -1,5 +1,6 @@
 import Introduction from "./Components/introduction/introduction";
 import DataSource from "./Components/DataSource/dataSource";
+import Facts from "./Components/Facts";
 
 
 export default function DataElementPage(props){
@@ -10,6 +11,8 @@ export default function DataElementPage(props){
         <Introduction id={id} />
 
             <DataSource id={id}  />
+
+            <Facts  id={id}  />
     </div>
     )
 
