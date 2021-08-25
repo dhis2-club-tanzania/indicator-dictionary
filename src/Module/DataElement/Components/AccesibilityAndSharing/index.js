@@ -4,7 +4,27 @@ import {useDataQuery} from "@dhis2/app-runtime";
 import {useEffect} from 'react'
 import { CircularLoader } from '@dhis2/ui'
 
+const query={
+    sources:{
+        resource:"dataElements",
+        id: ({id})=>id,
+        params:{
+            fields:["created","user[id,displayName]","lastUpdated","lastUpdatedBy[displayName]","userGroupAccesses[id,displayName,access]","userAccesses[id,displayName,access]"
+            ]
+        }
+    },
+}
+
 export default function AccesibilityAndSharing({id}){
+
+    const {loading, error, data,refetch}  = useDataQuery(query, {variables: {id}})
+
+
+    useEffect(()=>{refetch({id})},[id])
+
+    const result=data?.sources
+
+    console.log(result)
 
 
 

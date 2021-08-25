@@ -51,8 +51,6 @@ export default function Facts({id}){
 
     useEffect(()=>{refetch({id})},[id])
 
-    console.log(data)
-
 
 
     return (
