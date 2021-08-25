@@ -27,10 +27,20 @@ export default function RelatedIndicator({id}){
     const result=data?.relatedInd?.indicators
     useEffect(()=>{refetch({id})},[id])
 
+    if(result?.length===0){
+        return (
+            <div>
+                <h3>Related Indicators</h3>
+                <p>This Data Element is not related to any indicator</p>
+            </div>
+        )
+    }
+
     return(
 
         <div>
             <h3>Related Indicators</h3>
+
             <DataTable>
                 <TableHead>
                     <DataTableRow>
