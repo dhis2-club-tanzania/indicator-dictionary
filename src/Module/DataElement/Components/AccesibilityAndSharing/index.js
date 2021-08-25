@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import {useDataQuery} from "@dhis2/app-runtime";
 import {useEffect} from 'react'
 import { CircularLoader } from '@dhis2/ui'
+import {displayAccessPermisssion} from "../../../../Utils/Functions/DataElementDictionaryFunctions";
 
 const query={
     sources:{
@@ -24,14 +25,11 @@ export default function AccesibilityAndSharing({id}){
 
     const result=data?.sources
 
-    console.log(result)
-
-
 
     return(<div>
         <h3>Accesibility & Sharing Settings</h3>
         <p>
-            This data element was first created on <i>{result?.created}</i>  by <b>{result?.user?.displayName} </b> and last updated on <i>{result?.lastUpdated}</i> by <b>{result?.lastUpdatedBy?.displayName}</b> .
+            This data element was first created on <i> {new Date(result?.created).toLocaleString("en-GB")}</i>  by <b>{result?.user?.displayName} </b> and last updated on <i>{new Date(result?.lastUpdated).toLocaleString("en-GB")}</i> by <b>{result?.lastUpdatedBy?.displayName}</b> .
 
         </p>
         <p>
@@ -61,7 +59,7 @@ export default function AccesibilityAndSharing({id}){
                     <DataTableCell bordered>
                         <ul>
                             {result?.userAccesses.map((dt)=>{
-                              return  <li key={dt.id}>{JSON.stringify(dt)}</li>
+                                return <li key={dt.id}>{dt?.displayName} can <i>{displayAccessPermisssion(dt.access)}</i> </li>
                             })}
                         </ul>
 
@@ -76,7 +74,7 @@ export default function AccesibilityAndSharing({id}){
                     <DataTableCell bordered>
                         <ul>
                             {result?.userGroupAccesses.map((dt)=>{
-                                return <li key={dt.id}>{JSON.stringify(dt)}</li>
+                                return <li key={dt.id}>{dt?.displayName} can <i>{displayAccessPermisssion(dt.access)}</i> </li>
                             })}
                         </ul>
                     </DataTableCell>
