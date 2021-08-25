@@ -20,8 +20,6 @@ const query = {
   }
 
 
-// https://dhis2.nnkogift.me/api/dataElements/qrur9Dvnyt5.json?fields=style,optionSetValue,commentOptionSet[displayName],legendSets[id,displayName],aggregationLevels
-
 
 
 export default  function DataSource({id}){
