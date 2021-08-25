@@ -59,7 +59,7 @@ export default function Facts({id}){
         <div>
             <h3>Data element Facts</h3>
             <ul>
-                <li> Accepts only {lowerCaseAllWordsExceptFirstLetters(data?.sources?.valueType)} to enforce validation</li>
+                <li> Accepts only {lowerCaseAllWordsExceptFirstLetters(data?.sources?.valueType)?.replace(/_/g," ")} to enforce validation</li>
                 <li>Has {data?.expressionMatch?.validationRules?.length} related validation rules</li>
                 <li> Part of numerators of {data?.numeratorMatch?.indicators?.length} indicators</li>
                 <li>Part of denominators of {data?.denominatorMatch?.indicators?.length} indicators</li>
