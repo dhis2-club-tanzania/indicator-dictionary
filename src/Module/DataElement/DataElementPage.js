@@ -2,6 +2,7 @@ import Introduction from "./Components/introduction/introduction";
 import DataSource from "./Components/DataSource/dataSource";
 import Facts from "./Components/Facts";
 import AnalyticsDetails from "./Components/AnalyticsDetails";
+import RelatedIndicator from "./Components/RelatedIndicator";
 
 
 export default function DataElementPage(props){
@@ -14,7 +15,8 @@ export default function DataElementPage(props){
         {/*    <DataSource id={id}  />*/}
 
             {/*<Facts  id={id}  />*/}
-            <AnalyticsDetails id={id}/>
+            {/*<AnalyticsDetails id={id}/>*/}
+            <RelatedIndicator id={id} />
     </div>
     )
 
