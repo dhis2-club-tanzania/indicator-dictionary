@@ -1,8 +1,29 @@
 import { TableHead, TableBody,  DataTable,    DataTableRow,    DataTableCell,    DataTableColumnHeader,} from '@dhis2/ui'
+import {useConfig, useDataQuery} from "@dhis2/app-runtime";
+
+const query = {
+    orgUnitLevels: {
+        resource: 'organisationUnitLevels',
+        params: ({levels}) => ({
+            fields: [
+                'id', 'displayName'
+            ],
+            filter: levels?.map(level => (`level:eq: ${level}`)) ?? []
+        })
+    }
+}
+
 
 export default function OtherDetailTable(props){
 
-    const src=props?.res
+    const {baseUrl}=useConfig()
+
+    const detail=props?.other
+
+    const levels=detail?.aggregationLevels
+
+    const {loading, error, data,refetch}  = useDataQuery(query, {variables: {levels}})
+
 
     return (
         <DataTable>
@@ -36,23 +57,44 @@ export default function OtherDetailTable(props){
                     <DataTableCell bordered tag="th">
                         Details
                     </DataTableCell>
-                    <DataTableCell bordered>
-                        Color
+                    <DataTableCell bordered >
+                        <div style={{
+                            background: detail?.style?.color,
+                            width:"inherit",
+                            height:50
+                        }}></div>
+
                     </DataTableCell>
                     <DataTableCell bordered>
-                        Icon
+
+                        <img src={`${baseUrl}/api/icons/${detail?.style?.icon}/icon.svg`} alt={"icon"} />
+
                     </DataTableCell>
                     <DataTableCell bordered>
-                        Option set
+                        {JSON.stringify(detail?.optionSetValue)}
                     </DataTableCell>
                     <DataTableCell bordered>
-                        Option set for Comments
+                        {detail?.commentOptionSet?.displayName}
                     </DataTableCell>
                     <DataTableCell bordered>
-                        Legends
+                        <ol>
+                            {detail?.legendSets?.map((legend)=>{
+                                return <li>{legend?.displayName}</li>
+                            })}
+                        </ol>
+
                     </DataTableCell>
                     <DataTableCell bordered>
-                        Aggregation Levels
+                        <ol>
+                            {data?.orgUnitLevels?.organisationUnitLevels?.map((lev)=>{
+
+                                return (
+                                    <li>{lev?.displayName}</li>
+                                )
+                            })}
+                        </ol>
+
+
                     </DataTableCell>
 
                 </DataTableRow>

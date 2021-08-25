@@ -7,6 +7,8 @@ import React from 'react'
 import {useDataEngine} from "@dhis2/app-runtime";
 import IdentifiableObjectDataSource, {displayNameLength, getDataSourceType} from "../../Utils/Functions/FormulaTopBar";
 import DataSourceSelector from "./Components/DataSourceSelector";
+import {useSetRecoilState} from "recoil";
+import {dataSourceStateDictionary} from "../../Store";
 
 export default function TopBar(props){
 
@@ -14,6 +16,8 @@ export default function TopBar(props){
     const[dataSourceValues,setDataSourcesValues]=useState([]);
 
     const[selectedDataSource,setSelectedDataSource]=useState(0)
+
+    const updateDataSourceStateDictionaryHandler= useSetRecoilState(dataSourceStateDictionary)
 
     const arrayDataSource=props.dataSources;  //these are arrays of ids
 
@@ -44,14 +48,17 @@ export default function TopBar(props){
         loading=false
     }
 
-    return <div>
+//selecting default
+    updateDataSourceStateDictionaryHandler({id:dataSourceValues[0]?.id,type:dataSourceValues[0]?.type})
+
+    return<div>
         {dataSourceValues?.map((dt)=>{
-            return <Chip onClick={()=>setSelectedDataSource(dt.index)} key={dt.id} >{displayNameLength(dt.displayName)}</Chip>
+            return <Chip key={dt.id} onClick={()=>updateDataSourceStateDictionaryHandler({id:dt.id,type:dt.type}) }>{displayNameLength(dt.displayName)}</Chip>
         })}
 
-        {dataSourceValues.length>0? <DataSourceSelector type={dataSourceValues[selectedDataSource]?.type} id={dataSourceValues[selectedDataSource]?.id} /> :""}
-
+        <DataSourceSelector />
     </div>
+
 
 
 }
