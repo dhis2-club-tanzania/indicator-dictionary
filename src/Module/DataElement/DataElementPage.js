@@ -11,7 +11,7 @@ export default function DataElementPage(props){
 
 
     return (<div style={{display:"flex",flexDirection:"column"}}>
-        {/*<Introduction id={id} />*/}
+        <Introduction id={id} />
 
         {/*    <DataSource id={id}  />*/}
 

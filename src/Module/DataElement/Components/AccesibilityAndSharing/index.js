@@ -9,7 +9,7 @@ const query={
         resource:"dataElements",
         id: ({id})=>id,
         params:{
-            fields:["created","user[id,displayName]","lastUpdated","lastUpdatedBy[displayName]","userGroupAccesses[id,displayName,access]","userAccesses[id,displayName,access]"
+            fields:["created","user[displayName]","lastUpdated","lastUpdatedBy[displayName]","userGroupAccesses[id,displayName,access]","userAccesses[id,displayName,access]"
             ]
         }
     },
@@ -31,7 +31,7 @@ export default function AccesibilityAndSharing({id}){
     return(<div>
         <h3>Accesibility & Sharing Settings</h3>
         <p>
-            This data element was first created on {"{dateCreated}"} by {"{userCreated}"} and last updated on {"{lastUpdated}"} by {"{userUpadted}"}.
+            This data element was first created on <i>{result?.created}</i>  by <b>{result?.user?.displayName} </b> and last updated on <i>{result?.lastUpdated}</i> by <b>{result?.lastUpdatedBy?.displayName}</b> .
 
         </p>
         <p>
@@ -59,6 +59,11 @@ export default function AccesibilityAndSharing({id}){
                         User Access
                     </DataTableCell>
                     <DataTableCell bordered>
+                        <ul>
+                            {result?.userAccesses.map((dt)=>{
+                              return  <li key={dt.id}>{JSON.stringify(dt)}</li>
+                            })}
+                        </ul>
 
                     </DataTableCell>
 
@@ -69,7 +74,11 @@ export default function AccesibilityAndSharing({id}){
                         User Group Access
                     </DataTableCell>
                     <DataTableCell bordered>
-
+                        <ul>
+                            {result?.userGroupAccesses.map((dt)=>{
+                                return <li key={dt.id}>{JSON.stringify(dt)}</li>
+                            })}
+                        </ul>
                     </DataTableCell>
 
                 </DataTableRow>
