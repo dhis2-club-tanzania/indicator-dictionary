@@ -5,7 +5,7 @@ import { CircularLoader } from '@dhis2/ui'
 
 
 const query = {
-    dataElements:{
+    detail:{
         resource:"dataElements",
         id: ({id})=>id,
         params:{
@@ -13,36 +13,44 @@ const query = {
             ]
         }
     }
-
 }
 
-
-
-export default function AnalyticsDetails(){
+export default function AnalyticsDetails({id}){
 
 
     const {loading, error, data,refetch}  = useDataQuery(query, {variables: {id}})
 
     useEffect(()=>{refetch({id})},[id])
 
-    console.log(data)
+    const result=data?.detail
 
     return(<div>
         <h3>Analytics Details</h3>
         <ul>
             <li>{"{aggregationOperator}"} through period and hierarchy</li>
-            <li> {"{domainType}"} data sources</li>
-            <li>{"storeZeroDataValues"}</li>
-            <li>{"categoryCombo"} cross-tabulation between {"categories"} with following details
+            <li> {result?.domainType} data sources</li>
+            <li>{result?.zeroIsSignificant?'It stores zero values':"It does not store zero values"}</li>
+            <li>Category Combo is {result?.categoryCombo?.displayName} which has cross-tabulation between {result?.categoryCombo?.categories?.length} {result?.categoryCombo?.categories?.length===1?'category':'categories'} with following details
                 <ul>
-                    <li> {"category1"} has {"options"}</li>
-                    <li> {"category1"} has {"options"}</li>                </ul>
+                    {result?.categoryCombo?.categories?.map((cat)=>{
+                        return (
+                            <li key={cat?.id}> {cat?.displayName}
+                                {cat?.categoryOptions?.length>=0?
+                                     ' which also has the following options'
+                                    :''}
+                                <ul>
+                                    {cat?.categoryOptions?.map((opt)=>{
+                                        return   <li key={opt.id}> {cat.displayName}</li>
+                                    })}
+                                </ul>
+                            </li>
+                            )
+                    })}
+                </ul>
             </li>
 
 
         </ul>
-
-
 
     </div>)
 }

@@ -14,7 +14,7 @@ export default function DataElementPage(props){
         {/*    <DataSource id={id}  />*/}
 
             {/*<Facts  id={id}  />*/}
-            <AnalyticsDetails />
+            <AnalyticsDetails id={id}/>
     </div>
     )
 
