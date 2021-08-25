@@ -3,6 +3,7 @@ import DataSource from "./Components/DataSource/dataSource";
 import Facts from "./Components/Facts";
 import AnalyticsDetails from "./Components/AnalyticsDetails";
 import RelatedIndicator from "./Components/RelatedIndicator";
+import AccesibilityAndSharing from "./Components/AccesibilityAndSharing";
 
 
 export default function DataElementPage(props){
@@ -16,7 +17,10 @@ export default function DataElementPage(props){
 
             {/*<Facts  id={id}  />*/}
             {/*<AnalyticsDetails id={id}/>*/}
-            <RelatedIndicator id={id} />
+            {/*<RelatedIndicator id={id} />*/}
+
+            <AccesibilityAndSharing id={id} />
+
     </div>
     )
 
