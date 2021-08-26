@@ -1,6 +1,7 @@
 
 
 export function displayAccessPermisssion(access){
+
     if(access?.search("w")>=0){
         return "read and write"
     }else{
@@ -11,6 +12,7 @@ export function displayAccessPermisssion(access){
         }
 
     }
+
 
 
 

@@ -57,9 +57,12 @@ export default function AccesibilityAndSharing({id}){
                         User Access
                     </DataTableCell>
                     <DataTableCell bordered>
+                        {result?.userAccesses?.length===0? "No access granted":""}
                         <ul>
+
                             {result?.userAccesses.map((dt)=>{
-                                return <li key={dt.id}>{dt?.displayName} can <i>{displayAccessPermisssion(dt.access)}</i> </li>
+
+                                return <li key={dt.id}>{dt?.displayName} can <i>{displayAccessPermisssion(dt.access)} {JSON.stringify(dt.access)} </i> </li>
                             })}
                         </ul>
 
@@ -72,6 +75,7 @@ export default function AccesibilityAndSharing({id}){
                         User Group Access
                     </DataTableCell>
                     <DataTableCell bordered>
+                        {result?.userGroupAccesses?.length===0? "No access granted":""}
                         <ul>
                             {result?.userGroupAccesses.map((dt)=>{
                                 return <li key={dt.id}>{dt?.displayName} can <i>{displayAccessPermisssion(dt.access)}</i> </li>
