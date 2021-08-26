@@ -1,59 +1,76 @@
-
-import {useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import {Chip} from '@dhis2/ui'
 
-import React from 'react'
-
+import { CircularLoader } from '@dhis2/ui'
 import {useDataEngine} from "@dhis2/app-runtime";
 import IdentifiableObjectDataSource, {displayNameLength, getDataSourceType} from "../../Utils/Functions/FormulaTopBar";
 import DataSourceSelector from "./Components/DataSourceSelector";
 import {useSetRecoilState} from "recoil";
 import {dataSourceStateDictionary} from "../../Store";
+import Error from "../../Shared/Componets/Error/ErrorAPIResult";
+import Loader from "../../Shared/Componets/Loaders/Loader";
 
 export default function TopBar(props){
 
     //variables
     const[dataSourceValues,setDataSourcesValues]=useState([]);
 
-    const[selectedDataSource,setSelectedDataSource]=useState(0)
-
     const updateDataSourceStateDictionaryHandler= useSetRecoilState(dataSourceStateDictionary)
+
 
     const arrayDataSource=props.dataSources;  //these are arrays of ids
 
-    let loading
+    const [loading,setLoading]=useState()
+    const [error,setError]=useState()
 
     //hooks
     const engine=useDataEngine()
     useEffect(()=>{
-        getDataSourceValues(arrayDataSource)
+      async function fetch(){
+          const tmp=await getDataSourceValues(engine,arrayDataSource)
+          setDataSourcesValues((prevState) =>{
+              return prevState.concat(tmp)
+          })
+
+          updateDataSourceStateDictionaryHandler({id:tmp[0]?.id,type:tmp[0]?.type})
+
+      }
+        setLoading(true)
+        setError(false)
+       fetch().then(()=>{
+           setLoading(false)
+       }).catch((error)=>{
+           setLoading(false)
+           setError(error)
+       })
+
     },[])
 
     //functions
-
-   function getDataSourceValues(arrayDataSource){
+  async function getDataSourceValues(engine,arrayDataSource){
         let promisArr= IdentifiableObjectDataSource(engine,arrayDataSource)
-         Promise.all(promisArr).then(value => {
-            // setDataSourcesValues(value)
-             let temp=[]
-             let i=0
-            value.map((obj=>{
-                temp.push({id:obj[0].id,type:getDataSourceType(obj[0].href),displayName:obj[0].displayName,index:i})
-                ++i
-            }))
-             setDataSourcesValues((prevState) =>{
-                 return prevState.concat(temp)
+        return await Promise.all(promisArr).then(value => {
+             return value.map((obj, index) => {
+                 return {
+                     id: obj[0].id,
+                     type: getDataSourceType(obj[0].href),
+                     displayName: obj[0].displayName,
+                     index: index
+                 }
              })
         })
-        loading=false
     }
 
-//selecting default
-    updateDataSourceStateDictionaryHandler({id:dataSourceValues[0]?.id,type:dataSourceValues[0]?.type})
+    if(loading){
+       return  <Loader text={""} />
+    }if(error){
+        return <Error error={error} />
+    }
+
 
     return<div>
         {dataSourceValues?.map((dt)=>{
-            return <Chip key={dt.id} onClick={()=>updateDataSourceStateDictionaryHandler({id:dt.id,type:dt.type}) }>{displayNameLength(dt.displayName)}</Chip>
+            return <Chip key={dt.id}  onClick={()=>{updateDataSourceStateDictionaryHandler({id:dt.id,type:dt.type}) }}>{displayNameLength(dt.displayName)}</Chip>
         })}
 
         <DataSourceSelector />

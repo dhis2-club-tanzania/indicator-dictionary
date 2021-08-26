@@ -1,7 +1,10 @@
 import PropTypes from "prop-types";
 import {useDataQuery} from "@dhis2/app-runtime";
-import {useEffect} from 'react'
+import React, {useEffect} from 'react'
 import { CircularLoader } from '@dhis2/ui'
+import {lowerCaseAllWordsExceptFirstLetters} from "../../../../Utils/Functions/FormulaFunctions";
+import Loader from "../../../../Shared/Componets/Loaders/Loader";
+import Error from "../../../../Shared/Componets/Error/ErrorAPIResult";
 
 
 const query = {
@@ -9,7 +12,7 @@ const query = {
         resource:"dataElements",
         id: ({id})=>id,
         params:{
-            fields:["id","displayName","domainType","zeroIsSignificant","categoryCombo[id,displayName,categories[id,displayName,categoryOptions[id,displayName]]]"
+            fields:["id","displayName","domainType","aggregationType","zeroIsSignificant","categoryCombo[id,displayName,categories[id,displayName,categoryOptions[id,displayName]]]"
             ]
         }
     }
@@ -24,10 +27,16 @@ export default function AnalyticsDetails({id}){
 
     const result=data?.detail
 
+    if(loading){
+        return  <Loader text={""} />
+    }if(error){
+        return <Error error={error} />
+    }
+
     return(<div>
         <h3>Analytics Details</h3>
         <ul>
-            <li>{"{aggregationOperator}"} through period and hierarchy</li>
+            <li>Uses <b>{result?.aggregationType==="NONE"?" No ": lowerCaseAllWordsExceptFirstLetters(result?.aggregationType)?.replace(/_/g," ") }</b> aggregation type through period and hierarchy</li>
             <li> {result?.domainType} data sources</li>
             <li>{result?.zeroIsSignificant?'It stores zero values':"It does not store zero values"}</li>
             <li>Category Combo is {result?.categoryCombo?.displayName} which has cross-tabulation between {result?.categoryCombo?.categories?.length} {result?.categoryCombo?.categories?.length===1?'category':'categories'} with following details

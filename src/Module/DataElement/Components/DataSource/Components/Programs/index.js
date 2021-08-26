@@ -1,6 +1,8 @@
 import {useDataQuery} from "@dhis2/app-runtime";
 import {useEffect} from 'react'
 import PropTypes from "prop-types";
+import Loader from "../../../../../../Shared/Componets/Loaders/Loader";
+import Error from "../../../../../../Shared/Componets/Error/ErrorAPIResult";
 
 const query = {
     programs: {
@@ -28,14 +30,11 @@ export default  function Programs({id}){
     useEffect(()=>{refetch({id})},[id])
 
 
-    // if(loading){
-    //    return <CircularLoader />
-    // }
-    //
-    // if(error){
-    //    return <p> {error} </p>
-    // }
-    //
+    if(loading){
+        return  <Loader text={""} />
+    }if(error){
+        return <Error error={error} />
+    }
 
 
     return (<div>

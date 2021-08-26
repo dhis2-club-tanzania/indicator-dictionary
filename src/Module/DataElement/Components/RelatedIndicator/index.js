@@ -1,8 +1,11 @@
 import { TableHead, TableBody,  DataTable,    DataTableRow,    DataTableCell,    DataTableColumnHeader,} from '@dhis2/ui'
 import PropTypes from "prop-types";
 import {useDataQuery} from "@dhis2/app-runtime";
-import {useEffect} from 'react'
+import React, {useEffect} from 'react'
 import { CircularLoader } from '@dhis2/ui'
+import DisplayFormula from "./Componets/DisplayFormula";
+import Loader from "../../../../Shared/Componets/Loaders/Loader";
+import Error from "../../../../Shared/Componets/Error/ErrorAPIResult";
 
 const query={
     relatedInd:{
@@ -35,6 +38,14 @@ export default function RelatedIndicator({id}){
             </div>
         )
     }
+
+
+    if(loading){
+        return  <Loader text={""} />
+    }if(error){
+        return <Error error={error} />
+    }
+
 
     return(
 
@@ -73,11 +84,18 @@ export default function RelatedIndicator({id}){
 
                                 </DataTableCell>
                                 <DataTableCell bordered>
-                                    {result?.numerator}
+
+                                    <div style={{margin:5}}>
+                                        <DisplayFormula formula={result?.numerator} />
+                                    </div>
 
                                 </DataTableCell>
-                                <DataTableCell bordered>
-                                    {result?.denominator}
+                                <DataTableCell bordered b>
+                                    <div style={{margin:5}}>
+                                        <DisplayFormula formula={result?.denominator} />
+                                    </div>
+
+
                                 </DataTableCell>
                                 <DataTableCell bordered>
                                     {result?.indicatorType?.displayName}

@@ -1,5 +1,9 @@
 import { TableHead, TableBody,  DataTable,    DataTableRow,    DataTableCell,    DataTableColumnHeader,} from '@dhis2/ui'
 import {useConfig, useDataQuery} from "@dhis2/app-runtime";
+import {dataTypes} from "../../../../../../Utils/Models";
+import Loader from "../../../../../../Shared/Componets/Loaders/Loader";
+import Error from "../../../../../../Shared/Componets/Error/ErrorAPIResult";
+import React from "react";
 
 const query = {
     orgUnitLevels: {
@@ -58,42 +62,51 @@ export default function OtherDetailTable(props){
                         Details
                     </DataTableCell>
                     <DataTableCell bordered >
-                        <div style={{
-                            background: detail?.style?.color,
-                            width:"inherit",
-                            height:50
-                        }}></div>
+
+                        {typeof(detail?.style?.color)===dataTypes.UNDEFINED?"no color":
+                            <div style={{
+                                background: detail?.style?.color,
+                                width:"inherit",
+                                height:50
+                            }}></div>
+                        }
 
                     </DataTableCell>
                     <DataTableCell bordered>
-
-                        <img src={`${baseUrl}/api/icons/${detail?.style?.icon}/icon.svg`} alt={"icon"} />
+                        {typeof detail?.style?.color===dataTypes.UNDEFINED?"no icon":
+                            <img src={`${baseUrl}/api/icons/${detail?.style?.icon}/icon.svg`} alt={"icon"} />
+                        }
 
                     </DataTableCell>
                     <DataTableCell bordered>
                         {JSON.stringify(detail?.optionSetValue)}
                     </DataTableCell>
                     <DataTableCell bordered>
-                        {detail?.commentOptionSet?.displayName}
-                    </DataTableCell>
-                    <DataTableCell bordered>
-                        <ol>
-                            {detail?.legendSets?.map((legend)=>{
-                                return <li>{legend?.displayName}</li>
-                            })}
-                        </ol>
+                        {typeof detail?.commentOptionSet?.displayName===dataTypes.UNDEFINED?"no commnets":detail?.commentOptionSet?.displayName}
 
                     </DataTableCell>
                     <DataTableCell bordered>
-                        <ol>
-                            {data?.orgUnitLevels?.organisationUnitLevels?.map((lev)=>{
+                        {detail?.legendSets?.length===0? 'no legends assigned':
+                            <ol>
+                                {detail?.legendSets?.map((legend)=>{
+                                    return <li key={legend.id}>{legend?.displayName}</li>
+                                })}
+                            </ol>
+                        }
+                    </DataTableCell>
+                    <DataTableCell bordered>
+                        {
+                            loading ? <Loader text={""}/> : error ? <Error error={error}/> :
+                                data?.orgUnitLevels?.organisationUnitLevels?.length === 0 ? "No organization unit level assigned" :
+                                    <ol>
+                                        {data?.orgUnitLevels?.organisationUnitLevels?.map((lev) => {
+                                            return (
+                                                <li key={lev?.id}>{lev?.displayName}</li>
+                                            )
+                                        })}
+                                    </ol>
 
-                                return (
-                                    <li>{lev?.displayName}</li>
-                                )
-                            })}
-                        </ol>
-
+                        }
 
                     </DataTableCell>
 
