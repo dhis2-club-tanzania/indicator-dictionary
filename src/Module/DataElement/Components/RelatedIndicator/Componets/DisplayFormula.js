@@ -1,10 +1,12 @@
 import {useDataEngine} from '@dhis2/app-runtime'
-import {useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import {  getDetailedValueFromApi,    getFinalWordFormula,    getFormulaSources} from "../../../../../Utils/Functions/FormulaFunctions";
 import {dataTypes} from "../../../../../Utils/Models";
 import PropTypes from "prop-types";
+import Loader from "../../../../../Shared/Componets/Loaders/Loader";
+import Error from "../../../../../Shared/Componets/Error/ErrorAPIResult";
 
-export default function DispalyFormula(props){
+export default function DisplayFormula(props){
     //props
     const formula=props.formula
     const loc=props.location
@@ -18,6 +20,9 @@ export default function DispalyFormula(props){
     const[dataElementsArray,setDataElementArray]=useState([])
     const[programIndicatorArray,setProgramIndicatorArray]=useState([])
     const[dataSetReportingRatesArray,setDataSetReportingRatesArray]=useState([])
+    const [loading,setLoading]=useState()
+    const [error,setError]=useState()
+
     const engine = useDataEngine()
 
 
@@ -27,7 +32,16 @@ export default function DispalyFormula(props){
            async function fetch(){
                wordDtEl= await getWordData(tempArr,dataTypes.DATA_ELEMENT)
             }
-            fetch().then(value =>  setDataElementArray(wordDtEl))
+            setLoading(true)
+            setError(false)
+            fetch().then(() =>  {
+                setDataElementArray(wordDtEl)
+                setLoading(false)
+            }).catch((error)=>{
+                setLoading(false)
+                setError(error)
+            })
+
         }
 
     },[])
@@ -37,8 +51,15 @@ export default function DispalyFormula(props){
             async function fetch(){
               programInd= await getWordData(tempArr,dataTypes.PROGRAM_INDICATOR)
             }
-            fetch().then((value => setProgramIndicatorArray(programInd)))
-
+            setLoading(true)
+            setError(false)
+            fetch().then(() =>  {
+                setProgramIndicatorArray(programInd)
+                setLoading(false)
+            }).catch((error)=>{
+                setLoading(false)
+                setError(error)
+            })
         }
 
     },[])
@@ -46,9 +67,18 @@ export default function DispalyFormula(props){
         let tempArr=getFormulaSources(formula,"R{")
         if(tempArr.length){
             async function fetch(){
-                await getWordData(tempArr,dataTypes.DATASET_REPORTING_RATES)
+               dataSetReportingRates= await getWordData(tempArr,dataTypes.DATASET_REPORTING_RATES)
             }
-            fetch().then(value =>  setDataSetReportingRatesArray(dataSetReportingRates))
+            setLoading(true)
+            setError(false)
+            fetch().then(() =>  {
+                setDataSetReportingRatesArray(dataSetReportingRates)
+
+                setLoading(false)
+            }).catch((error)=>{
+                setLoading(false)
+                setError(error)
+            })
 
         }
     },[])
@@ -86,6 +116,11 @@ export default function DispalyFormula(props){
         })
     }
 
+    if(loading){
+        return  <Loader text={""} />
+    }if(error){
+        return <Error error={error} />
+    }
     return <div>
 
         {getFinalWordFormula(formula,dataElementsArray,programIndicatorArray,dataSetReportingRatesArray,[],[])}
@@ -93,7 +128,7 @@ export default function DispalyFormula(props){
     </div>
 }
 
-DispalyFormula.prototype={
+DisplayFormula.prototype={
     formula:PropTypes.string.isRequired,
 
 }

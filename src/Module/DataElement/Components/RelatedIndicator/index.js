@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import {useDataQuery} from "@dhis2/app-runtime";
 import React, {useEffect} from 'react'
 import { CircularLoader } from '@dhis2/ui'
-import DispalyFormula from "./Componets/DispalyFormula";
+import DisplayFormula from "./Componets/DisplayFormula";
 import Loader from "../../../../Shared/Componets/Loaders/Loader";
 import Error from "../../../../Shared/Componets/Error/ErrorAPIResult";
 
@@ -84,12 +84,17 @@ export default function RelatedIndicator({id}){
 
                                 </DataTableCell>
                                 <DataTableCell bordered>
-                                    <DispalyFormula formula={result?.numerator} />
 
+                                    <div style={{margin:5}}>
+                                        <DisplayFormula formula={result?.numerator} />
+                                    </div>
 
                                 </DataTableCell>
-                                <DataTableCell bordered>
-                                    <DispalyFormula formula={result?.denominator} />
+                                <DataTableCell bordered b>
+                                    <div style={{margin:5}}>
+                                        <DisplayFormula formula={result?.denominator} />
+                                    </div>
+
 
                                 </DataTableCell>
                                 <DataTableCell bordered>

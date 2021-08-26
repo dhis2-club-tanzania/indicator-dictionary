@@ -31,7 +31,7 @@ export default function TopBar(props){
           setDataSourcesValues((prevState) =>{
               return prevState.concat(tmp)
           })
-          setLoading(false)
+
           updateDataSourceStateDictionaryHandler({id:tmp[0]?.id,type:tmp[0]?.type})
 
       }
