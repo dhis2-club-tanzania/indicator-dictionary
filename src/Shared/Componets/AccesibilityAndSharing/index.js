@@ -3,11 +3,11 @@ import PropTypes from "prop-types";
 import {useDataQuery} from "@dhis2/app-runtime";
 import {useEffect} from 'react'
 import { CircularLoader } from '@dhis2/ui'
-import {displayAccessPermisssion} from "../../../../Utils/Functions/DataElementDictionaryFunctions";
+import {displayAccessPermisssion} from "../../../Utils/Functions/DataElementDictionaryFunctions";
 
 const query={
     sources:{
-        resource:"dataElements",
+        resource:({resourceType})=> resourceType,
         id: ({id})=>id,
         params:{
             fields:["created","user[displayName]","lastUpdated","lastUpdatedBy[displayName]","userGroupAccesses[id,displayName,access]","userAccesses[id,displayName,access]"
@@ -16,9 +16,23 @@ const query={
     },
 }
 
-export default function AccesibilityAndSharing({id}){
+export default function AccesibilityAndSharing(props){
+    const id=props.id
+    const resourceType=props.resourceType
 
-    const {loading, error, data,refetch}  = useDataQuery(query, {variables: {id}})
+    function accessAndSharingQuery(resourceType) {
+        return {
+            sources: {
+                resource: resourceType,
+                id: ({id})=>id,
+                params: {
+                    fields: ["created", "user[displayName]", "lastUpdated", "lastUpdatedBy[displayName]", "userGroupAccesses[id,displayName,access]", "userAccesses[id,displayName,access]"
+                    ]
+                }
+            },
+        }
+    }
+    const {loading, error, data,refetch}  = useDataQuery(accessAndSharingQuery(resourceType),{variables:{id}})
 
 
     useEffect(()=>{refetch({id})},[id])

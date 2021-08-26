@@ -251,9 +251,10 @@ export function getDetailedValueFromApi(engine,id,type){
 }
 
 export function getValueDataSourcePromise(engine,id){
-    return new Promise((resolve, reject) => {
-        resolve(getValueDataSource(engine,id))
-    })
+    // return new Promise((resolve, reject) => {
+    //     resolve(getValueDataSource(engine,id))
+    // })
+    return getValueDataSource(engine,id)
 }
 
 
