@@ -12,7 +12,8 @@ export const dataTypes={
 
 export const dataSourceTypes={
     INDICATOR: 0,
-    DATA_ELEMENT: 1
+    DATA_ELEMENT: 1,
+    PROGRAM_INDICATOR:2,
 }
 
 export const dataElementDomainTypes={

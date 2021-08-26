@@ -16,6 +16,10 @@ export function getDataSourceType(formula){
     if(formula?.search("indicators")>=0){
         return dataSourceTypes.INDICATOR
     }
+    if(formula?.search("programIndicators")>=0){
+        return dataSourceTypes.PROGRAM_INDICATOR
+    }
+
 
 }
 

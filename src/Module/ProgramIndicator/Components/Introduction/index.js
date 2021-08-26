@@ -7,18 +7,15 @@ import Loader from "../../../../Shared/Componets/Loaders/Loader";
 import Error from "../../../../Shared/Componets/Error/ErrorAPIResult";
 
 const query = {
-    dataElements:{
-        resource:"dataElements",
+    programIndicators:{
+        resource:"programIndicators",
         id: ({id})=>id,
         params:{
-            fields:["id","displayName","description","shortName","code",
-                "displayFormName","href"
+            fields:["id","displayName","displayDescription","aggregationType","displayShortName","code","decimals","displayInForm","href"
             ]
         }
     }
-
 }
-
 
 export default function Introduction({id}){
 
@@ -34,19 +31,21 @@ export default function Introduction({id}){
 
 
 
-    let res=data?.dataElements
+    let res=data?.programIndicators
 
+
+    console.log(res)
 
     return ( <div>
 
         <h3>Introduction</h3>
 
             <p>
-               <b>{res?.displayName}</b>  can be described as {res?.description}.
-                <br/>
-                It’s labelled in short as {res?.shortName} and has a code of {res?.code}. In data entry form, it’s named “{res?.displayFormName}”
-                <br/>
-                Identified by: <i> <a style={{textDecoration:"none"}} href={res?.href +".json"} target={"_blank"} >{res?.id}</a> </i>
+               {/*<b>{res?.displayName}</b>  can be described as {res?.description}.*/}
+               {/* <br/>*/}
+               {/* It’s labelled in short as {res?.shortName} and has a code of {res?.code}. In data entry form, it’s named “{res?.displayFormName}”*/}
+               {/* <br/>*/}
+               {/* Identified by: <i> <a style={{textDecoration:"none"}} href={res?.href +".json"} target={"_blank"} >{res?.id}</a> </i>*/}
             </p>
 
     </div>

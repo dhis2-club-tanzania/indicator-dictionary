@@ -3,6 +3,7 @@ import IndicatorPage from "../../Indicator";
 import DataElementPage from "../../DataElement";
 import {useRecoilValue} from "recoil";
 import {dataSourceStateDictionary} from "../../../Store";
+import ProgramIndicatorPage from "../../ProgramIndicator";
 
 
 export default function DataSourceSelector(props){
@@ -16,6 +17,9 @@ export default function DataSourceSelector(props){
         }
         if(type===dataSourceTypes.DATA_ELEMENT){
             return <DataElementPage id={id} />
+        }
+        if(type===dataSourceTypes.PROGRAM_INDICATOR){
+            return <ProgramIndicatorPage id={id} />
         }
     }
 

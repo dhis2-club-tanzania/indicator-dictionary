@@ -2,7 +2,7 @@
 import React from 'react'
 import { useDataQuery } from '@dhis2/app-runtime'
 import { useEffect} from 'react'
-import Introduction from "../Introduction/introduction";
+import Introduction from "../Introduction";
 import PropTypes from "prop-types";
 import OtherDetailTable from "./Components/OtherDetails";
 import {dataElementDomainTypes, dataTypes} from "../../../../Utils/Models";
