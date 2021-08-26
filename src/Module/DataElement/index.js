@@ -4,6 +4,7 @@ import Facts from "./Components/Facts";
 import AnalyticsDetails from "./Components/AnalyticsDetails";
 import RelatedIndicator from "./Components/RelatedIndicator";
 import AccesibilityAndSharing from "../../Shared/Componets/AccesibilityAndSharing";
+import React from 'react'
 
 
 export default function DataElementPage(props){
@@ -11,14 +12,11 @@ export default function DataElementPage(props){
 
 
     return (<div style={{display:"flex",flexDirection:"column"}}>
-            {/*<Introduction id={id} />*/}
-
-            {/*<DataSource id={id}  />*/}
-
-            {/*<Facts  id={id}  />*/}
-            {/*<AnalyticsDetails id={id}/>*/}
+            <Introduction id={id} />
+            <DataSource id={id}  />
+            <Facts  id={id}  />
+            <AnalyticsDetails id={id}/>
             <RelatedIndicator id={id} />
-
             <AccesibilityAndSharing id={id} resourceType={"dataElements"} />
 
     </div>
