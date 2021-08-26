@@ -115,7 +115,6 @@ export default function CalculationDetailRow(props){
 
     return      <>
                 <DataTableCell  bordered width={"50%"}>
-
                     {getFinalWordFormula(formula,dataElementsArray,programIndicatorArray,dataSetReportingRatesArray,[],[])}
                 </DataTableCell>
                 <DataTableCell  bordered>

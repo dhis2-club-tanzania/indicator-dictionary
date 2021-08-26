@@ -17,9 +17,9 @@ export default function DataElementPage(props){
 
             {/*<Facts  id={id}  />*/}
             {/*<AnalyticsDetails id={id}/>*/}
-            {/*<RelatedIndicator id={id} />*/}
+            <RelatedIndicator id={id} />
 
-            <AccesibilityAndSharing id={id} />
+            {/*<AccesibilityAndSharing id={id} />*/}
 
     </div>
     )

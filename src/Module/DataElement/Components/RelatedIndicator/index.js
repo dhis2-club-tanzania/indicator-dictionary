@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import {useDataQuery} from "@dhis2/app-runtime";
 import {useEffect} from 'react'
 import { CircularLoader } from '@dhis2/ui'
+import DispalyFormula from "./Componets/DispalyFormula";
 
 const query={
     relatedInd:{
@@ -73,11 +74,13 @@ export default function RelatedIndicator({id}){
 
                                 </DataTableCell>
                                 <DataTableCell bordered>
-                                    {result?.numerator}
+                                    <DispalyFormula formula={result?.numerator} />
+
 
                                 </DataTableCell>
                                 <DataTableCell bordered>
-                                    {result?.denominator}
+                                    <DispalyFormula formula={result?.denominator} />
+
                                 </DataTableCell>
                                 <DataTableCell bordered>
                                     {result?.indicatorType?.displayName}
