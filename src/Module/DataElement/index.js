@@ -1,4 +1,4 @@
-import Introduction from "./Components/introduction/introduction";
+import Introduction from "./Components/Introduction/introduction";
 import DataSource from "./Components/DataSource/dataSource";
 import Facts from "./Components/Facts";
 import AnalyticsDetails from "./Components/AnalyticsDetails";
