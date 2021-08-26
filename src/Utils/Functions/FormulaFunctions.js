@@ -184,19 +184,6 @@ export function getFinalWordFormula(formula,dataElementsArray,programIndicatorAr
 
     final=final?.replace(/_/g," ")
     final=final?.replace(/\./g,' ')
-    // final=lowerCaseAllWordsExceptFirstLetters(final)
-
-    // while (final?.search("_")>=0){
-    //     console.log("serching..")
-    //     let indexChar=final.search("_")
-    //     final = setCharAt(final, indexChar, " ")
-    // }
-    // while (final?.search(".")>=0){
-    //     console.log("ser")
-    //     let indexChar=final.search(".")
-    //     final = setCharAt(final, indexChar, " ")
-    // }
-
 
     return cleanBrackets(final)
 }
@@ -251,10 +238,7 @@ export function getDetailedValueFromApi(engine,id,type){
 }
 
 export function getValueDataSourcePromise(engine,id){
-    // return new Promise((resolve, reject) => {
-    //     resolve(getValueDataSource(engine,id))
-    // })
-    return getValueDataSource(engine,id)
+    return getValueDataSource(engine,id) //its automatically a promise since it is await
 }
 
 

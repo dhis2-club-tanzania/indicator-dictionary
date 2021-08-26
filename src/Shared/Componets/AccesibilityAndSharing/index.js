@@ -5,49 +5,57 @@ import {useEffect} from 'react'
 import { CircularLoader } from '@dhis2/ui'
 import {displayAccessPermisssion} from "../../../Utils/Functions/DataElementDictionaryFunctions";
 
+
 const query={
-    sources:{
-        resource:({resourceType})=> resourceType,
+    sources: {
+        resource: "",
         id: ({id})=>id,
-        params:{
-            fields:["created","user[displayName]","lastUpdated","lastUpdatedBy[displayName]","userGroupAccesses[id,displayName,access]","userAccesses[id,displayName,access]"
+        params: {
+            fields: ["created", "user[displayName]", "lastUpdated", "lastUpdatedBy[displayName]", "userGroupAccesses[id,displayName,access]", "userAccesses[id,displayName,access]"
             ]
         }
     },
+}
+
+function displayDataType(resourceType){
+    if(resourceType==="dataElements"){
+        return " Data Element "
+    }else{
+        if(resourceType==="indicators"){
+            return " Indicator "
+        }
+    }
+}
+
+function accessAndSharingQuery(resourceType) {
+    query.sources.resource=resourceType
 }
 
 export default function AccesibilityAndSharing(props){
     const id=props.id
     const resourceType=props.resourceType
 
-    function accessAndSharingQuery(resourceType) {
-        return {
-            sources: {
-                resource: resourceType,
-                id: ({id})=>id,
-                params: {
-                    fields: ["created", "user[displayName]", "lastUpdated", "lastUpdatedBy[displayName]", "userGroupAccesses[id,displayName,access]", "userAccesses[id,displayName,access]"
-                    ]
-                }
-            },
-        }
-    }
-    const {loading, error, data,refetch}  = useDataQuery(accessAndSharingQuery(resourceType),{variables:{id}})
 
+    useEffect(()=>{
+        accessAndSharingQuery(resourceType)
+        refetch({id})},[id])
 
-    useEffect(()=>{refetch({id})},[id])
+    const {loading, error, data,refetch}  = useDataQuery(query,{variables:{id}})
+
 
     const result=data?.sources
+
 
 
     return(<div>
         <h3>Accesibility & Sharing Settings</h3>
         <p>
-            This data element was first created on <i> {new Date(result?.created).toLocaleString("en-GB")}</i>  by <b>{result?.user?.displayName} </b> and last updated on <i>{new Date(result?.lastUpdated).toLocaleString("en-GB")}</i> by <b>{result?.lastUpdatedBy?.displayName}</b> .
+            This
+            { displayDataType(resourceType) } was first created on <i> {new Date(result?.created).toLocaleString("en-GB")}</i>  by <b>{result?.user?.displayName} </b> and last updated on <i>{new Date(result?.lastUpdated).toLocaleString("en-GB")}</i> by <b>{result?.lastUpdatedBy?.displayName}</b> .
 
         </p>
         <p>
-            Data element will be visible for users with the following access:
+            { displayDataType(resourceType) } will be visible for users with the following access:
 
         </p>
         <DataTable>

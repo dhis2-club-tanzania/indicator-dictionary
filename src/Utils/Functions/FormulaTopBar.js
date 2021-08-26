@@ -2,17 +2,9 @@ import {getValueDataSourcePromise} from "./FormulaFunctions";
 import {dataSourceTypes} from "../Models";
 
 export default function IdentifiableObjectDataSource(engine,arrId){ //returns array of promises
-    // let allPromises=[]
     return arrId.map((id)=>{
         return getValueDataSourcePromise(engine,id)
     })
-    // for(let i=0;i<arrId?.length;i++){
-    //     let proms=getValueDataSourcePromise(engine,arrId[i])
-    //     allPromises.push(proms)
-    // }
-
-    // return allPromises
-
 }
 
 

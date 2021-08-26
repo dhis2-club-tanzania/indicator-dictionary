@@ -12,11 +12,8 @@ import LegendsAnalysis from './Components/legendsAnalysis/legendsAnalysis'
 import ProgramIndicatorIndicator from "./Components/ProgramIndicator";
 import DatasetsReportingRates from "./Components/DataSetReportingRate";
 import {useSetRecoilState} from "recoil";
-import {
-    dataElementsStateDictionary,
-    dataSetReportingRatesStateDictionary,
-    programIndicatorStateDictionary
-} from "../../Store";
+import {    dataElementsStateDictionary,    dataSetReportingRatesStateDictionary,    programIndicatorStateDictionary} from "../../Store";
+import AccesibilityAndSharing from "../../Shared/Componets/AccesibilityAndSharing";
 
 
 
@@ -51,7 +48,10 @@ export default function IndicatorPage(props){
 
         {/*<CompletenessDataSources />*/}
 
-       </div>)
+        <AccesibilityAndSharing id={id} resourceType={"indicators"} />
+
+
+    </div>)
 }
 
 

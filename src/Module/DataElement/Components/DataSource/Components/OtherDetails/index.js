@@ -85,7 +85,7 @@ export default function OtherDetailTable(props){
                         {detail?.legendSets?.length===0? 'no legends assigned':
                             <ol>
                                 {detail?.legendSets?.map((legend)=>{
-                                    return <li>{legend?.displayName}</li>
+                                    return <li key={legend.id}>{legend?.displayName}</li>
                                 })}
                             </ol>
                         }
@@ -94,9 +94,8 @@ export default function OtherDetailTable(props){
                         {data?.orgUnitLevels?.organisationUnitLevels?.length===0? "No organization unit level assigned":
                             <ol>
                                 {data?.orgUnitLevels?.organisationUnitLevels?.map((lev)=>{
-
                                     return (
-                                        <li>{lev?.displayName}</li>
+                                        <li key={lev?.id}>{lev?.displayName}</li>
                                     )
                                 })}
                             </ol>
