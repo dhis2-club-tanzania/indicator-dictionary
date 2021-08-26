@@ -22,7 +22,7 @@ const MyApp = () => (
                             <Index />
                         </Route>
                         {/*<Route path="/indicator/:id">*/}
-                        {/*    <IndicatorPage />*/}
+                        {/*    <Index />*/}
                         {/*</Route>*/}
                     </Switch>
                 </Layout>

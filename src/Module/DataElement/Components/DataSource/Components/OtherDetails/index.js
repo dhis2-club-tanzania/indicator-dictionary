@@ -25,7 +25,6 @@ export default function OtherDetailTable(props){
 
     const {loading, error, data,refetch}  = useDataQuery(query, {variables: {levels}})
 
-
     return (
         <DataTable>
             <TableHead>
@@ -90,7 +89,6 @@ export default function OtherDetailTable(props){
                                 })}
                             </ol>
                         }
-
                     </DataTableCell>
                     <DataTableCell bordered>
                         {data?.orgUnitLevels?.organisationUnitLevels?.length===0? "No organization unit level assigned":
@@ -103,8 +101,6 @@ export default function OtherDetailTable(props){
                                 })}
                             </ol>
                         }
-
-
 
                     </DataTableCell>
 
