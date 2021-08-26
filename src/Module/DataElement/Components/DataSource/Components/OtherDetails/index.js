@@ -1,6 +1,9 @@
 import { TableHead, TableBody,  DataTable,    DataTableRow,    DataTableCell,    DataTableColumnHeader,} from '@dhis2/ui'
 import {useConfig, useDataQuery} from "@dhis2/app-runtime";
 import {dataTypes} from "../../../../../../Utils/Models";
+import Loader from "../../../../../../Shared/Componets/Loaders/Loader";
+import Error from "../../../../../../Shared/Componets/Error/ErrorAPIResult";
+import React from "react";
 
 const query = {
     orgUnitLevels: {
@@ -24,6 +27,7 @@ export default function OtherDetailTable(props){
     const levels=detail?.aggregationLevels
 
     const {loading, error, data,refetch}  = useDataQuery(query, {variables: {levels}})
+
 
     return (
         <DataTable>
@@ -91,14 +95,17 @@ export default function OtherDetailTable(props){
                         }
                     </DataTableCell>
                     <DataTableCell bordered>
-                        {data?.orgUnitLevels?.organisationUnitLevels?.length===0? "No organization unit level assigned":
-                            <ol>
-                                {data?.orgUnitLevels?.organisationUnitLevels?.map((lev)=>{
-                                    return (
-                                        <li key={lev?.id}>{lev?.displayName}</li>
-                                    )
-                                })}
-                            </ol>
+                        {
+                            loading ? <Loader text={""}/> : error ? <Error error={error}/> :
+                                data?.orgUnitLevels?.organisationUnitLevels?.length === 0 ? "No organization unit level assigned" :
+                                    <ol>
+                                        {data?.orgUnitLevels?.organisationUnitLevels?.map((lev) => {
+                                            return (
+                                                <li key={lev?.id}>{lev?.displayName}</li>
+                                            )
+                                        })}
+                                    </ol>
+
                         }
 
                     </DataTableCell>

@@ -15,9 +15,8 @@ export default function TopBar(props){
     //variables
     const[dataSourceValues,setDataSourcesValues]=useState([]);
 
-    const[selectedDataSource,setSelectedDataSource]=useState(0)
-
     const updateDataSourceStateDictionaryHandler= useSetRecoilState(dataSourceStateDictionary)
+
 
     const arrayDataSource=props.dataSources;  //these are arrays of ids
 
@@ -28,13 +27,13 @@ export default function TopBar(props){
     const engine=useDataEngine()
     useEffect(()=>{
       async function fetch(){
-
-          const tmp=await getDataSourceValues(arrayDataSource)
+          const tmp=await getDataSourceValues(engine,arrayDataSource)
           setDataSourcesValues((prevState) =>{
               return prevState.concat(tmp)
           })
-          updateDataSourceStateDictionaryHandler({id:tmp[0]?.id,type:tmp[0]?.type})
           setLoading(false)
+          updateDataSourceStateDictionaryHandler({id:tmp[0]?.id,type:tmp[0]?.type})
+
       }
         setLoading(true)
         setError(false)
@@ -45,12 +44,10 @@ export default function TopBar(props){
            setError(error)
        })
 
-
     },[])
 
     //functions
-
-  async function getDataSourceValues(arrayDataSource){
+  async function getDataSourceValues(engine,arrayDataSource){
         let promisArr= IdentifiableObjectDataSource(engine,arrayDataSource)
         return await Promise.all(promisArr).then(value => {
              return value.map((obj, index) => {
@@ -66,16 +63,14 @@ export default function TopBar(props){
 
     if(loading){
        return  <Loader text={""} />
-
     }if(error){
-
         return <Error error={error} />
     }
 
 
     return<div>
         {dataSourceValues?.map((dt)=>{
-            return <Chip key={dt.id}  onClick={()=>updateDataSourceStateDictionaryHandler({id:dt.id,type:dt.type}) }>{displayNameLength(dt.displayName)}</Chip>
+            return <Chip key={dt.id}  onClick={()=>{updateDataSourceStateDictionaryHandler({id:dt.id,type:dt.type}) }}>{displayNameLength(dt.displayName)}</Chip>
         })}
 
         <DataSourceSelector />

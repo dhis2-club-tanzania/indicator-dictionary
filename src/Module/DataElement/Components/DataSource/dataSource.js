@@ -1,5 +1,5 @@
 
-import { CircularLoader } from '@dhis2/ui'
+import React from 'react'
 import { useDataQuery } from '@dhis2/app-runtime'
 import { useEffect} from 'react'
 import Introduction from "../introduction/introduction";
@@ -8,6 +8,8 @@ import OtherDetailTable from "./Components/OtherDetails";
 import {dataElementDomainTypes, dataTypes} from "../../../../Utils/Models";
 import DataSets from "./Components/DataSets";
 import Programs from "./Components/Programs";
+import Loader from "../../../../Shared/Componets/Loaders/Loader";
+import Error from "../../../../Shared/Componets/Error/ErrorAPIResult";
 
 const query = {
     sources:{
@@ -30,18 +32,15 @@ export default  function DataSource({id}){
         useEffect(()=>{refetch({id})},[id])
 
 
-        // if(loading){
-       //    return <CircularLoader />
-       // }
-       //
-       // if(error){
-       //    return <p> {error} </p>
-       // }
-       //
+        if(loading){
+            return  <Loader text={""} />
+        }if(error){
+            return <Error error={error} />
+        }
 
     return (
         <>
-        { (data?.sources?.domainType==dataElementDomainTypes.AGGREGATE && data!==dataElementDomainTypes.UNDEFINED)?  <DataSets id={id} /> : <Programs id={id} />}
+        { (data?.sources?.domainType===dataElementDomainTypes.AGGREGATE && data!==dataElementDomainTypes.UNDEFINED)?  <DataSets id={id} /> : <Programs id={id} />}
 
             <div>
                 <OtherDetailTable  other={data?.sources}/>

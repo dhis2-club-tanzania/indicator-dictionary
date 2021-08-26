@@ -1,6 +1,6 @@
 import {useDataEngine} from '@dhis2/app-runtime'
 import {useEffect, useState} from "react";
-import {    getDetailedValueFromApi,    getFinalWordFormula,    getFormulaSources} from "../../../../../Utils/Functions/FormulaFunctions";
+import {  getDetailedValueFromApi,    getFinalWordFormula,    getFormulaSources} from "../../../../../Utils/Functions/FormulaFunctions";
 import {dataTypes} from "../../../../../Utils/Models";
 import PropTypes from "prop-types";
 
@@ -23,76 +23,70 @@ export default function DispalyFormula(props){
 
     useEffect(()=>{
         let tempArr=getFormulaSources(formula,"#{")
-
         if(tempArr.length){
-            getWordData(tempArr,0),()=>{}
+           async function fetch(){
+               wordDtEl= await getWordData(tempArr,dataTypes.DATA_ELEMENT)
+            }
+            fetch().then(value =>  setDataElementArray(wordDtEl))
         }
 
     },[])
     useEffect(()=>{
         let tempArr=getFormulaSources(formula,"I{")
         if(tempArr.length){
-            getWordData(tempArr,1),()=>{}
+            async function fetch(){
+              programInd= await getWordData(tempArr,dataTypes.PROGRAM_INDICATOR)
+            }
+            fetch().then((value => setProgramIndicatorArray(programInd)))
+
         }
 
     },[])
     useEffect(()=>{
         let tempArr=getFormulaSources(formula,"R{")
         if(tempArr.length){
-            getWordData(tempArr,2),()=>{}
+            async function fetch(){
+                await getWordData(tempArr,dataTypes.DATASET_REPORTING_RATES)
+            }
+            fetch().then(value =>  setDataSetReportingRatesArray(dataSetReportingRates))
+
         }
     },[])
 
     //functions
     async function getWordData(arr,type){ //arr for array of id of datas to get their values, type indicates the data type of data eg dataElement=0 program indicator=1, reporting rates=2
-        let allPromises=[];
-        let i=0
-        for(i=0;i<arr.length;i++){
-            let proms=getDetailedValueFromApi(engine,arr[i],type)
-            allPromises.push(proms)
-        }
-        i=0
-        await Promise.all(allPromises).then(value => {
-            if(type===dataTypes.DATA_ELEMENT){
-                value.map((val)=>{ //We always return array just for uniformity
-                    if(val.length===2){ //array of two elements first element is dataElement second element of array is category option combo
-                        wordDtEl.push({id:arr[i],val:val[0].displayName+" "+val[1],location:loc,sources:val[0].dataSetElements})
-                    }if(val.length===1){   //this is array of one element for data element that are just pure no category options
+        let allPromises= arr.map((id)=>{
+            return getDetailedValueFromApi(engine,id,type)
+        })
 
-                        wordDtEl.push({id:arr[i],val:val[0].displayName,"location":loc,sources:val[0].dataSetElements})
+       return await Promise.all(allPromises).then(value => {
+            if(type===dataTypes.DATA_ELEMENT){
+               return  value.map((val,index)=>{ //We always return array just for uniformity
+                    if(val.length===2){ //array of two elements first element is dataElement second element of array is category option combo
+                        return {id:arr[index],val:val[0].displayName+" "+val[1],location:loc,sources:val[0].dataSetElements}
+                        // wordDtEl.push({id:arr[i],val:val[0].displayName+" "+val[1],location:loc,sources:val[0].dataSetElements})
+                    }if(val.length===1){   //this is array of one element for data element that are just pure no category options
+                        return {id:arr[index],val:val[0].displayName,"location":loc,sources:val[0].dataSetElements}
+                        // wordDtEl.push({id:arr[i],val:val[0].displayName,"location":loc,sources:val[0].dataSetElements})
                     }
-                    ++i;
+
                 })
             }
             if(type===dataTypes.PROGRAM_INDICATOR){
-                value.map((val)=>{ //We always return array just for uniformity
-                    programInd.push({"id":arr[i],"val":val[0].displayName,"location":loc,sources:val[0].program})
-                    ++i;
+               return  value.map((val,index)=>{ //We always return array just for uniformity
+                   return {"id":arr[index],"val":val[0].displayName,"location":loc,sources:val[0].program}
                 })
             }
             if(type===dataTypes.DATASET_REPORTING_RATES){
-                value.map((val)=>{ //We always return array just for uniformity
-                    dataSetReportingRates.push({"id":arr[i],"val":val[0],"location":loc})
-                    ++i;
+               return  value.map((val,index)=>{ //We always return array just for uniformity
+                    return {"id":arr[index],"val":val[0],"location":loc}
                 })
             }
 
-            if(wordDtEl.length===arr.length){ //array is full so we reload to update UI
-                setDataElementArray(wordDtEl)
-
-            }
-            if(programInd.length===arr.length){
-                setProgramIndicatorArray(programInd)
-
-            }
-            if(dataSetReportingRates.length===arr.length){
-                setDataSetReportingRatesArray(dataSetReportingRates)
-
-            }
         })
     }
 
-    return      <div>
+    return <div>
 
         {getFinalWordFormula(formula,dataElementsArray,programIndicatorArray,dataSetReportingRatesArray,[],[])}
 

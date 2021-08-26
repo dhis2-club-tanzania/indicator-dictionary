@@ -9,6 +9,7 @@ export default function DataSourceSelector(props){
 
     const{id,type}=useRecoilValue(dataSourceStateDictionary);
 
+
     if(type!==dataTypes.UNDEFINED){
         if(type===dataSourceTypes.INDICATOR){
             return  <IndicatorPage id={id} />

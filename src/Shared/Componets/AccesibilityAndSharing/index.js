@@ -1,9 +1,11 @@
 import { TableHead, TableBody,  DataTable,    DataTableRow,    DataTableCell,    DataTableColumnHeader,} from '@dhis2/ui'
 import PropTypes from "prop-types";
 import {useDataQuery} from "@dhis2/app-runtime";
-import {useEffect} from 'react'
+import React, {useEffect} from 'react'
 import { CircularLoader } from '@dhis2/ui'
 import {displayAccessPermisssion} from "../../../Utils/Functions/DataElementDictionaryFunctions";
+import Loader from "../Loaders/Loader";
+import Error from "../Error/ErrorAPIResult";
 
 
 const query={
@@ -45,6 +47,12 @@ export default function AccesibilityAndSharing(props){
 
     const result=data?.sources
 
+
+        if(loading){
+            return  <Loader text={""} />
+        }if(error){
+            return <Error error={error} />
+        }
 
 
     return(<div>

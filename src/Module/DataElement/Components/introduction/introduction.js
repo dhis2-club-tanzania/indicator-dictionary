@@ -1,8 +1,10 @@
 
 import PropTypes from "prop-types";
 import {useDataQuery} from "@dhis2/app-runtime";
-import {useEffect} from 'react'
+import React, {useEffect} from 'react'
 import { CircularLoader } from '@dhis2/ui'
+import Loader from "../../../../Shared/Componets/Loaders/Loader";
+import Error from "../../../../Shared/Componets/Error/ErrorAPIResult";
 
 const query = {
     dataElements:{
@@ -25,11 +27,9 @@ export default function Introduction({id}){
     useEffect(()=>{refetch({id})},[id])
 
     if(loading){
-        return <CircularLoader />
-    }
-
-    if(error){
-        return <p> {error} </p>
+        return  <Loader text={""} />
+    }if(error){
+        return <Error error={error} />
     }
 
 

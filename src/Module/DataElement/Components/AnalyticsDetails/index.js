@@ -1,8 +1,10 @@
 import PropTypes from "prop-types";
 import {useDataQuery} from "@dhis2/app-runtime";
-import {useEffect} from 'react'
+import React, {useEffect} from 'react'
 import { CircularLoader } from '@dhis2/ui'
 import {lowerCaseAllWordsExceptFirstLetters} from "../../../../Utils/Functions/FormulaFunctions";
+import Loader from "../../../../Shared/Componets/Loaders/Loader";
+import Error from "../../../../Shared/Componets/Error/ErrorAPIResult";
 
 
 const query = {
@@ -24,6 +26,12 @@ export default function AnalyticsDetails({id}){
     useEffect(()=>{refetch({id})},[id])
 
     const result=data?.detail
+
+    if(loading){
+        return  <Loader text={""} />
+    }if(error){
+        return <Error error={error} />
+    }
 
     return(<div>
         <h3>Analytics Details</h3>
