@@ -11,15 +11,15 @@ export default function DataElementPage(props){
 
 
     return (<div style={{display:"flex",flexDirection:"column"}}>
-        <Introduction id={id} />
+            <Introduction id={id} />
 
-        {/*    <DataSource id={id}  />*/}
+            <DataSource id={id}  />
 
-            {/*<Facts  id={id}  />*/}
+            <Facts  id={id}  />
             <AnalyticsDetails id={id}/>
-            {/*<RelatedIndicator id={id} />*/}
+            <RelatedIndicator id={id} />
 
-            {/*<AccesibilityAndSharing id={id} />*/}
+            <AccesibilityAndSharing id={id} />
 
     </div>
     )
