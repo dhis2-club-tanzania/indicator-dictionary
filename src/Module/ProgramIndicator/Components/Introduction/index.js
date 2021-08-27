@@ -5,6 +5,7 @@ import React, {useEffect} from 'react'
 import { CircularLoader } from '@dhis2/ui'
 import Loader from "../../../../Shared/Componets/Loaders/Loader";
 import Error from "../../../../Shared/Componets/Error/ErrorAPIResult";
+import IdentifiedBy from "../../../../Shared/Componets/IdentifiedBy/Index";
 
 const query = {
     programIndicators:{
@@ -34,18 +35,15 @@ export default function Introduction({id}){
     let res=data?.programIndicators
 
 
-    console.log(res)
-
     return ( <div>
 
         <h3>Introduction</h3>
 
             <p>
-               {/*<b>{res?.displayName}</b>  can be described as {res?.description}.*/}
-               {/* <br/>*/}
-               {/* It’s labelled in short as {res?.shortName} and has a code of {res?.code}. In data entry form, it’s named “{res?.displayFormName}”*/}
-               {/* <br/>*/}
-               {/* Identified by: <i> <a style={{textDecoration:"none"}} href={res?.href +".json"} target={"_blank"} >{res?.id}</a> </i>*/}
+
+                {res?.displayName} is a {res?.aggregationType} indicator, described as {res?.displayDescription}. It’s labelled in short as {res?.displayShortName} and has a code of {res?.code}. In analytics it displays up to {res?.decimals} decimals. {res?.displayInForm?"It is also set to display in form":"It is not set to display in form"}
+                <IdentifiedBy href={res?.href} id={res?.id} />
+
             </p>
 
     </div>
@@ -55,6 +53,6 @@ export default function Introduction({id}){
 
 
 
-Introduction.prototype={
+Introduction.PropTypes={
     id:PropTypes.string.isRequired
 }
