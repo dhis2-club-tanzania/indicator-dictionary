@@ -6,7 +6,10 @@ import { TableHead, TableBody,  DataTable,    DataTableRow,    DataTableCell,   
 
 
 
-export default function ExpressionDetailTable(){
+export default function ExpressionDetailTable(props){
+    const expression=props.expression;
+    const filter=props.filter
+
     return   <DataTable>
         <TableHead>
             <DataTableRow>
@@ -29,11 +32,11 @@ export default function ExpressionDetailTable(){
                 </DataTableCell>
                 <DataTableCell bordered >
 
-
+                    {expression}
 
                 </DataTableCell>
                 <DataTableCell bordered>
-
+                    {filter}
 
                 </DataTableCell>
 

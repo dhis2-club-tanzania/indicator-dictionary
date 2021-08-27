@@ -1,9 +1,13 @@
-import DisplayFormula from "../../../../../Shared/Componets/RelatedIndicator/Componets/DisplayFormula";
+import DisplayFormula from "../../../../../../Shared/Componets/RelatedIndicator/Componets/DisplayFormula";
 import React from "react";
 import { TableHead, TableBody,  DataTable,    DataTableRow,    DataTableCell,    DataTableColumnHeader,} from '@dhis2/ui'
+import Row from "./Components/Row";
 
 
-export default function BoundaryTable(){
+export default function BoundaryTable(props){
+
+    const res=props.rows
+
     return   <DataTable>
         <TableHead>
             <DataTableRow>
@@ -25,25 +29,12 @@ export default function BoundaryTable(){
             </DataTableRow>
         </TableHead>
         <TableBody>
-            <DataTableRow >
 
-                <DataTableCell bordered >
-
-
-                </DataTableCell>
-                <DataTableCell bordered>
-
-                </DataTableCell>
-                <DataTableCell bordered b>
+            {res?.map((row)=>{
+                return  <Row key={row?.id} tableDetail={row?.analyticsPeriodBoundaries} target={row?.boundaryTarget} analyticsPeriodBoundaryType={row?.analyticsPeriodBoundaryType} offsetPeriod={row?.offsetPeriods} periodType={row?.offsetPeriodType}  />
+            })}
 
 
-                </DataTableCell>
-                <DataTableCell bordered>
-
-                </DataTableCell>
-
-
-            </DataTableRow>
         </TableBody>
     </DataTable>
 }

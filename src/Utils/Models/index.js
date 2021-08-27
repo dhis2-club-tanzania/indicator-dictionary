@@ -22,6 +22,11 @@ export const dataElementDomainTypes={
     UNDEFINED:'undefined'
 }
 
+export const analyticsTypes={
+    EVENT:"EVENT",
+    ENROLLMENT:"ENROLLMENT"
+}
+
 //structure of dataElemet in store is
 // [
 //     {
