@@ -4,8 +4,8 @@ import {useDataQuery} from "@dhis2/app-runtime";
 import React, {useEffect} from 'react'
 import { CircularLoader } from '@dhis2/ui'
 import DisplayFormula from "./Componets/DisplayFormula";
-import Loader from "../../../../Shared/Componets/Loaders/Loader";
-import Error from "../../../../Shared/Componets/Error/ErrorAPIResult";
+import Loader from "../Loaders/Loader";
+import Error from "../Error/ErrorAPIResult";
 
 const query={
     relatedInd:{
@@ -23,7 +23,9 @@ const query={
 
 
 
-export default function RelatedIndicator({id}){
+export default function RelatedIndicator(props){
+    const id=props.id
+    const resourceType=props.resourceType
 
     const {loading, error, data,refetch}  = useDataQuery(query, {variables: {id}})
 
@@ -34,7 +36,7 @@ export default function RelatedIndicator({id}){
         return (
             <div>
                 <h3>Related Indicators</h3>
-                <p>This Data Element is not related to any indicator</p>
+                <p>This {resourceType} is not related to any indicator</p>
             </div>
         )
     }
@@ -52,7 +54,7 @@ export default function RelatedIndicator({id}){
         <div>
             <h3>Related Indicators</h3>
             <p>
-                Below are set of indicators using program indicator as numerator or denominator in their calculations.
+                Below are set of indicators using {resourceType} as numerator or denominator in their calculations.
             </p>
             <DataTable>
                 <TableHead>

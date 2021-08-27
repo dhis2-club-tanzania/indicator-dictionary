@@ -1,10 +1,10 @@
 import {useDataEngine} from '@dhis2/app-runtime'
 import React, {useEffect, useState} from "react";
-import {  getDetailedValueFromApi,    getFinalWordFormula,    getFormulaSources} from "../../../../../Utils/Functions/FormulaFunctions";
-import {dataTypes} from "../../../../../Utils/Models";
+import {  getDetailedValueFromApi,    getFinalWordFormula,    getFormulaSources} from "../../../../Utils/Functions/FormulaFunctions";
+import {dataTypes} from "../../../../Utils/Models";
 import PropTypes from "prop-types";
-import Loader from "../../../../../Shared/Componets/Loaders/Loader";
-import Error from "../../../../../Shared/Componets/Error/ErrorAPIResult";
+import Loader from "../../Loaders/Loader";
+import Error from "../../Error/ErrorAPIResult";
 
 export default function DisplayFormula(props){
     //props
