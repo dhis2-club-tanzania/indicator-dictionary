@@ -18,10 +18,10 @@ import Introduction from "../introduction/introduction";
 import PropTypes from "prop-types";
 const query =  {
     indicatorGroups:{
-      resource:"indicators",
+      resource:"programIndicators",
       id: ({id})=>id,
         params:{
-          fields:["indicatorGroups[id,displayName,indicators[id,displayName]]"]
+          fields:["programIndicatorGroups[id,code,displayName,programIndicators[id,displayName]]"]
         }
     }
   }
@@ -41,11 +41,11 @@ export default function IndicatorFacts({id}){
      }  
 
 
-     if(data?.indicatorGroups?.indicatorGroups){
+     if(data?.indicatorGroups?.programIndicatorGroups){
          return <p>There are no indicator facts associated with this indicator</p>
      }
  
-     let count=0
+
     return (<div>
         <h3>Program Indicator facts</h3>
 
@@ -69,15 +69,12 @@ export default function IndicatorFacts({id}){
             <DataTableColumnHeader>
             Indicators
             </DataTableColumnHeader>
-            <DataTableColumnHeader>
-                Indicators List
-            </DataTableColumnHeader>
+
         </DataTableRow>
     </TableHead>
     <TableBody>
-        {data?.indicatorGroups?.indicatorGroups?.map((group)=>{
-            count++
-            return  (<IndicatorGroupRow key={group?.id} no={count} name={group?.displayName} code={group?.id} indicators={group?.indicators} />)
+        {data?.indicatorGroups?.programIndicatorGroups?.map((group,index)=>{
+            return  (<IndicatorGroupRow key={group?.id} no={index} name={group?.displayName} code={group?.id} indicators={programIndicators?.indicators} />)
         })}
         
         
