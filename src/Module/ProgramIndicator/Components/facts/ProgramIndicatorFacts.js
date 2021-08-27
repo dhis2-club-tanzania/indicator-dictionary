@@ -43,7 +43,7 @@ export default function ProgramIndicatorFacts({id}){
 
 
      if(data?.indicatorGroups?.programIndicatorGroups?.length===0){
-         return <p>There are no indicator facts associated with this indicator</p>
+         return <p>There are no indicator facts associated with this Program Indicator</p>
      }
  
 

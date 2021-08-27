@@ -34,7 +34,7 @@ export default  function DataSource({id}) {
 
     return (
         <div>
-            Indicator is captured from with following program
+           Program Indicator is captured from with following program
             <ul>
                 <li>
                 {data?.sources?.program?.displayName} submitting records on every event
