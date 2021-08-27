@@ -13,9 +13,11 @@ import {
 import IndicatorGroupRow from './indicatorGroupRow'
 import { CircularLoader } from '@dhis2/ui'
 import { useDataQuery } from '@dhis2/app-runtime'
-import { useEffect} from 'react'
+import React, { useEffect} from 'react'
 
 import PropTypes from "prop-types";
+import Loader from "../../../../Shared/Componets/Loaders/Loader";
+import Error from "../../../../Shared/Componets/Error/ErrorAPIResult";
 const query =  {
     indicatorGroups:{
       resource:"programIndicators",
@@ -34,15 +36,14 @@ export default function ProgramIndicatorFacts({id}){
 
 
     if(loading){
-        return <CircularLoader />
-     }
- 
-     if(error){
-        return <p> {error} </p> 
-     }
+        return  <Loader text={""} />
+    }if(error){
+        return <Error error={error} />
+    }
 
 
-     if(data?.indicatorGroups?.programIndicatorGroups?.length===0){
+
+    if(data?.indicatorGroups?.programIndicatorGroups?.length===0){
          return <p>There are no indicator facts associated with this Program Indicator</p>
      }
  

@@ -1,7 +1,9 @@
 import { CircularLoader } from '@dhis2/ui'
 import { useDataQuery } from '@dhis2/app-runtime'
 import Legend from './legend'
-import { useEffect} from 'react'
+import React, { useEffect} from 'react'
+import Loader from "../../../../Shared/Componets/Loaders/Loader";
+import Error from "../../../../Shared/Componets/Error/ErrorAPIResult";
 
 const query =    {
   legendAnalysis:{
@@ -20,14 +22,14 @@ export default function LegendsAnalysis({id}){
     useEffect(()=>{refetch({id})},[id])
 
     if(loading){
-        return <CircularLoader />
-     }
- 
-     if(error){
-        return <p> {error} </p> 
-     }  
-   
-     if(data?.legendAnalysis?.legendSets?.length===0){
+        return  <Loader text={""} />
+    }if(error){
+        return <Error error={error} />
+    }
+
+
+
+    if(data?.legendAnalysis?.legendSets?.length===0){
        return <><p>There are no legends associated with these Program Indicator</p></> //no legends sets
      }
 
