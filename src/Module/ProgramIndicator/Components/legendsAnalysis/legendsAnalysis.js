@@ -5,9 +5,8 @@ import { useEffect} from 'react'
 
 const query =    {
   legendAnalysis:{
-    resource:"indicators",
-    // "id": "ulgL07PF8rq",
-    id: ({id})=>id,
+    resource:"programIndicators",
+      id: ({id})=>id,
       params:{
         fields:["id","displayName","legendSets[id,displayName,legends[id,displayName,startValue,endValue,color]]"]
       }
