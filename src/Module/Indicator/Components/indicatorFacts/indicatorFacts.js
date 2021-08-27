@@ -41,7 +41,7 @@ export default function IndicatorFacts({id}){
      }  
 
 
-     if(data?.indicatorGroups?.indicatorGroups){
+     if(data?.indicatorGroups?.indicatorGroups?.length===0){
          return <p>There are no indicator facts associated with this indicator</p>
      }
  

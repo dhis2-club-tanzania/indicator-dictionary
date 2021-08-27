@@ -14,7 +14,7 @@ import IndicatorGroupRow from './indicatorGroupRow'
 import { CircularLoader } from '@dhis2/ui'
 import { useDataQuery } from '@dhis2/app-runtime'
 import { useEffect} from 'react'
-import Introduction from "../introduction/introduction";
+
 import PropTypes from "prop-types";
 const query =  {
     indicatorGroups:{
@@ -26,11 +26,12 @@ const query =  {
     }
   }
 
-export default function IndicatorFacts({id}){
+export default function ProgramIndicatorFacts({id}){
 
     const {loading, error, data,refetch}  = useDataQuery(query, {variables: {id}})
 
     useEffect(()=>{refetch({id})},[id])
+
 
     if(loading){
         return <CircularLoader />
@@ -38,10 +39,10 @@ export default function IndicatorFacts({id}){
  
      if(error){
         return <p> {error} </p> 
-     }  
+     }
 
 
-     if(data?.indicatorGroups?.programIndicatorGroups){
+     if(data?.indicatorGroups?.programIndicatorGroups?.length===0){
          return <p>There are no indicator facts associated with this indicator</p>
      }
  
@@ -74,7 +75,7 @@ export default function IndicatorFacts({id}){
     </TableHead>
     <TableBody>
         {data?.indicatorGroups?.programIndicatorGroups?.map((group,index)=>{
-            return  (<IndicatorGroupRow key={group?.id} no={index} name={group?.displayName} code={group?.id} indicators={programIndicators?.indicators} />)
+            return  (<IndicatorGroupRow key={group?.id} no={index} name={group?.displayName} code={group?.code} indicators={group?.programIndicators} />)
         })}
         
         
@@ -88,6 +89,6 @@ export default function IndicatorFacts({id}){
 
 
 
-IndicatorFacts.prototype={
+ProgramIndicatorFacts.prototype={
     id:PropTypes.string.isRequired
 }
