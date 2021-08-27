@@ -1,5 +1,6 @@
 import React from "react";
 import { TableHead, TableBody,  DataTable,    DataTableRow,    DataTableCell,    DataTableColumnHeader,} from '@dhis2/ui'
+import {lowerCaseAllWordsExceptFirstLetters} from "../../../../../../../Utils/Functions/FormulaFunctions";
 
 
 export default function Row(props){
@@ -13,10 +14,10 @@ export default function Row(props){
     return   <DataTableRow >
 
                 <DataTableCell bordered >
-                    {target}
+                    {lowerCaseAllWordsExceptFirstLetters(target)?.replace(/_/g," ")}
                 </DataTableCell>
                 <DataTableCell bordered>
-                    {analyticsPeriodBoundaryType}
+                    {lowerCaseAllWordsExceptFirstLetters(analyticsPeriodBoundaryType)?.replace(/_/g," ")}
                 </DataTableCell>
                 <DataTableCell bordered b>
                     {offsetPeriod}
