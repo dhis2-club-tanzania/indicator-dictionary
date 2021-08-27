@@ -54,7 +54,7 @@ export default function RelatedIndicator(props){
         <div>
             <h3>Related Indicators</h3>
             <p>
-                Below are set of indicators using {resourceType} as numerator or denominator in their calculations.
+                Below are set of indicators using this {resourceType} as numerator or denominator in their calculations.
             </p>
             <DataTable>
                 <TableHead>

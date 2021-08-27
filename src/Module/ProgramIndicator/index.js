@@ -4,6 +4,7 @@ import DataSource from "./Components/DataSource/dataSource";
 import ProgramIndicatorFacts from "./Components/facts/ProgramIndicatorFacts";
 import LegendsAnalysis from "./Components/legendsAnalysis/legendsAnalysis";
 import RelatedIndicator from "../../Shared/Componets/RelatedIndicator";
+import CalculationDetails from "./Components/calculationDetails";
 
 
 export default function ProgramIndicatorPage({id}){
@@ -14,6 +15,7 @@ export default function ProgramIndicatorPage({id}){
         {/*<DataSource id={id} />*/}
         {/*<ProgramIndicatorFacts id={id} />*/}
         {/*<LegendsAnalysis id={id} />*/}
-        <RelatedIndicator id={id} resourceType={"Program Indicator"} />
+        {/*<RelatedIndicator id={id} resourceType={"Program Indicator"} />*/}
+        <CalculationDetails id={id} />
     </div>
 }
