@@ -2,56 +2,48 @@
 import React from 'react'
 import { useDataQuery } from '@dhis2/app-runtime'
 import { useEffect} from 'react'
-import Introduction from "../Introduction";
-import PropTypes from "prop-types";
-import OtherDetailTable from "./Components/OtherDetails";
-import {dataElementDomainTypes, dataTypes} from "../../../../Utils/Models";
-import DataSets from "./Components/DataSets";
-import Programs from "./Components/Programs";
+
 import Loader from "../../../../Shared/Componets/Loaders/Loader";
 import Error from "../../../../Shared/Componets/Error/ErrorAPIResult";
 
 const query = {
     sources:{
-      resource:"dataElements",
+      resource:"programIndicators",
           id: ({id})=>id,
         params:{
-          fields:["domainType","style","optionSetValue","commentOptionSet[displayName]","legendSets[id,displayName]","aggregationLevels"]
+          fields:["program[id,displayName]"]
         }
     } 
   }
 
+export default  function DataSource({id}) {
+
+    const {loading, error, data, refetch} = useDataQuery(query, {variables: {id}})
+
+    useEffect(() => {
+        refetch({id})
+    }, [id])
 
 
-
-export default  function DataSource({id}){
-
-
-        const {loading, error, data,refetch}  = useDataQuery(query, {variables: {id}})
-
-        useEffect(()=>{refetch({id})},[id])
-
-
-        if(loading){
-            return  <Loader text={""} />
-        }if(error){
-            return <Error error={error} />
-        }
-
-    return (
-        <>
-        { (data?.sources?.domainType===dataElementDomainTypes.AGGREGATE && data!==dataElementDomainTypes.UNDEFINED)?  <DataSets id={id} /> : <Programs id={id} />}
-
-            <div>
-                <OtherDetailTable  other={data?.sources}/>
-            </div>
-
-        </>
-    )
-
+    if (loading) {
+        return <Loader text={""}/>
+    }
+    if (error) {
+        return <Error error={error}/>
     }
 
+    return (
+        <div>
+            Indicator is captured from with following program
+            <ul>
+                <li>
+                {data?.sources?.program?.displayName} submitting records on every event
+            </li>
 
-DataSource.prototype={
-    id:PropTypes.string.isRequired
+
+            </ul>
+
+
+        </div>)
 }
+
