@@ -131,9 +131,9 @@ async function getValueDataSource(engine,id){
 
 export function getFormulaInWordsFromFullSources(formula,arrOfSources) {
 
-    for( let i=0;i<arrOfSources.length;i++){
-        if(formula?.search(arrOfSources[i].id)>=0){
-            formula=formula.replace(arrOfSources[i].id,arrOfSources[i].val);
+    for( let i=0;i<arrOfSources?.length;i++){
+        if(formula?.search(arrOfSources[i]?.id)>=0){
+            formula=formula?.replace(arrOfSources[i]?.id,arrOfSources[i]?.val);
         }
     }
     return formula
@@ -241,6 +241,42 @@ export function getValueDataSourcePromise(engine,id){
     return getValueDataSource(engine,id) //its automatically a promise since it is await
 }
 
+
+export async function getWordData(engine,arr,type,loc){ //arr for array of id of datas to get their values, type indicates the data type of data eg dataElement=0 program indicator=1, reporting rates=2
+    if(arr.length>0){
+        let allPromises= arr?.map((id)=>{
+            return getDetailedValueFromApi(engine,id,type)
+        })
+
+        return await Promise.all(allPromises).then(value => {
+            if(type===dataTypes.DATA_ELEMENT){
+                return  value.map((val,index)=>{ //We always return array just for uniformity
+                    if(val.length===2){ //array of two elements first element is dataElement second element of array is category option combo
+                        return {id:arr[index],val:val[0].displayName+" "+val[1],location:loc,sources:val[0].dataSetElements}
+                        // wordDtEl.push({id:arr[i],val:val[0].displayName+" "+val[1],location:loc,sources:val[0].dataSetElements})
+                    }if(val.length===1){   //this is array of one element for data element that are just pure no category options
+                        return {id:arr[index],val:val[0].displayName,"location":loc,sources:val[0].dataSetElements}
+                        // wordDtEl.push({id:arr[i],val:val[0].displayName,"location":loc,sources:val[0].dataSetElements})
+                    }
+
+                })
+            }
+            if(type===dataTypes.PROGRAM_INDICATOR){
+                return  value.map((val,index)=>{ //We always return array just for uniformity
+                    return {"id":arr[index],"val":val[0].displayName,"location":loc,sources:val[0].program}
+                })
+            }
+            if(type===dataTypes.DATASET_REPORTING_RATES){
+                return  value.map((val,index)=>{ //We always return array just for uniformity
+                    return {"id":arr[index],"val":val[0],"location":loc}
+                })
+            }
+
+        })
+
+    }
+
+}
 
 function cleanBrackets(formula){
     if(typeof(formula) !=dataTypes.UNDEFINED){

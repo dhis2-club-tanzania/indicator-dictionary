@@ -1,4 +1,4 @@
-import {useContext} from "react";
+import i18n from "@dhis2/d2-i18n";
 import {
     DataTable,
     DataTableToolbar,
@@ -10,61 +10,61 @@ import {
     DataTableRow,
     DataTableColumnHeader,
 } from '@dhis2/ui'
-
-import Row from './row'
-
+import {useContext} from "react";
 import {selector, useRecoilValue} from "recoil";
-import {dataElementsStateDictionary} from "../../../../Store";
+import {dataElementsStateDictionary} from "../../../Store";
+import Row from './row'
+import PropTypes from 'prop-types'
 
-export default function DataElementSIndicator() {
+export default function DataElementSIndicator({resourceType}) {
 
     const dataElements = useRecoilValue(dataElementsStateDictionary)
 
-    if(dataElements.length===0){
+    console.log(dataElements)
+    if(dataElements?.length===0){
         return (
             <div>
-                <h3> Data elements in indicator </h3>
-                <p>There were no Data Elements in the Indicator Calculations</p>
+                <h3> {i18n.t("Data elements in {{variables}}",{variables:resourceType})}  </h3>
+                <p>{i18n.t("There were no Data Elements in the {{variables}} Calculations",{resourceType})} </p>
             </div>
         )
     }
 
-    let i = 0
+
     return (<div>
-        <h3> Data elements in indicator </h3>
-        <p> The following is the summary of the data elements used in calculations:</p>
+        <h3> {i18n.t("Data elements in {{variables}}",{variables:resourceType})}  </h3>
+        <p> {i18n.t("The following is the summary of the data elements used in calculations:")} </p>
 
         <DataTable>
             <TableHead>
                 <DataTableRow>
                     <DataTableColumnHeader bordered>
-                        Data Element
+                        {i18n.t("Data Element")}
                     </DataTableColumnHeader>
                     <DataTableColumnHeader bordered>
-                        Expression part (Numerator/ Denominator)
+                        {i18n.t("Expression part (Numerator/ Denominator)")}
                     </DataTableColumnHeader>
                     <DataTableColumnHeader>
-                        Value Type
+                        {i18n.t("Value Type")}
                     </DataTableColumnHeader>
                     <DataTableColumnHeader>
-                        Zero Significance
+                        {i18n.t("Zero Significance")}
                     </DataTableColumnHeader>
                     <DataTableColumnHeader>
-                        Categories
+                        {i18n.t("Categories")}
                     </DataTableColumnHeader>
                     <DataTableColumnHeader>
-                        Datasets/ Programs
+                        {i18n.t("Datasets/ Programs")}
                     </DataTableColumnHeader>
                     <DataTableColumnHeader>
-                        Groups
+                        {i18n.t("Groups")}
                     </DataTableColumnHeader>
 
                 </DataTableRow>
             </TableHead>
             <TableBody>
-                {dataElements.map((dtEle) => {
-                    i++
-                    return <Row key={i} datEl={dtEle}/>
+                {dataElements?.map((dtEle,index) => {
+                    return <Row key={index} datEl={dtEle}/>
                 })}
             </TableBody>
 
@@ -73,5 +73,11 @@ export default function DataElementSIndicator() {
 
     </div>)
 }
+
+
+DataElementSIndicator.PropTypes={
+    resourceType:PropTypes.string.isRequired
+}
+
 
 

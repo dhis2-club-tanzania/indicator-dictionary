@@ -3,7 +3,7 @@ import {
 } from '@dhis2/ui'
 import { CircularLoader } from '@dhis2/ui'
 import { useDataQuery } from '@dhis2/app-runtime'
-import CalculationDetailRow from "../calculationDetails/Components/Row";
+import CalculationDetailRow from "../../../Module/Indicator/Components/calculationDetails/Components/Row";
 import PropTypes from "prop-types";
 
 

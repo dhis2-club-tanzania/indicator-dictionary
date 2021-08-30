@@ -1,10 +1,11 @@
-import PropTypes from "prop-types";
 import {useDataQuery} from "@dhis2/app-runtime";
-import React, {useEffect} from 'react'
+import i18n from "@dhis2/d2-i18n";
 import { CircularLoader } from '@dhis2/ui'
-import {lowerCaseAllWordsExceptFirstLetters} from "../../../../Utils/Functions/FormulaFunctions";
-import Loader from "../../../../Shared/Componets/Loaders/Loader";
+import PropTypes from "prop-types";
+import React, {useEffect} from 'react'
 import Error from "../../../../Shared/Componets/Error/ErrorAPIResult";
+import Loader from "../../../../Shared/Componets/Loaders/Loader";
+import {lowerCaseAllWordsExceptFirstLetters} from "../../../../Utils/Functions/FormulaFunctions";
 
 
 const query = {
@@ -34,21 +35,19 @@ export default function AnalyticsDetails({id}){
     }
 
     return(<div>
-        <h3>Analytics Details</h3>
+        <h3>{i18n.t("Analytics Details")} </h3>
         <ul>
-            <li>Uses <b>{result?.aggregationType==="NONE"?" No ": lowerCaseAllWordsExceptFirstLetters(result?.aggregationType)?.replace(/_/g," ") }</b> aggregation type through period and hierarchy</li>
-            <li> {result?.domainType} data sources</li>
-            <li>{result?.zeroIsSignificant?'It stores zero values':"It does not store zero values"}</li>
-            <li>Category Combo is {result?.categoryCombo?.displayName} which has cross-tabulation between {result?.categoryCombo?.categories?.length} {result?.categoryCombo?.categories?.length===1?'category':'categories'} with following details
+            <li>{i18n.t("Uses")}  <b>{i18n.t(result?.aggregationType==="NONE"?"NO":lowerCaseAllWordsExceptFirstLetters(result?.aggregationType)?.replace(/_/g," "))} </b> {i18n.t("aggregation type through period and hierarchy")} </li>
+            <li> {result?.domainType} {i18n.t("data sources")}</li>
+            <li>{i18n.t(result?.zeroIsSignificant?"It stores zero values":"It does not store zero values")}</li>
+            <li>{i18n.t("Category Combo is")} {result?.categoryCombo?.displayName} {i18n.t("which has cross-tabulation between ")} {result?.categoryCombo?.categories?.length} {i18n.t(result?.categoryCombo?.categories?.length===1? "category":"categories")} {i18n.t("with following details")}
                 <ul>
                     {result?.categoryCombo?.categories?.map((cat)=>{
                         return (
                             <li key={cat?.id}> {cat?.displayName}
-                                {cat?.categoryOptions?.length>=0?
-                                     ' which also has the following options'
-                                    :''}
+                                {i18n.t(cat?.categoryOptions?.length>=0? "which also has the following options":"")}
                                 <ul>
-                                    {cat?.categoryOptions?.map((opt)=>{
+                                     {cat?.categoryOptions?.map((opt)=>{
                                         return   <li key={opt.id}> {cat.displayName}</li>
                                     })}
                                 </ul>
@@ -63,3 +62,7 @@ export default function AnalyticsDetails({id}){
 
     </div>)
 }
+
+AnalyticsDetails.propTypes = {
+    id: PropTypes.string.isRequired
+};

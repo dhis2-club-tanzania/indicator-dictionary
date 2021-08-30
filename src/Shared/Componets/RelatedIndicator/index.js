@@ -2,10 +2,10 @@ import { TableHead, TableBody,  DataTable,    DataTableRow,    DataTableCell,   
 import PropTypes from "prop-types";
 import {useDataQuery} from "@dhis2/app-runtime";
 import React, {useEffect} from 'react'
-import { CircularLoader } from '@dhis2/ui'
+import i18n from "@dhis2/d2-i18n";
 import DisplayFormula from "./Componets/DisplayFormula";
-import Loader from "../../../../Shared/Componets/Loaders/Loader";
-import Error from "../../../../Shared/Componets/Error/ErrorAPIResult";
+import Loader from "../Loaders/Loader";
+import Error from "../Error/ErrorAPIResult";
 
 const query={
     relatedInd:{
@@ -23,7 +23,9 @@ const query={
 
 
 
-export default function RelatedIndicator({id}){
+export default function RelatedIndicator(props){
+    const id=props.id
+    const resourceType=props.resourceType
 
     const {loading, error, data,refetch}  = useDataQuery(query, {variables: {id}})
 
@@ -33,8 +35,8 @@ export default function RelatedIndicator({id}){
     if(result?.length===0){
         return (
             <div>
-                <h3>Related Indicators</h3>
-                <p>This Data Element is not related to any indicator</p>
+                <h3>{i18n.t("Related Indicators")} </h3>
+                <p>{i18n.t("This {{variables1}} is not related to any indicator",{variables1:resourceType})} </p>
             </div>
         )
     }
@@ -46,36 +48,37 @@ export default function RelatedIndicator({id}){
         return <Error error={error} />
     }
 
-
     return(
 
         <div>
-            <h3>Related Indicators</h3>
+            <h3>{i18n.t("Related Indicators")} </h3>
+            <p> {i18n.t("Below are set of indicators using this {{variables}} as numerator or denominator in their calculations.",{variables:resourceType})}
 
+            </p>
             <DataTable>
                 <TableHead>
                     <DataTableRow>
 
                         <DataTableColumnHeader>
-                            Name
+                            {i18n.t("Name")}
                         </DataTableColumnHeader>
                         <DataTableColumnHeader>
-                            Numerator
+                            {i18n.t("Numerator")}
                         </DataTableColumnHeader>
                         <DataTableColumnHeader>
-                            Denominator
+                            {i18n.t("Denominator")}
                         </DataTableColumnHeader>
                         <DataTableColumnHeader>
-                            Type
+                            {i18n.t("Type")}
                         </DataTableColumnHeader>
                         <DataTableColumnHeader>
-                           Description
+                            {i18n.t("Description")}
                         </DataTableColumnHeader>
 
                     </DataTableRow>
                 </TableHead>
                 <TableBody>
-                    {result?.map((result)=>{
+                    {result?.map((result,index)=>{
                         return (
                             <DataTableRow key={result?.id}>
 
@@ -86,13 +89,17 @@ export default function RelatedIndicator({id}){
                                 <DataTableCell bordered>
 
                                     <div style={{margin:5}}>
-                                        <DisplayFormula formula={result?.numerator} />
+                                        <DisplayFormula formula={result?.numerator} location={"numerator"}  />
+                                        {/*<DisplayFormula formula={"#{fbfJHSPpUQD}"}  location={"numerator"}/>*/}
+
+
+
                                     </div>
 
                                 </DataTableCell>
                                 <DataTableCell bordered b>
                                     <div style={{margin:5}}>
-                                        <DisplayFormula formula={result?.denominator} />
+                                        <DisplayFormula formula={result?.denominator} location={"denominator"} />
                                     </div>
 
 

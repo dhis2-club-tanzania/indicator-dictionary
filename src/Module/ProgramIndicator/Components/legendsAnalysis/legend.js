@@ -1,4 +1,3 @@
-import i18n from "@dhis2/d2-i18n";
 import {
     DataTable,
     DataTableToolbar,
@@ -11,14 +10,12 @@ import {
     DataTableCell,
     DataTableColumnHeader,
 } from '@dhis2/ui'
-import classes from './table.module.css'
+
 
 
 export default function Legend(props){
 
     const legendSet=props?.legendSet
-
- 
 
     return (
         <li key={legendSet?.id}>
@@ -32,16 +29,16 @@ export default function Legend(props){
                     <TableHead>
                         <DataTableRow>
                             <DataTableColumnHeader>
-                                {i18n.t("Class")}
+                                Class
                             </DataTableColumnHeader>
                             <DataTableColumnHeader>
-                                {i18n.t("Upper")}
+                                Upper
                             </DataTableColumnHeader>
                             <DataTableColumnHeader>
-                                {i18n.t("Lower")}
+                                Lower
                             </DataTableColumnHeader>
                             <DataTableColumnHeader >
-                                {i18n.t("Color")}
+                                Color
                             </DataTableColumnHeader>
                         </DataTableRow>
                     </TableHead>

@@ -1,6 +1,6 @@
 
 
-export function displayAccessPermisssion(access){
+export function displayAccessPermission(access){
 
     if(access?.search("w")>=0){
         return "read and write"

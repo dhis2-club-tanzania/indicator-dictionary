@@ -1,10 +1,12 @@
-import Introduction from "./Components/introduction/introduction";
+
 import DataSource from "./Components/DataSource/dataSource";
 import Facts from "./Components/Facts";
 import AnalyticsDetails from "./Components/AnalyticsDetails";
-import RelatedIndicator from "./Components/RelatedIndicator";
-import AccesibilityAndSharing from "../../Shared/Componets/AccesibilityAndSharing";
+
+import AccessibilityAndSharing from "../../Shared/Componets/AccesibilityAndSharing";
 import React from 'react'
+import RelatedIndicator from "../../Shared/Componets/RelatedIndicator";
+import Introduction from "./Components/introduction/introduction";
 
 
 export default function DataElementPage(props){
@@ -16,8 +18,8 @@ export default function DataElementPage(props){
             <DataSource id={id}  />
             <Facts  id={id}  />
             <AnalyticsDetails id={id}/>
-            <RelatedIndicator id={id} />
-            <AccesibilityAndSharing id={id} resourceType={"dataElements"} />
+            <RelatedIndicator id={id} resourceType={"Data Element"}  />
+            <AccessibilityAndSharing id={id} resourceType={"dataElements"} />
 
     </div>
     )
