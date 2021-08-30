@@ -14,8 +14,7 @@ import {useContext} from "react";
 import {selector, useRecoilValue} from "recoil";
 import {dataElementsStateDictionary} from "../../../Store";
 import Row from './row'
-import {PropTypes} from "@material-ui/core";
-
+import PropTypes from 'prop-types'
 
 export default function DataElementSIndicator({resourceType}) {
 
@@ -25,7 +24,7 @@ export default function DataElementSIndicator({resourceType}) {
         return (
             <div>
                 <h3> {i18n.t("Data elements in {{variables}}",{variables:resourceType})}  </h3>
-                <p>{i18n.t("There were no Data Elements in the {variables} Calculations",{resourceType})} </p>
+                <p>{i18n.t("There were no Data Elements in the {{variables}} Calculations",{resourceType})} </p>
             </div>
         )
     }

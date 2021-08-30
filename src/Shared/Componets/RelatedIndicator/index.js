@@ -52,7 +52,7 @@ export default function RelatedIndicator(props){
 
         <div>
             <h3>{i18n.t("Related Indicators")} </h3>
-            <p> {i18n.t("Below are set of indicators using this {resourceType} as numerator or denominator in their calculations.")}
+            <p> {i18n.t("Below are set of indicators using this {{variables}} as numerator or denominator in their calculations.",{variables:resourceType})}
 
             </p>
             <DataTable>

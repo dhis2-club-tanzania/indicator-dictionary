@@ -10,7 +10,7 @@ export default function ProgramIndicatorIndicator(){
     const programIndicators = useRecoilValue(programIndicatorStateDictionary)
 
 
-    if(programIndicators.length===0){
+    if(programIndicators?.length===0){
         return (
             <div>
                 <h3>{i18n.t("Program Indicators in indicator")}  </h3>

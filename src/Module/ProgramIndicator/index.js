@@ -16,8 +16,8 @@ export default function ProgramIndicatorPage({id}){
         {/*<DataSource id={id} />*/}
         {/*<ProgramIndicatorFacts id={id} />*/}
         {/*<LegendsAnalysis id={id} />*/}
-        {/*/!*<RelatedIndicator id={id} resourceType={"Program Indicator"} />*!/*/}
-        <CalculationDetails id={id} />
-        <DataElementSIndicator resourceType={"Program Indicator"}/>
+        <RelatedIndicator id={id} resourceType={"Program Indicator"} />
+        {/*<CalculationDetails id={id} />*/}
+        {/*<DataElementSIndicator resourceType={"Program Indicator"}/>*/}
     </div>
 }

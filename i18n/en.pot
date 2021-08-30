@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2021-08-30T18:24:06.251Z\n"
-"PO-Revision-Date: 2021-08-30T18:24:06.251Z\n"
+"POT-Creation-Date: 2021-08-30T19:39:10.868Z\n"
+"PO-Revision-Date: 2021-08-30T19:39:10.868Z\n"
 
 msgid "Analytics Details"
 msgstr "Analytics Details"
@@ -169,30 +169,6 @@ msgstr "Numerator"
 msgid "Denominator"
 msgstr "Denominator"
 
-msgid "Data elements in indicator"
-msgstr "Data elements in indicator"
-
-msgid "There were no Data Elements in the Indicator Calculations"
-msgstr "There were no Data Elements in the Indicator Calculations"
-
-msgid "Data Element"
-msgstr "Data Element"
-
-msgid "Expression part (Numerator/ Denominator)"
-msgstr "Expression part (Numerator/ Denominator)"
-
-msgid "Value Type"
-msgstr "Value Type"
-
-msgid "Zero Significance"
-msgstr "Zero Significance"
-
-msgid "Categories"
-msgstr "Categories"
-
-msgid "Datasets/ Programs"
-msgstr "Datasets/ Programs"
-
 msgid "Indicator facts"
 msgstr "Indicator facts"
 
@@ -275,11 +251,35 @@ msgid "This {{variables1}} is not related to any indicator"
 msgstr "This {{variables1}} is not related to any indicator"
 
 msgid ""
-"Below are set of indicators using this {resourceType} as numerator or "
+"Below are set of indicators using this {{variables}} as numerator or "
 "denominator in their calculations."
 msgstr ""
-"Below are set of indicators using this {resourceType} as numerator or "
+"Below are set of indicators using this {{variables}} as numerator or "
 "denominator in their calculations."
 
 msgid "Type"
 msgstr "Type"
+
+msgid "Data elements in {{variables}}"
+msgstr "Data elements in {{variables}}"
+
+msgid "There were no Data Elements in the {{variables}} Calculations"
+msgstr "There were no Data Elements in the {{variables}} Calculations"
+
+msgid "Data Element"
+msgstr "Data Element"
+
+msgid "Expression part (Numerator/ Denominator)"
+msgstr "Expression part (Numerator/ Denominator)"
+
+msgid "Value Type"
+msgstr "Value Type"
+
+msgid "Zero Significance"
+msgstr "Zero Significance"
+
+msgid "Categories"
+msgstr "Categories"
+
+msgid "Datasets/ Programs"
+msgstr "Datasets/ Programs"
