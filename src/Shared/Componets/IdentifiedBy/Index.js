@@ -14,7 +14,7 @@ export default function IdentifiedBy(props){
 }
 
 
-IdentifiedBy.PropTypes={
-    id:PropTypes.string.isRequired,
-    href:PropTypes.string.isRequired
-}
+// IdentifiedBy.PropTypes={
+//     id:PropTypes.string.isRequired,
+//     href:PropTypes.string.isRequired
+// }

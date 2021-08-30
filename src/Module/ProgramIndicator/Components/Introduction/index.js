@@ -42,9 +42,10 @@ export default function Introduction({id}){
             <p>
 
                 {res?.displayName} is a {res?.aggregationType} indicator, described as {res?.displayDescription}. It’s labelled in short as {res?.displayShortName} and has a code of {res?.code}. In analytics it displays up to {res?.decimals} decimals. {res?.displayInForm?"It is also set to display in form":"It is not set to display in form"}
-                <IdentifiedBy href={res?.href} id={res?.id} />
+
 
             </p>
+            <IdentifiedBy href={res?.href} id={res?.id} />
 
     </div>
     )
@@ -52,7 +53,7 @@ export default function Introduction({id}){
 }
 
 
-
-Introduction.PropTypes={
-    id:PropTypes.string.isRequired
-}
+//
+// Introduction.PropTypes={
+//     id:PropTypes.string.isRequired
+// }

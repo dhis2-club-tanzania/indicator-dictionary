@@ -1,10 +1,11 @@
 import {dataSourceTypes, dataTypes} from "../../../Utils/Models";
-import IndicatorPage from "../../Indicator";
+
 import DataElementPage from "../../DataElement";
 import {useRecoilValue} from "recoil";
 import {dataSourceStateDictionary} from "../../../Store";
 import ProgramIndicatorPage from "../../ProgramIndicator";
 import React from 'react'
+import IndicatorPage from "../../Indicator";
 
 
 export default function DataSourceSelector(props){

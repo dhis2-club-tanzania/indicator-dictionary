@@ -60,7 +60,6 @@ export default function TopBar(props){
     }
 
 
-
     //functions
   async function getDataSourceValues(engine,arrayDataSource){
         let promisArr= IdentifiableObjectDataSource(engine,arrayDataSource)
@@ -84,8 +83,6 @@ export default function TopBar(props){
     }if(error){
         return <Error error={error} />
     }
-
-
 
 
     return<div>

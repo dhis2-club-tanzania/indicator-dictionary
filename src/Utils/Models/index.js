@@ -27,11 +27,3 @@ export const analyticsTypes={
     ENROLLMENT:"ENROLLMENT"
 }
 
-//structure of dataElemet in store is
-// [
-//     {
-//         "id":"dfds3ds.fdaf",
-//         "val":"value from api",
-//         "exprPart":"num/den",
-//     }
-// ]

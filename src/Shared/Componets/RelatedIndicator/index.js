@@ -90,8 +90,8 @@ export default function RelatedIndicator(props){
                                 <DataTableCell bordered>
 
                                     <div style={{margin:5}}>
-                                        {/*<DisplayFormula formula={result?.numerator} />*/}
-                                        <DisplayFormula formula={"#{fbfJHSPpUQD}"} />
+                                        <DisplayFormula formula={result?.numerator} />
+                                        {/*<DisplayFormula formula={"#{fbfJHSPpUQD}"} />*/}
 
 
                                     </div>
