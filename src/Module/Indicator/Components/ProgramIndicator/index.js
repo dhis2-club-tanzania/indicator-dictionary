@@ -1,9 +1,9 @@
 import i18n from "@dhis2/d2-i18n";
 import {    DataTable,    TableHead,    TableBody,    DataTableRow,    DataTableColumnHeader} from '@dhis2/ui'
 import {useRecoilValue} from "recoil";
-
-import Row from "./Row";
 import {programIndicatorStateDictionary} from "../../../../Store";
+import Row from "./Row";
+
 
 export default function ProgramIndicatorIndicator(){
 

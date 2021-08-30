@@ -5,6 +5,7 @@ import ProgramIndicatorFacts from "./Components/facts/ProgramIndicatorFacts";
 import LegendsAnalysis from "./Components/legendsAnalysis/legendsAnalysis";
 import RelatedIndicator from "../../Shared/Componets/RelatedIndicator";
 import CalculationDetails from "./Components/calculationDetails";
+import DataElementSIndicator from "../../Shared/Componets/dataElementsInIndicator/dataElementsIndicator";
 
 
 export default function ProgramIndicatorPage({id}){
@@ -17,5 +18,6 @@ export default function ProgramIndicatorPage({id}){
         {/*<LegendsAnalysis id={id} />*/}
         {/*/!*<RelatedIndicator id={id} resourceType={"Program Indicator"} />*!/*/}
         <CalculationDetails id={id} />
+        <DataElementSIndicator resourceType={"Program Indicator"}/>
     </div>
 }

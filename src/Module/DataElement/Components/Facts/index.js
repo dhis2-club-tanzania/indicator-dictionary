@@ -1,8 +1,10 @@
 import {useDataQuery} from "@dhis2/app-runtime";
+import i18n from "@dhis2/d2-i18n";
+import PropTypes from "prop-types";
 import React, { useEffect} from 'react'
-import {lowerCaseAllWordsExceptFirstLetters} from "../../../../Utils/Functions/FormulaFunctions";
-import Loader from "../../../../Shared/Componets/Loaders/Loader";
 import Error from "../../../../Shared/Componets/Error/ErrorAPIResult";
+import Loader from "../../../../Shared/Componets/Loaders/Loader";
+import {lowerCaseAllWordsExceptFirstLetters} from "../../../../Utils/Functions/FormulaFunctions";
 
 
 const query = {
@@ -62,15 +64,18 @@ export default function Facts({id}){
 
     return (
         <div>
-            <h3>Data element Facts</h3>
+            <h3> {i18n.t("Data element Facts")} </h3>
             <ul>
-                <li> Accepts only {lowerCaseAllWordsExceptFirstLetters(data?.sources?.valueType)?.replace(/_/g," ")} to enforce validation</li>
-                <li>Has {data?.expressionMatch?.validationRules?.length} related validation rules</li>
-                <li> Part of numerators of {data?.numeratorMatch?.indicators?.length} indicators</li>
-                <li>Part of denominators of {data?.denominatorMatch?.indicators?.length} indicators</li>
+                <li>{i18n.t("Accepts only")} {lowerCaseAllWordsExceptFirstLetters(data?.sources?.valueType)?.replace(/_/g," ")} {i18n.t("to enforce validation")} </li>
+                <li>{i18n.t("Has")}  {data?.expressionMatch?.validationRules?.length} {i18n.t("related validation rules")}</li>
+                <li>{i18n.t("Part of numerators of")}  {data?.numeratorMatch?.indicators?.length} {i18n.t("indicators")}</li>
+                <li>{i18n.t("Part of denominators of")}  {data?.denominatorMatch?.indicators?.length} {i18n.t("indicators")}</li>
 
 
             </ul>
         </div>
     )
 }
+Facts.propTypes = {
+    id: PropTypes.string.isRequired
+};

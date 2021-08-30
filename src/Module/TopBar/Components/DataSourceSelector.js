@@ -5,7 +5,7 @@ import {useRecoilValue} from "recoil";
 import {dataSourceStateDictionary} from "../../../Store";
 import ProgramIndicatorPage from "../../ProgramIndicator";
 import React from 'react'
-import IndicatorPage from "../../Indicator";
+import IndicatorPage from "../../Indicator/Index";
 
 
 export default function DataSourceSelector(props){

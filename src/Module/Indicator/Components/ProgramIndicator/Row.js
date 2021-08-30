@@ -1,14 +1,12 @@
 import {DataTableRow, DataTableCell,CircularLoader} from '@dhis2/ui'
 import {useDataEngine, useDataQuery} from "@dhis2/app-runtime";
 import {
-
+    getFinalWordFormula,
     getFormulaSources,
     getSummaryValueFromApi, lowerCaseAllWordsExceptFirstLetters
 } from "../../../../Utils/Functions/FormulaFunctions";
 import {useEffect, useState} from "react";
 import {dataTypes} from "../../../../Utils/Models";
-;
-
 
 const query={
    programIndicator:{

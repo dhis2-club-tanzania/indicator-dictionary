@@ -1,11 +1,12 @@
-import Introduction from "./Components/Introduction/introduction";
+
 import DataSource from "./Components/DataSource/dataSource";
 import Facts from "./Components/Facts";
 import AnalyticsDetails from "./Components/AnalyticsDetails";
 
-import AccesibilityAndSharing from "../../Shared/Componets/AccesibilityAndSharing";
+import AccessibilityAndSharing from "../../Shared/Componets/AccesibilityAndSharing";
 import React from 'react'
 import RelatedIndicator from "../../Shared/Componets/RelatedIndicator";
+import Introduction from "./Components/introduction/introduction";
 
 
 export default function DataElementPage(props){
@@ -18,7 +19,7 @@ export default function DataElementPage(props){
             {/*<Facts  id={id}  />*/}
             {/*<AnalyticsDetails id={id}/>*/}
             <RelatedIndicator id={id} resourceType={"Data Element"}  />
-            {/*<AccesibilityAndSharing id={id} resourceType={"dataElements"} />*/}
+            {/*<AccessibilityAndSharing id={id} resourceType={"dataElements"} />*/}
 
     </div>
     )

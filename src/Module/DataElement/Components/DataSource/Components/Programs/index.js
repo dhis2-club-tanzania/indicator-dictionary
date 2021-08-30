@@ -18,6 +18,8 @@ const query = {
     }
 }
 
+// https://dhis2.nnkogift.me/api/programStages.json?filter=programStageDataElements.dataElement.id:eq:qrur9Dvnyt5&fields=program[id,displayName]
+
 
 
 export default  function Programs({id}){

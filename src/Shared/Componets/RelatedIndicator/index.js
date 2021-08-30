@@ -2,7 +2,7 @@ import { TableHead, TableBody,  DataTable,    DataTableRow,    DataTableCell,   
 import PropTypes from "prop-types";
 import {useDataQuery} from "@dhis2/app-runtime";
 import React, {useEffect} from 'react'
-import { CircularLoader } from '@dhis2/ui'
+import i18n from "@dhis2/d2-i18n";
 import DisplayFormula from "./Componets/DisplayFormula";
 import Loader from "../Loaders/Loader";
 import Error from "../Error/ErrorAPIResult";
@@ -35,8 +35,8 @@ export default function RelatedIndicator(props){
     if(result?.length===0){
         return (
             <div>
-                <h3>Related Indicators</h3>
-                <p>This {resourceType} is not related to any indicator</p>
+                <h3>{i18n.t("Related Indicators")} </h3>
+                <p>{i18n.t("This {{variables1}} is not related to any indicator",{variables1:resourceType})} </p>
             </div>
         )
     }
@@ -48,38 +48,37 @@ export default function RelatedIndicator(props){
         return <Error error={error} />
     }
 
-
     return(
 
         <div>
-            <h3>Related Indicators</h3>
-            <p>
-                Below are set of indicators using this {resourceType} as numerator or denominator in their calculations.
+            <h3>{i18n.t("Related Indicators")} </h3>
+            <p> {i18n.t("Below are set of indicators using this {resourceType} as numerator or denominator in their calculations.")}
+
             </p>
             <DataTable>
                 <TableHead>
                     <DataTableRow>
 
                         <DataTableColumnHeader>
-                            Name
+                            {i18n.t("Name")}
                         </DataTableColumnHeader>
                         <DataTableColumnHeader>
-                            Numerator
+                            {i18n.t("Numerator")}
                         </DataTableColumnHeader>
                         <DataTableColumnHeader>
-                            Denominator
+                            {i18n.t("Denominator")}
                         </DataTableColumnHeader>
                         <DataTableColumnHeader>
-                            Type
+                            {i18n.t("Type")}
                         </DataTableColumnHeader>
                         <DataTableColumnHeader>
-                           Description
+                            {i18n.t("Description")}
                         </DataTableColumnHeader>
 
                     </DataTableRow>
                 </TableHead>
                 <TableBody>
-                    {result?.map((result)=>{
+                    {result?.map((result,index)=>{
                         return (
                             <DataTableRow key={result?.id}>
 
@@ -90,8 +89,9 @@ export default function RelatedIndicator(props){
                                 <DataTableCell bordered>
 
                                     <div style={{margin:5}}>
-                                        <DisplayFormula formula={result?.numerator} />
-                                        {/*<DisplayFormula formula={"#{fbfJHSPpUQD}"} />*/}
+                                        {/*<DisplayFormula formula={result?.numerator} />*/}
+                                        <DisplayFormula formula={"#{fbfJHSPpUQD}"} />
+
 
 
                                     </div>

@@ -14,9 +14,8 @@ import {
 } from '@dhis2/ui'
 import React from 'react'
 import {useRecoilValue} from "recoil";
-
-import Row from "./Row";
 import {dataSetReportingRatesStateDictionary} from "../../../../Store";
+import Row from "./Row";
 
 
 export default function DatasetsReportingRates(){

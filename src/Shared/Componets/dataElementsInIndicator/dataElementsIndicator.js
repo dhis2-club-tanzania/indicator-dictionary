@@ -12,26 +12,27 @@ import {
 } from '@dhis2/ui'
 import {useContext} from "react";
 import {selector, useRecoilValue} from "recoil";
-import {dataElementsStateDictionary} from "../../../../Store";
+import {dataElementsStateDictionary} from "../../../Store";
 import Row from './row'
+import {PropTypes} from "@material-ui/core";
 
 
-export default function DataElementSIndicator() {
+export default function DataElementSIndicator({resourceType}) {
 
     const dataElements = useRecoilValue(dataElementsStateDictionary)
 
     if(dataElements.length===0){
         return (
             <div>
-                <h3> {i18n.t("Data elements in indicator")}  </h3>
-                <p>{i18n.t("There were no Data Elements in the Indicator Calculations")} </p>
+                <h3> {i18n.t("Data elements in {{variables}}",{variables:resourceType})}  </h3>
+                <p>{i18n.t("There were no Data Elements in the {variables} Calculations",{resourceType})} </p>
             </div>
         )
     }
 
-    let i = 0
+
     return (<div>
-        <h3>{i18n.t("Data elements in indicator")}  </h3>
+        <h3> {i18n.t("Data elements in {{variables}}",{variables:resourceType})}  </h3>
         <p> {i18n.t("The following is the summary of the data elements used in calculations:")} </p>
 
         <DataTable>
@@ -62,9 +63,8 @@ export default function DataElementSIndicator() {
                 </DataTableRow>
             </TableHead>
             <TableBody>
-                {dataElements.map((dtEle) => {
-                    i++
-                    return <Row key={i} datEl={dtEle}/>
+                {dataElements.map((dtEle,index) => {
+                    return <Row key={index} datEl={dtEle}/>
                 })}
             </TableBody>
 
@@ -73,5 +73,11 @@ export default function DataElementSIndicator() {
 
     </div>)
 }
+
+
+DataElementSIndicator.PropTypes={
+    resourceType:PropTypes.string.isRequired
+}
+
 
 

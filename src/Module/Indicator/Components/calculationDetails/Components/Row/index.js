@@ -3,7 +3,7 @@ import {CircularLoader, DataTableCell,} from '@dhis2/ui'
 import PropTypes from "prop-types";
 import React, {useEffect, useState} from "react";
 import {useSetRecoilState} from "recoil";
-import {  dataElementsStateDictionary,dataSetReportingRatesStateDictionary,programIndicatorStateDictionary} from "../../../../../../Store";
+import {  dataElementsStateDictionary,    dataSetReportingRatesStateDictionary,    programIndicatorStateDictionary} from "../../../../../../Store";
 import {    getDetailedValueFromApi,    getFinalWordFormula,    getFormulaSources,    getSummaryValueFromApi} from "../../../../../../Utils/Functions/FormulaFunctions";
 import {dataTypes} from "../../../../../../Utils/Models";
 import CalculationDetails from "../../Index";

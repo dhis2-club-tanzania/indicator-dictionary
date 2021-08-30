@@ -1,15 +1,13 @@
 
-import React from 'react'
 import { useDataQuery } from '@dhis2/app-runtime'
-import { useEffect} from 'react'
-import Introduction from "../Introduction/introduction";
 import PropTypes from "prop-types";
-import OtherDetailTable from "./Components/OtherDetails";
-import {dataElementDomainTypes, dataTypes} from "../../../../Utils/Models";
-import DataSets from "./Components/DataSets";
-import Programs from "./Components/Programs";
-import Loader from "../../../../Shared/Componets/Loaders/Loader";
+import React, { useEffect} from 'react'
 import Error from "../../../../Shared/Componets/Error/ErrorAPIResult";
+import Loader from "../../../../Shared/Componets/Loaders/Loader";
+import {dataElementDomainTypes} from "../../../../Utils/Models";
+import DataSets from "./Components/DataSets";
+import OtherDetailTable from "./Components/OtherDetails";
+import Programs from "./Components/Programs";
 
 const query = {
     sources:{
@@ -52,6 +50,6 @@ export default  function DataSource({id}){
     }
 
 
-DataSource.prototype={
+DataSource.PropTypes={
     id:PropTypes.string.isRequired
 }

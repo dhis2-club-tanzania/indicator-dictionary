@@ -1,11 +1,12 @@
-import { TableHead, TableBody,  DataTable,    DataTableRow,    DataTableCell,    DataTableColumnHeader,} from '@dhis2/ui'
-import PropTypes from "prop-types";
 import {useDataQuery} from "@dhis2/app-runtime";
+import i18n from "@dhis2/d2-i18n";
+import { TableHead, TableBody,  DataTable,    DataTableRow,    DataTableCell,    DataTableColumnHeader, CircularLoader } from '@dhis2/ui'
+import PropTypes from "prop-types";
 import React, {useEffect} from 'react'
-import { CircularLoader } from '@dhis2/ui'
-import {displayAccessPermisssion} from "../../../Utils/Functions/DataElementDictionaryFunctions";
-import Loader from "../Loaders/Loader";
+import {displayAccessPermission} from "../../../Utils/Functions/DataElementDictionaryFunctions";
 import Error from "../Error/ErrorAPIResult";
+import Loader from "../Loaders/Loader";
+
 
 
 const query={
@@ -33,7 +34,7 @@ function accessAndSharingQuery(resourceType) {
     query.sources.resource=resourceType
 }
 
-export default function AccesibilityAndSharing(props){
+export default function AccessibilityAndSharing(props){
     const id=props.id
     const resourceType=props.resourceType
 
@@ -48,22 +49,22 @@ export default function AccesibilityAndSharing(props){
     const result=data?.sources
 
 
-        if(loading){
-            return  <Loader text={""} />
-        }if(error){
-            return <Error error={error} />
-        }
+    if(loading){
+        return  <Loader text={""} />
+    }if(error){
+        return <Error error={error} />
+    }
 
 
     return(<div>
-        <h3>Accesibility & Sharing Settings</h3>
-        <p>
-            This
-            { displayDataType(resourceType) } was first created on <i> {new Date(result?.created).toLocaleString("en-GB")}</i>  by <b>{result?.user?.displayName} </b> and last updated on <i>{new Date(result?.lastUpdated).toLocaleString("en-GB")}</i> by <b>{result?.lastUpdatedBy?.displayName}</b> .
+        <h3>{i18n.t("Accesibility & Sharing Settings")}  </h3>
+        <p> {i18n.t("This")}
+
+            { displayDataType(resourceType) } {i18n.t("was first created on")}   <i> {new Date(result?.created).toLocaleString("en-GB")}</i> {i18n.t("by")}   <b>{result?.user?.displayName} </b> {i18n.t("and last updated on")}   <i>{new Date(result?.lastUpdated).toLocaleString("en-GB")}</i> {i18n.t("by")}   <b>{result?.lastUpdatedBy?.displayName}</b> .
 
         </p>
         <p>
-            { displayDataType(resourceType) } will be visible for users with the following access:
+            { displayDataType(resourceType) } {i18n.t("will be visible for users with the following access:")}
 
         </p>
         <DataTable>
@@ -74,7 +75,7 @@ export default function AccesibilityAndSharing(props){
 
                     </DataTableColumnHeader>
                     <DataTableColumnHeader>
-                        Details
+                        {i18n.t("Details")}
                     </DataTableColumnHeader>
 
 
@@ -84,15 +85,15 @@ export default function AccesibilityAndSharing(props){
                 <DataTableRow >
 
                     <DataTableCell bordered tag="th" >
-                        User Access
+                        {i18n.t("User Access")}
                     </DataTableCell>
                     <DataTableCell bordered>
-                        {result?.userAccesses?.length===0? "No access granted":""}
+                        {i18n.t(result?.userAccesses?.length===0?"No access granted":"")}
                         <ul>
 
                             {result?.userAccesses.map((dt)=>{
 
-                                return <li key={dt.id}>{dt?.displayName} can <i>{displayAccessPermisssion(dt.access)} {JSON.stringify(dt.access)} </i> </li>
+                                return <li key={dt.id}>{dt?.displayName}  {i18n.t("can")}  <i>{displayAccessPermission(dt.access)}  </i> </li>
                             })}
                         </ul>
 
@@ -102,13 +103,13 @@ export default function AccesibilityAndSharing(props){
                 <DataTableRow >
 
                     <DataTableCell bordered tag="th" >
-                        User Group Access
+                        {i18n.t("User Group Access")}
                     </DataTableCell>
                     <DataTableCell bordered>
-                        {result?.userGroupAccesses?.length===0? "No access granted":""}
+                        {i18n.t(result?.userGroupAccesses?.length===0?"No access granted":"")}
                         <ul>
                             {result?.userGroupAccesses.map((dt)=>{
-                                return <li key={dt.id}>{dt?.displayName} can <i>{displayAccessPermisssion(dt.access)}</i> </li>
+                                return <li key={dt.id}>{dt?.displayName} {i18n.t("can")}  <i>{displayAccessPermission(dt.access)}</i> </li>
                             })}
                         </ul>
                     </DataTableCell>
@@ -119,3 +120,8 @@ export default function AccesibilityAndSharing(props){
         </DataTable>
     </div>)
 }
+
+AccessibilityAndSharing.propTypes = {
+    id: PropTypes.string.isRequired,
+    resourceType:PropTypes.string.isRequired,
+};
