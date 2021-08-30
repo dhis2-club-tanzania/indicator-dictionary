@@ -20,7 +20,8 @@ export default function DataElementSIndicator({resourceType}) {
 
     const dataElements = useRecoilValue(dataElementsStateDictionary)
 
-    if(dataElements.length===0){
+    console.log(dataElements)
+    if(dataElements?.length===0){
         return (
             <div>
                 <h3> {i18n.t("Data elements in {{variables}}",{variables:resourceType})}  </h3>
@@ -62,7 +63,7 @@ export default function DataElementSIndicator({resourceType}) {
                 </DataTableRow>
             </TableHead>
             <TableBody>
-                {dataElements.map((dtEle,index) => {
+                {dataElements?.map((dtEle,index) => {
                     return <Row key={index} datEl={dtEle}/>
                 })}
             </TableBody>

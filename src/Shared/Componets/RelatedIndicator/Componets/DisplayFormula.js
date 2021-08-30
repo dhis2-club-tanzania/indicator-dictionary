@@ -12,7 +12,7 @@ import Loader from "../../Loaders/Loader";
 import Error from "../../Error/ErrorAPIResult";
 import useGetData from "../../../../Utils/Hooks";
 import {useSetRecoilState} from "recoil";
-import {programIndicatorStateDictionary} from "../../../../Store";
+import {dataElementsStateDictionary, programIndicatorStateDictionary} from "../../../../Store";
 
 export default function DisplayFormula(props){
     //props
@@ -20,12 +20,12 @@ export default function DisplayFormula(props){
     const loc=props.location //either its in numerator or denominator
 
     //hooks
-    const updateProgramIndicatorHandler= useSetRecoilState(programIndicatorStateDictionary)
+    const updateDataElementHandler= useSetRecoilState(dataElementsStateDictionary)
 
     const engine = useDataEngine()
     const{loading,error,data}=useGetData(formula,engine,loc)
 
-    updateProgramIndicatorHandler(data?.programIndicators)
+    updateDataElementHandler(data?.dataElements)
 
     if(loading){
         return  <Loader text={""} />

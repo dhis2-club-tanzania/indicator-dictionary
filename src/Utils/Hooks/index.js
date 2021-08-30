@@ -21,8 +21,8 @@ export default function useGetData(formula,engine,loc){
             tempArr= await getWordData(engine,tempArr,dataTypes.DATA_ELEMENT,loc)
             tempArr2=await getWordData(engine,tempArr2,dataTypes.PROGRAM_INDICATOR,loc)
             tempArr3=await getWordData(engine,tempArr3,dataTypes.DATASET_REPORTING_RATES,loc)
-            tempArr4=await getWordData(engine,tempArr4,dataTypes.ATTRIBUTES)
-            tempArr5=await getWordData(engine,tempArr5,dataTypes.CONSTANTS)
+            tempArr4=await getWordData(engine,tempArr4,dataTypes.ATTRIBUTES,loc)
+            tempArr5=await getWordData(engine,tempArr5,dataTypes.CONSTANTS,loc)
 
         }
         fetch().then(() =>  {

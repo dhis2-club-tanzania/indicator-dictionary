@@ -19,17 +19,6 @@ import ProgramIndicatorIndicator from "./Components/ProgramIndicator";
 
 export default function Index({id}) {
 
-    const reset = useRecoilCallback(({reset}) => () => {
-        reset(dataElementsStateDictionary)
-        reset(dataSetReportingRatesStateDictionary)
-        reset(programIndicatorStateDictionary)
-    })
-
-    useEffect(() => {
-        return () => {
-            reset()
-        };
-    }, [id]);
 
     return (<div style={{display: "flex", flexDirection: "column"}}>
         <Introduction id={id}/>
