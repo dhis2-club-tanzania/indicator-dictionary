@@ -31,7 +31,13 @@ export default function BoundaryTable(props){
         <TableBody>
 
             {res?.map((row)=>{
-                return  <Row key={row?.id} tableDetail={row?.analyticsPeriodBoundaries} target={row?.boundaryTarget} analyticsPeriodBoundaryType={row?.analyticsPeriodBoundaryType} offsetPeriod={row?.offsetPeriods} periodType={row?.offsetPeriodType}  />
+                return  <Row key={row?.id}
+                             tableDetail={row?.analyticsPeriodBoundaries}
+                             target={row?.boundaryTarget}
+                             analyticsPeriodBoundaryType={row?.analyticsPeriodBoundaryType}
+                             offsetPeriod={row?.offsetPeriods}
+                             periodType={row?.offsetPeriodType}
+                        />
             })}
 
 

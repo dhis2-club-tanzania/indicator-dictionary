@@ -11,11 +11,11 @@ export default function ProgramIndicatorPage({id}){
 
 
     return <div>
-        {/*<Introduction id={id} />*/}
-        {/*<DataSource id={id} />*/}
-        {/*<ProgramIndicatorFacts id={id} />*/}
-        {/*<LegendsAnalysis id={id} />*/}
-        {/*<RelatedIndicator id={id} resourceType={"Program Indicator"} />*/}
-        <CalculationDetails id={id} />
+        <Introduction id={id} />
+        <DataSource id={id} />
+        <ProgramIndicatorFacts id={id} />
+        <LegendsAnalysis id={id} />
+        <RelatedIndicator id={id} resourceType={"Program Indicator"} />
+        {/*<CalculationDetails id={id} />*/}
     </div>
 }
