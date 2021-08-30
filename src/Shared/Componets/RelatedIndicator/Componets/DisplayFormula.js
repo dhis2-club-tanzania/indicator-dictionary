@@ -21,9 +21,9 @@ export default function DisplayFormula(props){
 
     //hooks
     const updateDataElementHandler= useSetRecoilState(dataElementsStateDictionary)
-
     const engine = useDataEngine()
     const{loading,error,data}=useGetData(formula,engine,loc)
+
 
     updateDataElementHandler(data?.dataElements)
 
