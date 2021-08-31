@@ -14,12 +14,12 @@ export default function DataElementPage(props){
 
 
     return (<div style={{display:"flex",flexDirection:"column"}}>
-            <Introduction id={id} />
+            {/*<Introduction id={id} />*/}
             <DataSource id={id}  />
-            <Facts  id={id}  />
-            <AnalyticsDetails id={id}/>
-            <RelatedIndicator id={id} resourceType={"Data Element"}  />
-            <AccessibilityAndSharing id={id} resourceType={"dataElements"} />
+            {/*<Facts  id={id}  />*/}
+            {/*<AnalyticsDetails id={id}/>*/}
+            {/*<RelatedIndicator id={id} resourceType={"Data Element"}  />*/}
+            {/*<AccessibilityAndSharing id={id} resourceType={"dataElements"} />*/}
 
     </div>
     )

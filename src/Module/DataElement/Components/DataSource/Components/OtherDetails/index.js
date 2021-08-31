@@ -13,11 +13,12 @@ const query = {
             fields: [
                 'id', 'displayName'
             ],
-            filter: levels?.map(level => (`level:eq: ${level}`)) ?? []
+            filter: levels?.map(level => (`level:eq:${(level)}`)) ?? [],
+            rootJunction:"OR",
+
         })
     }
 }
-
 
 export default function OtherDetailTable(props){
 
@@ -60,11 +61,11 @@ export default function OtherDetailTable(props){
             <TableBody>
                 <DataTableRow>
                     <DataTableCell bordered tag="th">
-                        {i18n.t("")}  Details
+                        {i18n.t("Details")}
                     </DataTableCell>
                     <DataTableCell bordered >
 
-                        {typeof(detail?.style?.color)===dataTypes.UNDEFINED?"no color":
+                        {typeof(detail?.style?.color)===dataTypes.UNDEFINED? i18n.t("no color") :
                             <div style={{
                                 background: detail?.style?.color,
                                 width:"inherit",
@@ -74,7 +75,7 @@ export default function OtherDetailTable(props){
 
                     </DataTableCell>
                     <DataTableCell bordered>
-                        {typeof detail?.style?.color===dataTypes.UNDEFINED?"no icon":
+                        {typeof detail?.style?.color===dataTypes.UNDEFINED? i18n.t("no icon"):
                             <img src={`${baseUrl}/api/icons/${detail?.style?.icon}/icon.svg`} alt={"icon"} />
                         }
 
@@ -83,26 +84,26 @@ export default function OtherDetailTable(props){
                         {JSON.stringify(detail?.optionSetValue)}
                     </DataTableCell>
                     <DataTableCell bordered>
-                        {typeof detail?.commentOptionSet?.displayName===dataTypes.UNDEFINED?"no commnets":detail?.commentOptionSet?.displayName}
+                        {typeof detail?.commentOptionSet?.displayName===dataTypes.UNDEFINED?i18n.t("no comments"):detail?.commentOptionSet?.displayName}
 
                     </DataTableCell>
                     <DataTableCell bordered>
                         {detail?.legendSets?.length===0
-                        ? i18n.t("No legends assigned")
-                        :
-                        <ol>
-                            {detail?.legendSets?.map((legend)=>{
-                                return <li key={legend.id}>{legend?.displayName}</li>
-                            })}
-                        </ol>}
+                            ? i18n.t("No legends assigned")
+                            :
+                            <ol>
+                                {detail?.legendSets?.map((legend)=>{
+                                    return <li key={legend.id}>{legend?.displayName}</li>
+                                })}
+                            </ol>}
 
-                            
+
 
                     </DataTableCell>
                     <DataTableCell bordered>
                         {
                             loading ? <Loader text={""}/> : error ? <Error error={error}/> :
-                                 data?.orgUnitLevels?.organisationUnitLevels?.length === 0 ?i18n.t("No organization unit level assigned" ) :
+                                data?.orgUnitLevels?.organisationUnitLevels?.length === 0 ?i18n.t("No organization unit level assigned" ) :
                                     <ol>
                                         {data?.orgUnitLevels?.organisationUnitLevels?.map((lev) => {
                                             return (

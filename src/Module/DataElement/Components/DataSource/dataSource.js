@@ -38,7 +38,7 @@ export default  function DataSource({id}){
 
     return (
         <>
-        { (data?.sources?.domainType===dataElementDomainTypes.AGGREGATE && data!==dataElementDomainTypes.UNDEFINED)?  <DataSets id={id} /> : <Programs id={id} />}
+        {/*{ (data?.sources?.domainType===dataElementDomainTypes.AGGREGATE && data!==dataElementDomainTypes.UNDEFINED)?  <DataSets id={id} /> : <Programs id={id} />}*/}
 
             <div>
                 <OtherDetailTable  other={data?.sources}/>
