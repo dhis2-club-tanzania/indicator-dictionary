@@ -10,6 +10,6 @@ export default function DataElementGroupPage(props){
 
     return  <div style={{display:"flex",flexDirection:"column"}}>
                 <Introduction id={id} />
-           <p>dff   </p>
+
             </div>
 }
