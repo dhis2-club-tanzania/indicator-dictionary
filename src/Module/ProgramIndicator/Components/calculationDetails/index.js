@@ -39,55 +39,55 @@ export default function CalculationDetails({id}){
 
     return <div>
         <h3>Calculation details</h3>
-        {/*<p>Calculation of the values will be {res?.aggregationType} of {res?.analyticsType} across orgunit and period.*/}
-        {/*</p>*/}
-        {/*<p>*/}
-        {/*    Program indicator calculation will be based on Analytics Type, for distinction purposes:*/}
+        <p>Calculation of the values will be {res?.aggregationType} of {res?.analyticsType} across orgunit and period.
+        </p>
+        <p>
+            Program indicator calculation will be based on Analytics Type, for distinction purposes:
 
-        {/*</p>*/}
+        </p>
 
-        {/*<ul>*/}
-        {/*    {*/}
-        {/*        res?.analyticsType===analyticsTypes.EVENT ?*/}
-        {/*        <li>*/}
-        {/*        Events implies, each event from data source is considered as independent row to be counted, and properties and details of the event are used to filter events.*/}
+        <ul>
+            {
+                res?.analyticsType===analyticsTypes.EVENT ?
+                <li>
+                Events implies, each event from data source is considered as independent row to be counted, and properties and details of the event are used to filter events.
 
-        {/*         </li>:*/}
-        {/*        res?.analyticsType===analyticsTypes.ENROLLMENT ?*/}
-        {/*        <li>*/}
-        {/*            Enrollment implies, each enrollment from data source is considered as independent row to be counted, and events from any stage and other properties and details of enrollment are used to filter enrollments.*/}
+                 </li>:
+                res?.analyticsType===analyticsTypes.ENROLLMENT ?
+                <li>
+                    Enrollment implies, each enrollment from data source is considered as independent row to be counted, and events from any stage and other properties and details of enrollment are used to filter enrollments.
 
-        {/*        </li>:*/}
-        {/*            ""*/}
-        {/*    }*/}
+                </li>:
+                    ""
+            }
 
-        {/*</ul>*/}
-        {/*<div>*/}
-        {/*    <p>*/}
-        {/*        Below are expression details on computing program indicator and it’s related data source*/}
-        {/*    </p>*/}
+        </ul>
+        <div>
+            <p>
+                Below are expression details on computing program indicator and it’s related data source
+            </p>
 
-        {/*</div>*/}
+        </div>
         <div>
             <ExpressionDetailTable expression={res?.expression} filter={res?.filter} />
         </div>
 
-        {/*<div>*/}
-        {/*    <p>*/}
-        {/*    Below are period boundaries that determines which {lowerCaseAllWordsExceptFirstLetters(res?.analyticsType)} will be included in calculations of the program indicators, where for*/}
-        {/*        {*/}
-        {/*            res?.analyticsType===analyticsTypes.EVENT ?*/}
-        {/*                " event date will be used.":*/}
-        {/*            res?.analyticsType===analyticsTypes.ENROLLMENT ?*/}
-        {/*               " enrollment analytics will be used.":*/}
-        {/*                ""*/}
-        {/*        }*/}
-        {/*    </p>*/}
-        {/*</div>*/}
-        {/*<div>*/}
+        <div>
+            <p>
+            Below are period boundaries that determines which {lowerCaseAllWordsExceptFirstLetters(res?.analyticsType)} will be included in calculations of the program indicators, where for
+                {
+                    res?.analyticsType===analyticsTypes.EVENT ?
+                        " event date will be used.":
+                    res?.analyticsType===analyticsTypes.ENROLLMENT ?
+                       " enrollment analytics will be used.":
+                        ""
+                }
+            </p>
+        </div>
+        <div>
 
-        {/*    <BoundaryTable rows={res?.analyticsPeriodBoundaries} />*/}
-        {/*</div>*/}
+            <BoundaryTable rows={res?.analyticsPeriodBoundaries} />
+        </div>
 
 
     </div>

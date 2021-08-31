@@ -20,7 +20,6 @@ export default function DataElementSIndicator({resourceType}) {
 
     const dataElements = useRecoilValue(dataElementsStateDictionary)
 
-    console.log(dataElements)
     if(dataElements?.length===0){
         return (
             <div>
@@ -64,7 +63,7 @@ export default function DataElementSIndicator({resourceType}) {
             </TableHead>
             <TableBody>
                 {dataElements?.map((dtEle,index) => {
-                    return <Row key={index} datEl={dtEle}/>
+                    return <Row key={index} datEl={dtEle} location={dtEle?.location}/>
                 })}
             </TableBody>
 

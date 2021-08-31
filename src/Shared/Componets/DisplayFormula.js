@@ -18,6 +18,8 @@ export default function DisplayFormula(props){
     //props
     const formula=props.formula
     const loc=props.location //either its in numerator or denominator
+    const storeResult=props.storeResult
+
 
     //hooks
     const updateDataElementHandler= useSetRecoilState(dataElementsStateDictionary)
@@ -25,7 +27,11 @@ export default function DisplayFormula(props){
     const{loading,error,data}=useGetData(formula,engine,loc)
 
 
-    updateDataElementHandler(data?.dataElements)
+    useEffect(()=>{
+        if(storeResult && typeof data?.dataElements!=dataTypes.UNDEFINED){
+            updateDataElementHandler((prev)=>{return prev?.concat(data?.dataElements)})
+        }
+    },[data])
 
     if(loading){
         return  <Loader text={""} />
@@ -40,6 +46,7 @@ export default function DisplayFormula(props){
 
 DisplayFormula.PropTypes={
     formula:PropTypes.string.isRequired,
-    location:PropTypes.string
+    location:PropTypes.string,
+    storeResult:PropTypes.bool
 
 }

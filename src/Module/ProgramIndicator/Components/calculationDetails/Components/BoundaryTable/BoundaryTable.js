@@ -4,7 +4,7 @@ import { TableHead, TableBody,  DataTable,    DataTableRow,    DataTableCell,   
 import Row from "./Components/Row";
 
 
-export default function BoundaryTable(props){
+export default function     BoundaryTable(props){
 
     const res=props.rows
 

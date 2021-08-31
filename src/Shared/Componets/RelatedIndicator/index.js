@@ -89,9 +89,7 @@ export default function RelatedIndicator(props){
                                 <DataTableCell bordered>
 
                                     <div style={{margin:5}}>
-                                        <DisplayFormula formula={result?.numerator} location={"numerator"}  />
-                                        {/*<DisplayFormula formula={"#{fbfJHSPpUQD}"}  location={"numerator"}/>*/}
-
+                                        <DisplayFormula formula={result?.numerator} location={"numerator"} storeResult={true}  />
 
 
                                     </div>
@@ -99,7 +97,7 @@ export default function RelatedIndicator(props){
                                 </DataTableCell>
                                 <DataTableCell bordered b>
                                     <div style={{margin:5}}>
-                                        <DisplayFormula formula={result?.denominator} location={"denominator"} />
+                                        <DisplayFormula formula={result?.denominator} location={"denominator"} storeResult={true}  />
                                     </div>
 
 
