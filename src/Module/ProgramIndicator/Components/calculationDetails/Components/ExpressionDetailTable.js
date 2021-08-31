@@ -3,12 +3,15 @@ import Loader from "../../../../../Shared/Componets/Loaders/Loader";
 import Error from "../../../../../Shared/Componets/Error/ErrorAPIResult";
 import React from "react";
 import { TableHead, TableBody,  DataTable,    DataTableRow,    DataTableCell,    DataTableColumnHeader,} from '@dhis2/ui'
+import DisplayFormula from "../../../../../Shared/Componets/DisplayFormula";
 
 
 
 export default function ExpressionDetailTable(props){
     const expression=props.expression;
     const filter=props.filter
+
+
 
     return   <DataTable>
         <TableHead>
@@ -31,13 +34,13 @@ export default function ExpressionDetailTable(props){
                     Details
                 </DataTableCell>
                 <DataTableCell bordered >
+                    <DisplayFormula formula={expression} />
 
-                    {expression}
 
                 </DataTableCell>
                 <DataTableCell bordered>
-                    {filter}
 
+                    <DisplayFormula formula={filter} />
                 </DataTableCell>
 
 

@@ -1,4 +1,4 @@
-import DisplayFormula from "../../../../../../Shared/Componets/RelatedIndicator/Componets/DisplayFormula";
+import DisplayFormula from "../../../../../../Shared/Componets/DisplayFormula";
 import React from "react";
 import { TableHead, TableBody,  DataTable,    DataTableRow,    DataTableCell,    DataTableColumnHeader,} from '@dhis2/ui'
 import Row from "./Components/Row";

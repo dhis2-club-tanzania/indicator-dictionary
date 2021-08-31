@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import {useDataQuery} from "@dhis2/app-runtime";
 import React, {useEffect} from 'react'
 import i18n from "@dhis2/d2-i18n";
-import DisplayFormula from "./Componets/DisplayFormula";
+import DisplayFormula from "../DisplayFormula";
 import Loader from "../Loaders/Loader";
 import Error from "../Error/ErrorAPIResult";
 
