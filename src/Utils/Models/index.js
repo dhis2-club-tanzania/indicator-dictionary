@@ -14,6 +14,7 @@ export const dataSourceTypes={
     INDICATOR: "INDICATOR",
     DATA_ELEMENT: "DATA_ELEMENT",
     PROGRAM_INDICATOR:"PROGRAM_INDICATOR",
+    DATA_ELEMENT_GROUP:"DATA_ELEMENT_GROUP"
 }
 
 export const dataElementDomainTypes={

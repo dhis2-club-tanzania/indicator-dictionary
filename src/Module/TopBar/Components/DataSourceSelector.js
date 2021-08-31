@@ -10,6 +10,7 @@ import {
 import ProgramIndicatorPage from "../../ProgramIndicator";
 import React, {useEffect} from 'react'
 import IndicatorPage from "../../Indicator/Index";
+import DataElementGroupPage from "../../DataElementGroup";
 
 
 export default function DataSourceSelector(props){
@@ -37,6 +38,9 @@ export default function DataSourceSelector(props){
         }
         if(type===dataSourceTypes.PROGRAM_INDICATOR){
             return <ProgramIndicatorPage id={id} />
+        }
+        if(type===dataSourceTypes.DATA_ELEMENT_GROUP){
+            return <DataElementGroupPage id={id} />
         }
     }
 
