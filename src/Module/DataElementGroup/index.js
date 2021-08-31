@@ -1,6 +1,7 @@
 
 import React from "react";
 import Introduction from "./Components/Introduction";
+import DataSources from "./Components/DataSources";
 
 
 export default function DataElementGroupPage(props){
@@ -10,6 +11,8 @@ export default function DataElementGroupPage(props){
 
     return  <div style={{display:"flex",flexDirection:"column"}}>
                 <Introduction id={id} />
+
+                <DataSources id={id} />
 
             </div>
 }

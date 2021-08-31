@@ -6,35 +6,15 @@ import {useEffect} from 'react'
 import Error from "../../../../../../Shared/Componets/Error/ErrorAPIResult";
 import Loader from "../../../../../../Shared/Componets/Loaders/Loader";
 
-const query = {
-    sources:{
-        resource:"dataElements",
-        //   id: "Uvn6LCg7dVU",
-        id: ({id})=>id,
-        params:{
-            fields:["id","displayName","dataSetElements[dataSet[id,displayName,periodType,timelyDays]]"]
-        }
-    }
-}
+
+export default  function DataSets({name}){
 
 
 
-export default  function DataSets({id}){
-
-    const {loading, error, data,refetch}  = useDataQuery(query, {variables: {id}})
-
-    useEffect(()=>{refetch({id})},[id])
-
-
-    if(loading){
-        return  <Loader text={""} />
-    }if(error){
-        return <Error error={error} />
-    }
 
     return (<div>
-        <h3>{i18n.t("Data sources")}  </h3>
-        <p>{i18n.t("Data element is captured from following sources")}
+        <h4>{name}  </h4>
+        <p>{i18n.t("Sources")}
 
         </p>
 

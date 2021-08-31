@@ -1,27 +1,30 @@
 import {useDataQuery} from "@dhis2/app-runtime";
-import React, {useEffect} from "react";
+import {useEffect} from "react";
 import Loader from "../../../../Shared/Componets/Loaders/Loader";
 import Error from "../../../../Shared/Componets/Error/ErrorAPIResult";
-import IdentifiedBy from "../../../../Shared/Componets/IdentifiedBy/Index";
-
+import React from 'react'
 
 const query = {
-    dataElementGroups:{
+    sources:{
         resource:"dataElementGroups",
         id: ({id})=>id,
         params:{
-            fields:["id","displayName","displayDescription","displayShortName","code","href"
-            ]
+            fields:["dataElements[id,domainType]"]
         }
     }
 }
 
 
-export default function Introduction({id}){
+
+
+
+
+export default function DataSources({id}){
 
     const {loading, error, data,refetch}  = useDataQuery(query, {variables: {id}})
 
     useEffect(()=>{refetch({id})},[id])
+
 
     if(loading){
         return  <Loader text={""} />
@@ -29,18 +32,23 @@ export default function Introduction({id}){
         return <Error error={error} />
     }
 
+    console.log(data)
 
-    let res=data?.dataElementGroups
+//     var users = [
+//         { 'user': 'barney', 'age': 36, 'active': true },
+//         { 'user': 'fred',   'age': 40, 'active': false }
+//     ];
+//
+//     _.filter(users, function(o) { return !o.active; });
+// // => objects for ['fred']
+
 
     return <div>
-        <h3>Introduction</h3>
+        <h3> Data sources (Datasets/Programs)</h3>
         <p>
-            {res?.displayName} can be described as {res?.displayDescription}.
-            It’s labelled in short as {res?.displayShortName} and has a code of {res?.code}.
+            Data elements in this group are captured from the following sources
         </p>
 
-        <IdentifiedBy href={res?.href} id={res?.id} />
 
     </div>
 }
-
