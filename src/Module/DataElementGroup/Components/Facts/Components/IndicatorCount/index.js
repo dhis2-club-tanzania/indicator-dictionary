@@ -5,9 +5,11 @@ import Loader from "../../../../../../Shared/Componets/Loaders/Loader";
 import Error from "../../../../../../Shared/Componets/Error/ErrorAPIResult";
 
 
+
 export default function IndicatorCount({dataElements}){
 
     const engine=useDataEngine()
+
 
 
     const onlyIds=dataElements.map((e)=>{
@@ -26,6 +28,7 @@ export default function IndicatorCount({dataElements}){
     data.matches?.map((e)=>{
        count+= e.numeratorMatch?.indicators?.length+e?.denominatorMatch?.indicators?.length
     })
+
 
 
     return <>It’s data elements belongs to {count} indicators using it as numerator/denominator</>
