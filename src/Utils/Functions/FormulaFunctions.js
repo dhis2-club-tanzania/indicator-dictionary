@@ -62,6 +62,16 @@ const query5={
     }
 }
 
+const query6 = {
+    dataSets:{
+        resource:"dataSets",
+
+        params:({id})=> ({
+            fields:["id","displayName","periodType","timelyDays"],
+            filter:[`dataSetElements.dataElement.id:eq:${id}`]
+        })
+    }
+}
 
 
 export function getFormulaSources(formula,sourceInitial){
@@ -108,6 +118,11 @@ async function getValueIdentifiableObjects2(engine,id,id2){
 async function getValueIdentifiableObjects(engine,id){
     const data=await engine.query(query1,{variables:{id}})
     return [data?.identifiableObjects?.displayName]
+}
+
+async function getDataSetsFromApi(engine,id){
+    const data=await engine.query(query6,{variables:{id}})
+    return data?.dataSets
 }
 
 async function getValueDataElementSource(engine,id){
@@ -209,6 +224,9 @@ export function getSummaryValueFromApi(engine, id){
         }))
     }
 }
+
+
+
 export function getDetailedValueFromApi(engine,id,type){
     if(type===dataTypes.DATA_ELEMENT){
         if(isPureDataElement(id)){
@@ -302,9 +320,24 @@ export async function getWordDataForAll(engine,arr,loc){
         })
 
     }
-
-
 }
+
+export async function getDataSetsArray(engine,arr){
+    if(arr?.length>0){
+        let allPromises= arr?.map((id)=>{
+            return new Promise((resolve, reject) => {
+                resolve(getDataSetsFromApi(engine,id))
+             })})
+        return await Promise.all(allPromises).then(value => {
+            return  value.map((val,index)=>{ //We always return array just for uniformity
+                return val?.dataSets
+            })
+        })
+
+    }
+}
+
+
 
 function cleanBrackets(formula){
     if(typeof(formula) !=dataTypes.UNDEFINED){

@@ -15,7 +15,7 @@ const query = {
         resource:"dataElementGroups",
         id: ({id})=>id,
         params:{
-            fields:["dataElements[id,domainType]"]
+            fields:["dataElements[id,displayName,domainType]"]
         }
     }
 }
@@ -34,33 +34,28 @@ export default function DataSources({id}){
         return <Error error={error} />
     }
 
-
-
     let traker= _.filter(data?.sources?.dataElements,(el)=>{return el?.domainType===dataElementDomainTypes.TRACKER})
     let aggregate=_.filter(data?.sources?.dataElements,(el)=>{return el?.domainType===dataElementDomainTypes.AGGREGATE})
 
-
-
     return <div>
         <h3>{i18n.t("Data sources (Datasets/Programs)")} </h3>
-        <p> {i18n.t("Data elements in this group are captured from the following sources")}
+        <p> {i18n.t("Data elements in this group are captured from the following sources")}    </p>
 
             {data?.sources?.dataElements?.length===0?i18n.t("There are no Data Elements in this Data Element group"):""}
 
-            {aggregate?.length>0? <h4>{i18n.t("Aggregate Data Elements are:")} </h4>:""}
+            {aggregate?.length>0? <h4>{i18n.t("For Aggregate Data Elements:")} </h4>:""}
             {aggregate?.length>0?
-             aggregate.map((el)=>{
-               return <DataSets id={el?.id} />
-            }):""
+                <DataSets aggregate={aggregate} />:""
+
             }
 
-            {traker?.length>0?<h4>{i18n.t("Tracker Data Elements are:")} </h4>:""}
+            {traker?.length>0?<h4>{i18n.t("For Tracker Data Elements:")} </h4>:""}
             {traker?.length>0?
                 traker.map((el)=>{
-                    return <Programs id={el?.id} />
+                    return <Programs id={el?.id} name={el?.displayName} />
                 }):""
             }
-        </p>
+
 
 
     </div>

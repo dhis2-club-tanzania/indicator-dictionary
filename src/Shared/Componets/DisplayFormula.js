@@ -10,7 +10,7 @@ import {dataTypes} from "../../Utils/Models";
 import PropTypes from "prop-types";
 import Loader from "./Loaders/Loader";
 import Error from "./Error/ErrorAPIResult";
-import useGetData from "../../Utils/Hooks";
+import {useGetData} from "../../Utils/Hooks";
 import {useSetRecoilState} from "recoil";
 import {dataElementsStateDictionary, programIndicatorStateDictionary} from "../../Store";
 

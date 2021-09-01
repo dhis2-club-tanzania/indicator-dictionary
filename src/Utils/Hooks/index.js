@@ -1,10 +1,10 @@
 import {useEffect,useState} from "react";
-import {getFormulaSources, getWordData, getWordDataForAll} from "../Functions/FormulaFunctions";
+import {getDataSetsArray, getFormulaSources, getWordDataForAll} from "../Functions/FormulaFunctions";
 import {dataTypes, dataTypesInitials} from "../Models";
 import React from "react";
 
 
-export default function useGetData(formula,engine,loc){
+export function useGetData(formula,engine,loc){
     const [loading,setLoading]=useState(true)
     const [error,setError]=useState(false)
     const [data,setData]=useState()
@@ -43,3 +43,36 @@ export default function useGetData(formula,engine,loc){
     }
 
 }
+
+export function useGetDataSet(array,engine){
+    const [loading,setLoading]=useState(true)
+    const [error,setError]=useState(false)
+    const [data,setData]=useState()
+
+    //{"dataSetName:[dataElements in {id:"",displname:""}]}
+    useEffect(()=>{
+        let tempArr
+        async function fetch(){
+            tempArr = await getDataSetsArray(engine,array)
+        }
+        fetch().then(() =>  {
+
+            let result={dataSets:tempArr}
+
+            setData(result)
+            setLoading(false)
+        }).catch((error)=>{
+            setLoading(false)
+            setError(error)
+        })
+    },[])
+
+
+
+    return{
+        loading,
+        error,
+        data
+    }
+}
+

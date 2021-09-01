@@ -1,30 +1,23 @@
 
-import {useDataQuery} from "@dhis2/app-runtime";
+import {useDataEngine, useDataQuery} from "@dhis2/app-runtime";
 import i18n from "@dhis2/d2-i18n";
 import PropTypes from "prop-types";
 import React,{useEffect} from 'react'
 import Loader from "../../../../../Shared/Componets/Loaders/Loader";
 import Error from "../../../../../Shared/Componets/Error/ErrorAPIResult";
-
-const query = {
-    sources:{
-        resource:"dataElements",
-        //   id: "Uvn6LCg7dVU",
-        id: ({id})=>id,
-        params:{
-            fields:["id","displayName","dataSetElements[dataSet[id,displayName,periodType,timelyDays]]"]
-        }
-    }
-}
+import {useGetDataSet} from "../../../../../Utils/Hooks";
 
 
+export default  function DataSets({aggregate}){
 
-export default  function DataSets({id}){
 
-    const {loading, error, data,refetch}  = useDataQuery(query, {variables: {id}})
+    const engine=useDataEngine()
 
-    useEffect(()=>{refetch({id})},[id])
+    let onlyIds=aggregate.map((el)=>{
+        return el?.id
+    })
 
+    const {loading,error,data}=useGetDataSet(onlyIds,engine)
 
     if(loading){
         return  <Loader text={""} />
@@ -32,21 +25,26 @@ export default  function DataSets({id}){
         return <Error error={error} />
     }
 
-    console.log(data?.sources?.dataSetElements?.dataSet)
+    const res=data?.dataSets;
 
     return (<div>
-        <h4>{data?.sources?.displayName}</h4>
         <ul>
-            { data?.sources?.dataSetElements?.map((dt)=>{
-                return( <li key={dt?.dataSet?.id}><b> {dt?.dataSet?.displayName}</b> {i18n.t("submitting {{variables1}} after every {{variables2}} days ",{variables1:dt?.dataSet?.periodType,variables2:dt?.dataSet?.timelyDays})} </li>)
+            {aggregate?.map((el,index)=>{
+                return <li>
+                    {el?.displayName}
+                    <ul> {res[index]?.length>1?"sources":""}
+                    {res[index]?.map((datset)=>{
+                        return <li key={datset?.id}>{datset?.displayName} submitting {datset?.periodType} after every {datset?.timelyDays} days </li>
+
+                    })}
+                    </ul>
+                </li>
             })}
         </ul>
-
 
     </div>)
 
 }
-
 
 DataSets.propTypes={
     id:PropTypes.string.isRequired

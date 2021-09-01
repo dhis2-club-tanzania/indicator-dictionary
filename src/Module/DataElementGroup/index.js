@@ -2,6 +2,7 @@
 import React from "react";
 import Introduction from "./Components/Introduction";
 import DataSources from "./Components/DataSources";
+import Facts from "./Components/Facts";
 
 
 export default function DataElementGroupPage(props){
@@ -13,6 +14,8 @@ export default function DataElementGroupPage(props){
                 <Introduction id={id} />
 
                 <DataSources id={id} />
+
+        <Facts id={id}/>
 
             </div>
 }

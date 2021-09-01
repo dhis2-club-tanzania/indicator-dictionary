@@ -21,13 +21,12 @@ const query = {
 }
 
 
-export default  function Programs({id}){
+export default  function Programs({id,name}){
     const dataElementId=id
 
     const {loading, error, data,refetch}  = useDataQuery(query, {variables: {dataElementId}})
 
     useEffect(()=>{refetch({id})},[id])
-
 
     if(loading){
         return  <Loader text={""} />
@@ -37,7 +36,7 @@ export default  function Programs({id}){
 
 
     return (<div>
-        {/*<h4>{data?.sources?.displayName}</h4>*/}
+        {name}
         <ul>
             {data?.programs?.programStages?.map((dt)=>{
                 return <li key={dt?.program?.id}><b>{dt?.program?.displayName}</b> {i18n.t("submitting records on every event(case or individual)")} </li>
