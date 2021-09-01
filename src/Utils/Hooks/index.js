@@ -1,7 +1,8 @@
 import {useEffect,useState} from "react";
-import {getDataSetsArray, getFormulaSources, getWordDataForAll} from "../Functions/FormulaFunctions";
+import { getFormulaSources, getWordDataForAll} from "../Functions/FormulaFunctions";
 import {dataTypes, dataTypesInitials} from "../Models";
 import React from "react";
+import {getDataSetsArray, getNumDenMatch} from "../Functions/DataElementGroupSetFunctions";
 
 
 export function useGetData(formula,engine,loc){
@@ -76,3 +77,32 @@ export function useGetDataSet(array,engine){
     }
 }
 
+export function useGetNumDenMatch(array,engine){
+    const [loading,setLoading]=useState(true)
+    const [error,setError]=useState(false)
+    const [data,setData]=useState()
+
+    useEffect(()=>{
+        let tempArr
+        async function fetch(){
+            tempArr = await getNumDenMatch(engine,array)
+        }
+        fetch().then(() =>  {
+
+            let result={matches:tempArr}
+            setData(result)
+            setLoading(false)
+        }).catch((error)=>{
+            setLoading(false)
+            setError(error)
+        })
+    },[])
+
+
+
+    return{
+        loading,
+        error,
+        data
+    }
+}

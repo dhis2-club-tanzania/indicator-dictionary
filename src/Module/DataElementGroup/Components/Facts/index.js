@@ -4,6 +4,7 @@ import Loader from "../../../../Shared/Componets/Loaders/Loader";
 import Error from "../../../../Shared/Componets/Error/ErrorAPIResult";
 import {dataSetDataElementCountState, programDataElementCountState} from "../../../../Store";
 import {useRecoilValue} from "recoil";
+import IndicatorCount from "./Components/IndicatorCount";
 
 const query = {
     sources:{
@@ -13,45 +14,15 @@ const query = {
             fields:["dataElements"]
         }
     },
-    // expressionMatch: {
-    //     resource: 'validationRules',
-    //     params: ({id}) => ({
-    //         fields: [
-    //             'id'
-    //         ],
-    //         filter:[`leftSide.expression:like:${id}`,`rightSide.expression:like:${id}`],
-    //         rootJunction:"OR",
-    //     })
-    // },
-    // numeratorMatch:{
-    //     resource: 'indicators',
-    //     params: ({id}) => ({
-    //         fields: [
-    //             'id'
-    //         ],
-    //         filter:[`numerator:like:${id}`]
-    //     })
-    // },
-    // denominatorMatch:{
-    //     resource: 'indicators',
-    //     params: ({id}) => ({
-    //         fields: [
-    //             'id'
-    //         ],
-    //         filter:[`denominator:like:${id}`]
-    //     })
-    // }
+
 }
-
-
 
 
 export default function Facts({id}){
 
-
     const {loading, error, data,refetch}  = useDataQuery(query, {variables: {id}})
 
-   const dataSetCount=useRecoilValue(dataSetDataElementCountState)
+    const dataSetCount=useRecoilValue(dataSetDataElementCountState)
     const programCount=useRecoilValue(programDataElementCountState)
 
     useEffect(()=>{refetch({id})},[id])
@@ -70,7 +41,8 @@ export default function Facts({id}){
         <ul>
             <li> It has {data?.sources?.dataElements?.length} data Elements     </li>
             <li>It’s data elements belongs to {dataSetCount} dataset and {programCount} program sources of data</li>
-            <li>It’s data elements belongs to {"{indicatorCount}"} indicators using it as numerator/denominator</li>
+            <li> {}
+                <IndicatorCount dataElements={data?.sources?.dataElements}/> </li>
         </ul>
     </div>
 }

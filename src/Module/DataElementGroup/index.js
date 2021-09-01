@@ -14,11 +14,11 @@ export default function DataElementGroupPage(props){
 
 
     return  <div style={{display:"flex",flexDirection:"column"}}>
-                <Introduction id={id} />
-                <DataSources id={id} />
+                {/*<Introduction id={id} />*/}
+                {/*<DataSources id={id} />*/}
                 <Facts id={id}/>
-                <RelatedIndicator id={id} />
-                <DataElementSIndicator resourceType={"Data Element Group"}/>
-                <AccessibilityAndSharing id={id} resourceType={"dataElementGroups"} />
+                {/*<RelatedIndicator id={id} />*/}
+                {/*<DataElementSIndicator resourceType={"Data Element Group"}/>*/}
+                {/*<AccessibilityAndSharing id={id} resourceType={"dataElementGroups"} />*/}
             </div>
 }
