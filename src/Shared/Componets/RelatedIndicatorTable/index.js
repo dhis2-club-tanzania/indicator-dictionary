@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import {useDataQuery} from "@dhis2/app-runtime";
 import React, {useEffect} from 'react'
 import i18n from "@dhis2/d2-i18n";
-import DisplayFormula from "./Componets/DisplayFormula";
+import DisplayFormula from "../DisplayFormula";
 import Loader from "../Loaders/Loader";
 import Error from "../Error/ErrorAPIResult";
 
@@ -23,7 +23,7 @@ const query={
 
 
 
-export default function RelatedIndicator(props){
+export default function RelatedIndicatorTable(props){
     const id=props.id
     const resourceType=props.resourceType
 
@@ -35,7 +35,6 @@ export default function RelatedIndicator(props){
     if(result?.length===0){
         return (
             <div>
-                <h3>{i18n.t("Related Indicators")} </h3>
                 <p>{i18n.t("This {{variables1}} is not related to any indicator",{variables1:resourceType})} </p>
             </div>
         )
@@ -51,7 +50,7 @@ export default function RelatedIndicator(props){
     return(
 
         <div>
-            <h3>{i18n.t("Related Indicators")} </h3>
+
             <p> {i18n.t("Below are set of indicators using this {{variables}} as numerator or denominator in their calculations.",{variables:resourceType})}
 
             </p>
@@ -89,26 +88,25 @@ export default function RelatedIndicator(props){
                                 <DataTableCell bordered>
 
                                     <div style={{margin:5}}>
-                                        <DisplayFormula formula={result?.numerator} location={"numerator"}  />
-                                        {/*<DisplayFormula formula={"#{fbfJHSPpUQD}"}  location={"numerator"}/>*/}
-
-
+                                        <DisplayFormula formula={result?.numerator} location={"numerator"} storeResult={true}  />
 
                                     </div>
 
                                 </DataTableCell>
                                 <DataTableCell bordered b>
                                     <div style={{margin:5}}>
-                                        <DisplayFormula formula={result?.denominator} location={"denominator"} />
+                                        <DisplayFormula formula={result?.denominator} location={"denominator"} storeResult={true}  />
                                     </div>
-
 
                                 </DataTableCell>
                                 <DataTableCell bordered>
                                     {result?.indicatorType?.displayName}
                                 </DataTableCell>
                                 <DataTableCell bordered>
-                                    {result?.displayDescription}
+                                    <div style={{margin:5}}>
+                                        {result?.displayDescription?? i18n.t("No description given")}
+                                    </div>
+
                                 </DataTableCell>
 
                             </DataTableRow>

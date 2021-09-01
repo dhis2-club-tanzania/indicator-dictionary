@@ -2,8 +2,11 @@ import {useDataQuery} from "@dhis2/app-runtime";
 import i18n from "@dhis2/d2-i18n";
 import PropTypes from "prop-types";
 import React, {useEffect} from 'react'
-import Error from "../../../../../../Shared/Componets/Error/ErrorAPIResult";
-import Loader from "../../../../../../Shared/Componets/Loaders/Loader";
+import Loader from "../../../../../Shared/Componets/Loaders/Loader";
+import Error from "../../../../../Shared/Componets/Error/ErrorAPIResult";
+import {programDataElementCountState} from "../../../../../Store";
+import {useSetRecoilState} from "recoil";
+
 
 const query = {
     programs: {
@@ -20,13 +23,14 @@ const query = {
 }
 
 
-export default  function Programs({id}){
+export default  function Programs({id,name}){
     const dataElementId=id
+
+    const updateCount=useSetRecoilState(programDataElementCountState)
 
     const {loading, error, data,refetch}  = useDataQuery(query, {variables: {dataElementId}})
 
     useEffect(()=>{refetch({id})},[id])
-
 
     if(loading){
         return  <Loader text={""} />
@@ -34,19 +38,16 @@ export default  function Programs({id}){
         return <Error error={error} />
     }
 
+    //updating count its used in the facts component
+    updateCount((prev)=>{return prev+data?.programs?.programStages?.length})
+
 
     return (<div>
-        <h3>{i18n.t("Data sources")}  </h3>
-        <p> {i18n.t("Data element is captured from following sources")}
-
-
-        </p>
-        <h5>{i18n.t("Programs")} </h5>
-
+        {name}
         <ul>
-        {data?.programs?.programStages?.map((dt)=>{
-            return <li key={dt?.program?.id}><b>{dt?.program?.displayName}</b> {i18n.t("submitting records on every event(case or individual)")} </li>
-        })}
+            {data?.programs?.programStages?.map((dt)=>{
+                return <li key={dt?.program?.id}><b>{dt?.program?.displayName}</b> {i18n.t("submitting records on every event(case or individual)")} </li>
+            })}
         </ul>
 
 
@@ -56,9 +57,3 @@ export default  function Programs({id}){
 
 }
 
-
-
-
-Programs.PropTypes={
-    id:PropTypes.string.isRequired
-}

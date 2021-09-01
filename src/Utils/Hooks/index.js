@@ -1,10 +1,11 @@
 import {useEffect,useState} from "react";
-import {getFormulaSources, getWordData} from "../Functions/FormulaFunctions";
+import { getFormulaSources, getWordDataForAll} from "../Functions/FormulaFunctions";
 import {dataTypes, dataTypesInitials} from "../Models";
 import React from "react";
+import {getDataSetsArray, getNumDenMatch} from "../Functions/DataElementGroupSetFunctions";
 
 
-export default function useGetData(formula,engine,loc){
+export function useGetData(formula,engine,loc){
     const [loading,setLoading]=useState(true)
     const [error,setError]=useState(false)
     const [data,setData]=useState()
@@ -16,17 +17,17 @@ export default function useGetData(formula,engine,loc){
         let tempArr4=getFormulaSources(formula,dataTypesInitials.ATTRIBUTES)
         let tempArr5=getFormulaSources(formula,dataTypesInitials.CONSTANTS)
 
-
         async function fetch(){
-            tempArr= await getWordData(engine,tempArr,dataTypes.DATA_ELEMENT,loc)
-            tempArr2=await getWordData(engine,tempArr2,dataTypes.PROGRAM_INDICATOR,loc)
-            tempArr3=await getWordData(engine,tempArr3,dataTypes.DATASET_REPORTING_RATES,loc)
-            tempArr4=await getWordData(engine,tempArr4,dataTypes.ATTRIBUTES,loc)
-            tempArr5=await getWordData(engine,tempArr5,dataTypes.CONSTANTS,loc)
+            tempArr= await getWordDataForAll(engine,tempArr,loc)
+            tempArr2=await getWordDataForAll(engine,tempArr2,loc)
+            tempArr3=await getWordDataForAll(engine,tempArr3,loc)
+            tempArr4=await getWordDataForAll(engine,tempArr4,loc)
+            tempArr5=await getWordDataForAll(engine,tempArr5,loc)
 
         }
         fetch().then(() =>  {
-            let result={dataElements:tempArr,programIndicators:tempArr2,dataSetReportingRates:tempArr3,attributes:tempArr2,constants:tempArr5}
+            let result={dataElements:tempArr,programIndicators:tempArr2,dataSetReportingRates:tempArr3,attributes:tempArr4,constants:tempArr5}
+
             setData(result)
             // setData((prevState => {return prevState.concat(result) }))
             setLoading(false)
@@ -42,4 +43,66 @@ export default function useGetData(formula,engine,loc){
         data
     }
 
+}
+
+export function useGetDataSet(array,engine){
+    const [loading,setLoading]=useState(true)
+    const [error,setError]=useState(false)
+    const [data,setData]=useState()
+
+    //{"dataSetName:[dataElements in {id:"",displname:""}]}
+    useEffect(()=>{
+        let tempArr
+        async function fetch(){
+            tempArr = await getDataSetsArray(engine,array)
+        }
+        fetch().then(() =>  {
+
+            let result={dataSets:tempArr}
+
+            setData(result)
+            setLoading(false)
+        }).catch((error)=>{
+            setLoading(false)
+            setError(error)
+        })
+    },[])
+
+
+
+    return{
+        loading,
+        error,
+        data
+    }
+}
+
+export function useGetNumDenMatch(array,engine){
+    const [loading,setLoading]=useState(true)
+    const [error,setError]=useState(false)
+    const [data,setData]=useState()
+
+    useEffect(()=>{
+        let tempArr
+        async function fetch(){
+            tempArr = await getNumDenMatch(engine,array)
+        }
+        fetch().then(() =>  {
+
+            let result={matches:tempArr}
+            setData(result)
+            setLoading(false)
+        }).catch((error)=>{
+            setLoading(false)
+            setError(error)
+        })
+    },[])
+
+
+
+    return{
+        loading,
+        error,
+        data
+    }
 }

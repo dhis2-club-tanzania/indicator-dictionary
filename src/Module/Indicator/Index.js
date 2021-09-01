@@ -1,14 +1,14 @@
 import PropTypes from 'prop-types'
 import React, {useEffect} from "react";
 import {useRecoilCallback} from "recoil";
-import AccessibilityAndSharing from "../../Shared/Componets/AccesibilityAndSharing";
+import AccesibilityAndSharing from "../../Shared/Componets/AccesibilityAndSharing";
 import {
     dataElementsStateDictionary,
     dataSetReportingRatesStateDictionary,
     programIndicatorStateDictionary
 } from "../../Store";
 import CalculationDetails from './Components/calculationDetails/Index'
-import DataElementSIndicator from '../../Shared/Componets/dataElementsInIndicator/dataElementsIndicator'
+import DataElementSIndicator from './Components/dataElementsInIndicator/dataElementsIndicator'
 import DatasetsReportingRates from "./Components/DataSetReportingRate";
 import DataSource from './Components/DataSource/dataSource'
 import IndicatorFacts from './Components/indicatorFacts/indicatorFacts'
@@ -19,6 +19,17 @@ import ProgramIndicatorIndicator from "./Components/ProgramIndicator";
 
 export default function Index({id}) {
 
+    const reset = useRecoilCallback(({reset}) => () => {
+        reset(dataElementsStateDictionary)
+        reset(dataSetReportingRatesStateDictionary)
+        reset(programIndicatorStateDictionary)
+    })
+
+    useEffect(() => {
+        return () => {
+            reset()
+        };
+    }, [id]);
 
     return (<div style={{display: "flex", flexDirection: "column"}}>
         <Introduction id={id}/>
@@ -31,14 +42,13 @@ export default function Index({id}) {
 
         <CalculationDetails id={id}/>
 
-        <DataElementSIndicator resourceType={"Indicator"}/>
+        <DataElementSIndicator/>
 
         <ProgramIndicatorIndicator/>
 
         <DatasetsReportingRates/>
 
-        {/*<CompletenessDataSources />*/}
-        <AccessibilityAndSharing id={id} resourceType={"indicators"} />
+        <AccesibilityAndSharing id={id} resourceType={"indicators"} />
 
     </div>)
 }

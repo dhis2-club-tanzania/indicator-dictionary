@@ -62,8 +62,6 @@ const query5={
     }
 }
 
-
-
 export function getFormulaSources(formula,sourceInitial){
     let ind1=0
     let ind2=0
@@ -110,6 +108,7 @@ async function getValueIdentifiableObjects(engine,id){
     return [data?.identifiableObjects?.displayName]
 }
 
+
 async function getValueDataElementSource(engine,id){
     const data=await engine.query(query3,{variables:{id}})
     return [data?.dataElementSource]
@@ -121,6 +120,7 @@ async function getValueProgramIndicator(engine,id){
 }
 async function getValueDataElementSourceWithCombo(engine,id,idCombo){
    const data=await engine.query(query4,{variables:{id,idCombo}})
+    console.log(data)
     return [data?.dataElementSource, data?.identifiableObjects.displayName]
 }
 
@@ -208,6 +208,9 @@ export function getSummaryValueFromApi(engine, id){
         }))
     }
 }
+
+
+
 export function getDetailedValueFromApi(engine,id,type){
     if(type===dataTypes.DATA_ELEMENT){
         if(isPureDataElement(id)){
@@ -243,15 +246,17 @@ export function getValueDataSourcePromise(engine,id){
 
 
 export async function getWordData(engine,arr,type,loc){ //arr for array of id of datas to get their values, type indicates the data type of data eg dataElement=0 program indicator=1, reporting rates=2
+
     if(arr.length>0){
         let allPromises= arr?.map((id)=>{
-            return getDetailedValueFromApi(engine,id,type)
+            return getDetailedValueFromApi(engine,id?.replace(/ /g,''),type)
         })
 
         return await Promise.all(allPromises).then(value => {
             if(type===dataTypes.DATA_ELEMENT){
                 return  value.map((val,index)=>{ //We always return array just for uniformity
                     if(val.length===2){ //array of two elements first element is dataElement second element of array is category option combo
+
                         return {id:arr[index],val:val[0].displayName+" "+val[1],location:loc,sources:val[0].dataSetElements}
                         // wordDtEl.push({id:arr[i],val:val[0].displayName+" "+val[1],location:loc,sources:val[0].dataSetElements})
                     }if(val.length===1){   //this is array of one element for data element that are just pure no category options
@@ -271,12 +276,41 @@ export async function getWordData(engine,arr,type,loc){ //arr for array of id of
                     return {"id":arr[index],"val":val[0],"location":loc}
                 })
             }
+            else{
+                return  value.map((val,index)=>{ //We always return array just for uniformity
+                    return {"id":arr[index],"val":val[0],"location":loc}
+                })
+            }
 
         })
 
     }
 
 }
+
+export async function getWordDataForAll(engine,arr,loc){
+    if(arr.length>0){
+        let allPromises= arr?.map((id)=>{
+            return getSummaryValueFromApi(engine,id?.replace(/ /g,''))
+        })
+        return await Promise.all(allPromises).then(value => {
+           return  value.map((val,index)=>{ //We always return array just for uniformity
+                if(val.length===2){ //array of two elements first element is dataElement second element of array is category option combo  or program stage then data element
+                    return {id:arr[index],val:val[0]+" "+val[1],location:loc}
+                }if(val.length===1){   //this is array of one element for data element that are just pure no category options
+                    return {id:arr[index],val:val[0],"location":loc}
+                }
+            })
+        })
+
+    }
+}
+
+
+
+
+
+
 
 function cleanBrackets(formula){
     if(typeof(formula) !=dataTypes.UNDEFINED){

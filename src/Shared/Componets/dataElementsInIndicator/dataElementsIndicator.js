@@ -15,12 +15,12 @@ import {selector, useRecoilValue} from "recoil";
 import {dataElementsStateDictionary} from "../../../Store";
 import Row from './row'
 import PropTypes from 'prop-types'
+import React from 'react'
 
 export default function DataElementSIndicator({resourceType}) {
 
     const dataElements = useRecoilValue(dataElementsStateDictionary)
 
-    console.log(dataElements)
     if(dataElements?.length===0){
         return (
             <div>
@@ -64,7 +64,7 @@ export default function DataElementSIndicator({resourceType}) {
             </TableHead>
             <TableBody>
                 {dataElements?.map((dtEle,index) => {
-                    return <Row key={index} datEl={dtEle}/>
+                    return <Row key={index} datEl={dtEle} location={dtEle?.location}/>
                 })}
             </TableBody>
 
