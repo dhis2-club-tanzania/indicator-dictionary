@@ -4,6 +4,7 @@ import Introduction from "./Components/Introduction";
 import DataSources from "./Components/DataSources";
 import Facts from "./Components/Facts";
 import RelatedIndicator from "./Components/RelatedIndicator";
+import DataElementSIndicator from "../../Shared/Componets/dataElementsInIndicator/dataElementsIndicator";
 
 
 export default function DataElementGroupPage(props){
@@ -20,5 +21,6 @@ export default function DataElementGroupPage(props){
 
 
                 <RelatedIndicator id={id} />
+        <DataElementSIndicator resourceType={"Data Element Group"}/>
             </div>
 }

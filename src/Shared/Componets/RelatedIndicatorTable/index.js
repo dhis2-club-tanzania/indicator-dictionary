@@ -90,7 +90,6 @@ export default function RelatedIndicatorTable(props){
                                     <div style={{margin:5}}>
                                         <DisplayFormula formula={result?.numerator} location={"numerator"} storeResult={true}  />
 
-
                                     </div>
 
                                 </DataTableCell>
@@ -99,13 +98,15 @@ export default function RelatedIndicatorTable(props){
                                         <DisplayFormula formula={result?.denominator} location={"denominator"} storeResult={true}  />
                                     </div>
 
-
                                 </DataTableCell>
                                 <DataTableCell bordered>
                                     {result?.indicatorType?.displayName}
                                 </DataTableCell>
                                 <DataTableCell bordered>
-                                    {result?.displayDescription}
+                                    <div style={{margin:5}}>
+                                        {result?.displayDescription?? i18n.t("No description given")}
+                                    </div>
+
                                 </DataTableCell>
 
                             </DataTableRow>
