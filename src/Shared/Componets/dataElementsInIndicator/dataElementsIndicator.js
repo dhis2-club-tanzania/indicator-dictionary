@@ -15,6 +15,7 @@ import {selector, useRecoilValue} from "recoil";
 import {dataElementsStateDictionary} from "../../../Store";
 import Row from './row'
 import PropTypes from 'prop-types'
+import React from 'react'
 
 export default function DataElementSIndicator({resourceType}) {
 
