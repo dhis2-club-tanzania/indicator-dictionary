@@ -2,6 +2,8 @@ import React, {useEffect} from 'react'
 import {useDataQuery} from "@dhis2/app-runtime";
 import Loader from "../../../../Shared/Componets/Loaders/Loader";
 import Error from "../../../../Shared/Componets/Error/ErrorAPIResult";
+import {dataSetDataElementCountState, programDataElementCountState} from "../../../../Store";
+import {useRecoilValue} from "recoil";
 
 const query = {
     sources:{
@@ -49,6 +51,9 @@ export default function Facts({id}){
 
     const {loading, error, data,refetch}  = useDataQuery(query, {variables: {id}})
 
+   const dataSetCount=useRecoilValue(dataSetDataElementCountState)
+    const programCount=useRecoilValue(programDataElementCountState)
+
     useEffect(()=>{refetch({id})},[id])
 
     if(loading){
@@ -64,7 +69,7 @@ export default function Facts({id}){
 
         <ul>
             <li> It has {data?.sources?.dataElements?.length} data Elements     </li>
-            <li>It’s data elements belongs to {"{dataSetCount}"} dataset and {"{programCount}"} program sources of data</li>
+            <li>It’s data elements belongs to {dataSetCount} dataset and {programCount} program sources of data</li>
             <li>It’s data elements belongs to {"{indicatorCount}"} indicators using it as numerator/denominator</li>
         </ul>
     </div>

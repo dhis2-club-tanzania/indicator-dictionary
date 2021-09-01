@@ -6,10 +6,15 @@ import React,{useEffect} from 'react'
 import Loader from "../../../../../Shared/Componets/Loaders/Loader";
 import Error from "../../../../../Shared/Componets/Error/ErrorAPIResult";
 import {useGetDataSet} from "../../../../../Utils/Hooks";
+import {dataSetDataElementCountState} from "../../../../../Store";
+import {useSetRecoilState} from "recoil";
 
 
 export default  function DataSets({aggregate}){
 
+
+
+    const updateCount=useSetRecoilState(dataSetDataElementCountState)
 
     const engine=useDataEngine()
 
@@ -26,6 +31,13 @@ export default  function DataSets({aggregate}){
     }
 
     const res=data?.dataSets;
+
+    //update count its used in the facts components
+    let totalCount=0
+    res?.map((e)=>{
+        totalCount+=e?.length
+    })
+    updateCount(totalCount)
 
     return (<div>
         <ul>

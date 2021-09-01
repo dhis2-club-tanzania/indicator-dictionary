@@ -19,3 +19,13 @@ export const dataSourceStateDictionary=atom({
     key:'dataSourceStateDictionary',
     default:{id:undefined,type:undefined}
 })
+
+export const dataSetDataElementCountState=atom({
+    key:"dataSetDataElementsCountState",
+    default:0
+})
+
+export const programDataElementCountState=atom({
+    key:"programDataElementCountState",
+    default:0
+})
