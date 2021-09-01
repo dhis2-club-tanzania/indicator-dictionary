@@ -15,7 +15,8 @@ export default function DataElementGroupPage(props){
 
                 <DataSources id={id} />
 
-        <Facts id={id}/>
+                <Facts id={id}/>
+
 
             </div>
 }

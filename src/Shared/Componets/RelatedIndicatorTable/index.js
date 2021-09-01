@@ -23,7 +23,7 @@ const query={
 
 
 
-export default function RelatedIndicator(props){
+export default function RelatedIndicatorTable(props){
     const id=props.id
     const resourceType=props.resourceType
 
@@ -35,7 +35,6 @@ export default function RelatedIndicator(props){
     if(result?.length===0){
         return (
             <div>
-                <h3>{i18n.t("Related Indicators")} </h3>
                 <p>{i18n.t("This {{variables1}} is not related to any indicator",{variables1:resourceType})} </p>
             </div>
         )
@@ -51,7 +50,7 @@ export default function RelatedIndicator(props){
     return(
 
         <div>
-            <h3>{i18n.t("Related Indicators")} </h3>
+
             <p> {i18n.t("Below are set of indicators using this {{variables}} as numerator or denominator in their calculations.",{variables:resourceType})}
 
             </p>

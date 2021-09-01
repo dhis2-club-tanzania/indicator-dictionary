@@ -3,10 +3,10 @@ import React from 'react'
 import DataSource from "./Components/DataSource/dataSource";
 import ProgramIndicatorFacts from "./Components/facts/ProgramIndicatorFacts";
 import LegendsAnalysis from "./Components/legendsAnalysis/legendsAnalysis";
-import RelatedIndicator from "../../Shared/Componets/RelatedIndicator";
 import CalculationDetails from "./Components/calculationDetails";
 import DataElementSIndicator from "../../Shared/Componets/dataElementsInIndicator/dataElementsIndicator";
 import AccessibilityAndSharing from "../../Shared/Componets/AccesibilityAndSharing";
+import RelatedIndicator from "./Components/RelatedIndicator";
 
 
 export default function ProgramIndicatorPage({id}){
