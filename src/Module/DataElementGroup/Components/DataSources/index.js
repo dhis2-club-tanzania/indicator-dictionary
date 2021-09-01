@@ -3,6 +3,12 @@ import {useEffect} from "react";
 import Loader from "../../../../Shared/Componets/Loaders/Loader";
 import Error from "../../../../Shared/Componets/Error/ErrorAPIResult";
 import React from 'react'
+import _ from 'lodash'
+import {dataElementDomainTypes} from "../../../../Utils/Models";
+import DataSets from "./DataSets";
+import Programs from "./Programs";
+import i18n from '@dhis2/d2-i18n'
+
 
 const query = {
     sources:{
@@ -13,10 +19,6 @@ const query = {
         }
     }
 }
-
-
-
-
 
 
 export default function DataSources({id}){
@@ -32,21 +34,32 @@ export default function DataSources({id}){
         return <Error error={error} />
     }
 
-    console.log(data)
 
-//     var users = [
-//         { 'user': 'barney', 'age': 36, 'active': true },
-//         { 'user': 'fred',   'age': 40, 'active': false }
-//     ];
-//
-//     _.filter(users, function(o) { return !o.active; });
-// // => objects for ['fred']
+
+    let traker= _.filter(data?.sources?.dataElements,(el)=>{return el?.domainType===dataElementDomainTypes.TRACKER})
+    let aggregate=_.filter(data?.sources?.dataElements,(el)=>{return el?.domainType===dataElementDomainTypes.AGGREGATE})
+
 
 
     return <div>
-        <h3> Data sources (Datasets/Programs)</h3>
-        <p>
-            Data elements in this group are captured from the following sources
+        <h3>{i18n.t("Data sources (Datasets/Programs)")} </h3>
+        <p> {i18n.t("Data elements in this group are captured from the following sources")}
+
+            {data?.sources?.dataElements?.length===0?i18n.t("There are no Data Elements in this Data Element group"):""}
+
+            {aggregate?.length>0? <h4>{i18n.t("Aggregate Data Elements are:")} </h4>:""}
+            {aggregate?.length>0?
+             aggregate.map((el)=>{
+               return <DataSets id={el?.id} />
+            }):""
+            }
+
+            {traker?.length>0?<h4>{i18n.t("Tracker Data Elements are:")} </h4>:""}
+            {traker?.length>0?
+                traker.map((el)=>{
+                    return <Programs id={el?.id} />
+                }):""
+            }
         </p>
 
 
