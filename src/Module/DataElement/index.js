@@ -5,8 +5,9 @@ import AnalyticsDetails from "./Components/AnalyticsDetails";
 
 import AccessibilityAndSharing from "../../Shared/Componets/AccesibilityAndSharing";
 import React from 'react'
-import RelatedIndicator from "../../Shared/Componets/RelatedIndicatorTable";
+
 import Introduction from "./Components/introduction/introduction";
+import RelatedIndicator from "./Components/RelatedIndicator";
 
 
 export default function DataElementPage(props){
@@ -18,8 +19,9 @@ export default function DataElementPage(props){
             <Facts  id={id}  />
             <AnalyticsDetails id={id}/>
 
-            <h3>{i18n.t("Related Indicators")} </h3>
+
             <RelatedIndicator id={id} resourceType={"Data Element"}  />
+
 
             <AccessibilityAndSharing id={id} resourceType={"dataElements"} />
 
