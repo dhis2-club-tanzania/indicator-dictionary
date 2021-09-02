@@ -45,13 +45,18 @@ export default function DataSources({id}){
     })
 
     const sourceProgram=data?.sources?.indicators?.map((e)=>{
-        let ind= _.concat([],getFormulaSources(e?.numerator,dataTypesInitials.PROGRAM_INDICATOR),getFormulaSources(e?.denominator,dataTypesInitials.PROGRAM_INDICATOR) )
-        let attr= _.concat([],getFormulaSources(e?.numerator,dataTypesInitials.ATTRIBUTES),getFormulaSources(e?.denominator,dataTypesInitials.ATTRIBUTES) )
-        let prgDtEl= _.concat([],getFormulaSources(e?.numerator,dataTypesInitials.PROGRAM_DATA_ELEMENT),getFormulaSources(e?.denominator,dataTypesInitials.PROGRAM_DATA_ELEMENT) )
+        // let ind= _.concat([],getFormulaSources(e?.numerator,dataTypesInitials.PROGRAM_INDICATOR),getFormulaSources(e?.denominator,dataTypesInitials.PROGRAM_INDICATOR) )
+        // let attr= _.concat([],getFormulaSources(e?.numerator,dataTypesInitials.ATTRIBUTES),getFormulaSources(e?.denominator,dataTypesInitials.ATTRIBUTES) )
+        // let prgDtEl= _.concat([],getFormulaSources(e?.numerator,dataTypesInitials.PROGRAM_DATA_ELEMENT),getFormulaSources(e?.denominator,dataTypesInitials.PROGRAM_DATA_ELEMENT) )
+        // return {prgInd:ind,attr:attr,prgDtEl:prgDtEl}
+        let tmp="D{uy2gU8kT1jF.EzMxXuVww2z}+A{uy2gU8kT1jF.zDhUuAYrxNC}-I{dSBYyCUjCXd}"
+        let ind= _.concat([],getFormulaSources(tmp,dataTypesInitials.PROGRAM_INDICATOR),getFormulaSources(e?.denominator,dataTypesInitials.PROGRAM_INDICATOR) )
+        let attr= _.concat([],getFormulaSources(e?.numerator,dataTypesInitials.ATTRIBUTES),getFormulaSources(tmp,dataTypesInitials.ATTRIBUTES) )
+        let prgDtEl= _.concat([],getFormulaSources(tmp,dataTypesInitials.PROGRAM_DATA_ELEMENT),getFormulaSources(e?.denominator,dataTypesInitials.PROGRAM_DATA_ELEMENT) )
         return {prgInd:ind,attr:attr,prgDtEl:prgDtEl}
     })
 
-
+    // D{uy2gU8kT1jF.EzMxXuVww2z}+A{uy2gU8kT1jF.zDhUuAYrxNC}-I{dSBYyCUjCXd}
 
     return <div>
         <h3>{i18n.t("Data sources (Datasets/Programs)")} </h3>

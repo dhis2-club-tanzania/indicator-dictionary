@@ -12,7 +12,7 @@ const query={
 
 const query2={
     program:{
-        resource:"identifiableObjects",
+        resource:"programIndicators",
         id: ({id})=>id,
         params:{
             fields:["program[id,displayName]"]

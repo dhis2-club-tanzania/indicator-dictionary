@@ -7,6 +7,7 @@ import Error from "../../../../../Shared/Componets/Error/ErrorAPIResult";
 import {programDataElementCountState} from "../../../../../Store";
 import {useSetRecoilState} from "recoil";
 import {useGetIndicatorProgramSource} from "../../../../../Utils/Hooks/DataSource";
+import _ from "lodash";
 
 
 const query = {
@@ -31,7 +32,7 @@ export default  function Programs({sources}){
 
     const engine=useDataEngine()
 
-    console.log(sources)
+
 
     const {loading, error, data}=useGetIndicatorProgramSource(sources,engine)
 
@@ -42,19 +43,20 @@ export default  function Programs({sources}){
         return <Error error={error} />
     }
 
-    console.log(data)
-
     // //updating count its used in the facts component
     // updateCount((prev)=>{return prev+data?.programs?.programStages?.length})
 
+    const res=_.concat([],data?.attr,data?.prgInd,data?.prgDtEl)
+
 
     return (<div>
+        <b>Programs </b>
+        <ul>
 
-        {/*<ul>*/}
-        {/*    {data?.programs?.programStages?.map((dt)=>{*/}
-        {/*        return <li key={dt?.program?.id}><b>{dt?.program?.displayName}</b> {i18n.t("submitting records on every event(case or individual)")} </li>*/}
-        {/*    })}*/}
-        {/*</ul>*/}
+            {res?.map((dt,index)=>{
+                return <li key={index}><b>{dt?.displayName}</b> {i18n.t("submitting records on every event(case or individual)")} </li>
+            })}
+        </ul>
 
 
 
