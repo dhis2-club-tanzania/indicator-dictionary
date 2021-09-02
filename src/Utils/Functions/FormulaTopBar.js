@@ -22,6 +22,9 @@ export function getDataSourceType(formula){
     if(formula?.search("dataElementGroups")>=0){
         return dataSourceTypes.DATA_ELEMENT_GROUP
     }
+    if(formula?.search("indicatorGroups")>=0){
+        return dataSourceTypes.INDICATOR_GROUP
+    }
 
 
 }

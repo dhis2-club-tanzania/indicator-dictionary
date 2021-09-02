@@ -71,7 +71,6 @@ export default function TopBar(props){
                      type: getDataSourceType(obj[0].href),
                      displayName: obj[0].displayName,
                      index: index,
-
                      selected: index===0?true:false
                  }
              })
