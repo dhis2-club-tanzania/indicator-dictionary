@@ -4,18 +4,19 @@ import Loader from "../../../../Shared/Componets/Loaders/Loader";
 import Error from "../../../../Shared/Componets/Error/ErrorAPIResult";
 import React from 'react'
 import _ from 'lodash'
-import {dataElementDomainTypes} from "../../../../Utils/Models";
+import {dataElementDomainTypes, dataTypesInitials} from "../../../../Utils/Models";
 import DataSets from "./DataSets";
 import Programs from "./Programs";
 import i18n from '@dhis2/d2-i18n'
+import {getFormulaSources} from "../../../../Utils/Functions/FormulaFunctions";
 
 
 const query = {
     sources:{
-        resource:"dataElementGroups",
+        resource:"indicatorGroups",
         id: ({id})=>id,
         params:{
-            fields:["dataElements[id,displayName,domainType]"]
+            fields:["indicators[id,displayName,numerator,denominator]"]
         }
     }
 }
@@ -34,27 +35,37 @@ export default function DataSources({id}){
         return <Error error={error} />
     }
 
-    let traker= _.filter(data?.sources?.dataElements,(el)=>{return el?.domainType===dataElementDomainTypes.TRACKER})
-    let aggregate=_.filter(data?.sources?.dataElements,(el)=>{return el?.domainType===dataElementDomainTypes.AGGREGATE})
+    // const sourceProgram=[]//D{uy2gU8kT1jF.EzMxXuVww2z}+A{uy2gU8kT1jF.zDhUuAYrxNC}-I{dSBYyCUjCXd}
+
+
+
+    //for each indicator, put dataElements from both numerator and den in one array them pass in it
+    const sourcesDataElement=data?.sources?.indicators?.map((e)=>{
+        return _.concat([],getFormulaSources(e?.numerator,dataTypesInitials.DATA_ELEMENT),getFormulaSources(e?.denominator,dataTypesInitials.DATA_ELEMENT) )
+    })
+
+    const sourceProgram=data?.sources?.indicators?.map((e)=>{
+        let ind= _.concat([],getFormulaSources(e?.numerator,dataTypesInitials.PROGRAM_INDICATOR),getFormulaSources(e?.denominator,dataTypesInitials.PROGRAM_INDICATOR) )
+        let attr= _.concat([],getFormulaSources(e?.numerator,dataTypesInitials.ATTRIBUTES),getFormulaSources(e?.denominator,dataTypesInitials.ATTRIBUTES) )
+        let prgDtEl= _.concat([],getFormulaSources(e?.numerator,dataTypesInitials.PROGRAM_DATA_ELEMENT),getFormulaSources(e?.denominator,dataTypesInitials.PROGRAM_DATA_ELEMENT) )
+        return {prgInd:ind,attr:attr,prgDtEl:prgDtEl}
+    })
+
+
 
     return <div>
         <h3>{i18n.t("Data sources (Datasets/Programs)")} </h3>
-        <p> {i18n.t("Data elements in this group are captured from the following sources")}    </p>
+        <p> {i18n.t("Indicators in this group are captured from the following sources")}    </p>
 
-            {data?.sources?.dataElements?.length===0?i18n.t("There are no Data Elements in this Data Element group"):""}
+        <ul>
+            {data?.sources?.indicators?.map((e,index)=>{
+                return <li>{e?.displayName}
 
-            {aggregate?.length>0? <h4>{i18n.t("For Aggregate Data Elements:")} </h4>:""}
-            {aggregate?.length>0?
-                <DataSets aggregate={aggregate} />:""
-
-            }
-
-            {traker?.length>0?<h4>{i18n.t("For Tracker Data Elements:")} </h4>:""}
-            {traker?.length>0?
-                traker.map((el)=>{
-                    return <Programs id={el?.id} name={el?.displayName} />
-                }):""
-            }
+                    <DataSets aggregate={sourcesDataElement[index]} />
+                    <Programs sources={sourceProgram[index]} />
+                </li>
+            })}
+        </ul>
 
 
 

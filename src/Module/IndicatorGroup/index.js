@@ -16,7 +16,7 @@ export default function IndicatorGroupPage(props){
 
     return  <div style={{display:"flex",flexDirection:"column"}}>
                 <Introduction id={id} />
-                {/*<DataSources id={id} />*/}
+                <DataSources id={id} />
                 {/*<Facts id={id}/>*/}
                 {/*<RelatedIndicator id={id} />*/}
                 {/*<DataElementSIndicator resourceType={"Data Element Group"}/>*/}

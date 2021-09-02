@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2021-09-02T06:55:05.593Z\n"
-"PO-Revision-Date: 2021-09-02T06:55:05.593Z\n"
+"POT-Creation-Date: 2021-09-02T09:01:10.401Z\n"
+"PO-Revision-Date: 2021-09-02T09:01:10.401Z\n"
 
 msgid "Analytics Details"
 msgstr "Analytics Details"
@@ -292,6 +292,12 @@ msgstr "Lower"
 
 msgid "Legends for analysis"
 msgstr "Legends for analysis"
+
+msgid "Indicators in this group are captured from the following sources"
+msgstr "Indicators in this group are captured from the following sources"
+
+msgid "Indicator Group name is  {{variables1}}."
+msgstr "Indicator Group name is  {{variables1}}."
 
 msgid "Accesibility & Sharing Settings"
 msgstr "Accesibility & Sharing Settings"

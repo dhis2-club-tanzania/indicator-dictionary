@@ -1,4 +1,4 @@
-import {useDataQuery} from "@dhis2/app-runtime";
+import {useDataEngine, useDataQuery} from "@dhis2/app-runtime";
 import i18n from "@dhis2/d2-i18n";
 import PropTypes from "prop-types";
 import React, {useEffect} from 'react'
@@ -6,6 +6,7 @@ import Loader from "../../../../../Shared/Componets/Loaders/Loader";
 import Error from "../../../../../Shared/Componets/Error/ErrorAPIResult";
 import {programDataElementCountState} from "../../../../../Store";
 import {useSetRecoilState} from "recoil";
+import {useGetIndicatorProgramSource} from "../../../../../Utils/Hooks/DataSource";
 
 
 const query = {
@@ -23,14 +24,17 @@ const query = {
 }
 
 
-export default  function Programs({id,name}){
-    const dataElementId=id
+export default  function Programs({sources}){
 
-    const updateCount=useSetRecoilState(programDataElementCountState)
+    //
+    // const updateCount=useSetRecoilState(programDataElementCountState)
 
-    const {loading, error, data,refetch}  = useDataQuery(query, {variables: {dataElementId}})
+    const engine=useDataEngine()
 
-    useEffect(()=>{refetch({id})},[id])
+    console.log(sources)
+
+    const {loading, error, data}=useGetIndicatorProgramSource(sources,engine)
+
 
     if(loading){
         return  <Loader text={""} />
@@ -38,17 +42,19 @@ export default  function Programs({id,name}){
         return <Error error={error} />
     }
 
-    //updating count its used in the facts component
-    updateCount((prev)=>{return prev+data?.programs?.programStages?.length})
+    console.log(data)
+
+    // //updating count its used in the facts component
+    // updateCount((prev)=>{return prev+data?.programs?.programStages?.length})
 
 
     return (<div>
-        {name}
-        <ul>
-            {data?.programs?.programStages?.map((dt)=>{
-                return <li key={dt?.program?.id}><b>{dt?.program?.displayName}</b> {i18n.t("submitting records on every event(case or individual)")} </li>
-            })}
-        </ul>
+
+        {/*<ul>*/}
+        {/*    {data?.programs?.programStages?.map((dt)=>{*/}
+        {/*        return <li key={dt?.program?.id}><b>{dt?.program?.displayName}</b> {i18n.t("submitting records on every event(case or individual)")} </li>*/}
+        {/*    })}*/}
+        {/*</ul>*/}
 
 
 

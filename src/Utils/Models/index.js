@@ -32,6 +32,7 @@ export const analyticsTypes={
 
 export const dataTypesInitials={
     DATA_ELEMENT:"#{",
+    PROGRAM_DATA_ELEMENT:"D{",
     PROGRAM_INDICATOR:"I{",
     DATASET_REPORTING_RATES:"R{",
     ATTRIBUTES:"A{",

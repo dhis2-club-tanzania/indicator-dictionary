@@ -13,13 +13,12 @@ import {useSetRecoilState} from "recoil";
 export default  function DataSets({aggregate}){
 
 
-
-    const updateCount=useSetRecoilState(dataSetDataElementCountState)
+    // const updateCount=useSetRecoilState(dataSetDataElementCountState)
 
     const engine=useDataEngine()
 
     let onlyIds=aggregate.map((el)=>{
-        return el?.id
+        return el?.split(".")[0] //since id may come as with . to indicate with category comb
     })
 
     const {loading,error,data}=useGetDataSet(onlyIds,engine)
@@ -33,26 +32,24 @@ export default  function DataSets({aggregate}){
     const res=data?.dataSets;
 
     //update count its used in the facts components
-    let totalCount=0
-    res?.map((e)=>{
-        totalCount+=e?.length
-    })
-    updateCount(totalCount)
+    // let totalCount=0
+    // res?.map((e)=>{
+    //     totalCount+=e?.length
+    // })
+    // updateCount(totalCount)
 
     return (<div>
-        <ul>
+        <b>Datasets </b>
             {aggregate?.map((el,index)=>{
-                return <li>
-                    {el?.displayName}
-                    <ul> {res[index]?.length>1?"sources":""}
+                return  <ul>
                     {res[index]?.map((datset)=>{
                         return <li key={datset?.id}>{datset?.displayName} submitting {datset?.periodType} after every {datset?.timelyDays} days </li>
 
                     })}
-                    </ul>
-                </li>
+                </ul>
+
             })}
-        </ul>
+
 
     </div>)
 
