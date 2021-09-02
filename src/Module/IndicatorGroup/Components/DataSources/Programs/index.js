@@ -46,22 +46,28 @@ export default  function Programs({sources}){
     // //updating count its used in the facts component
     // updateCount((prev)=>{return prev+data?.programs?.programStages?.length})
 
-    const res=_.concat([],data?.attr,data?.prgInd,data?.prgDtEl)
+    const res=_.concat([],data?.attr??[],data?.prgInd??[],data?.prgDtEl??[])
 
 
-    return (<div>
-        <b>Programs </b>
-        <ul>
+    if(res?.length>0){
+        return (<div>
+            <b>Programs </b>
+            <ul>
 
-            {res?.map((dt,index)=>{
-                return <li key={index}><b>{dt?.displayName}</b> {i18n.t("submitting records on every event(case or individual)")} </li>
-            })}
-        </ul>
+                {res?.map((dt,index)=>{
+                    return <li key={index}><b>{dt?.displayName}</b> {i18n.t("submitting records on every event(case or individual)")} </li>
+                })}
+            </ul>
+
+        </div>)
+    }else{
+        return <></>
+    }
 
 
 
 
-    </div>)
+
 
 }
 
