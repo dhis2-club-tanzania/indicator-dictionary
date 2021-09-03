@@ -3,10 +3,10 @@ import React from "react";
 import Introduction from "./Components/Introduction";
 import DataSources from "./Components/DataSources";
 import Facts from "./Components/Facts";
-import RelatedIndicator from "./Components/RelatedDataElements";
-import DataElementSIndicator from "../../Shared/Componets/dataElementsInIndicator/dataElementsIndicator";
+
 import AccessibilityAndSharing from "../../Shared/Componets/AccesibilityAndSharing";
 import PropTypes from "prop-types";
+import RelatedDataElements from "./Components/RelatedDataElements";
 
 
 export default function IndicatorGroupPage(props){
@@ -15,14 +15,13 @@ export default function IndicatorGroupPage(props){
 
 
     return  <div style={{display:"flex",flexDirection:"column"}}>
-                {/*<Introduction id={id} />*/}
+                <Introduction id={id} />
                 <DataSources id={id} />
 
                 <Facts id={id}/>
-                <RelatedIndicator />
-                {/*<DataElementSIndicator resourceType={"Data Element Group"}/>*/}
+                <RelatedDataElements />
 
-                {/*<AccessibilityAndSharing id={id} resourceType={"indicatorGroups"} />*/}
+                <AccessibilityAndSharing id={id} resourceType={"indicatorGroups"} />
             </div>
 }
 

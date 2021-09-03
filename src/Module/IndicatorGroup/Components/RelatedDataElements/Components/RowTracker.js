@@ -5,6 +5,7 @@ import {isPureDataElement} from "../../../../../Utils/Functions/FormulaFunctions
 import Loader from "../../../../../Shared/Componets/Loaders/Loader";
 import Error from "../../../../../Shared/Componets/Error/ErrorAPIResult";
 import React from "react";
+import PropTypes from "prop-types";
 
 const query = {
 
@@ -33,8 +34,6 @@ export default function RowTracker({id,location}){
     let id2=id?.split(".")[1];
 
     const {loading, error, data} = useDataQuery(query, {variables: {id1,id2}})
-    // const data= await engine.query(query2,{variables: {id,id2}})
-
 
     if(loading){
         return <Loader />
@@ -65,9 +64,7 @@ export default function RowTracker({id,location}){
             </ol>
         </DataTableCell>
         <DataTableCell bordered>
-            {/*<ol>*/}
-            {/*    { data?.dataSetElements?.map((dataSet)=>{return <li key={dataSet?.dataSet?.id}>{dataSet?.dataSet?.displayName}</li>})}*/}
-            {/*</ol>*/}
+
             {data?.program?.displayName}
         </DataTableCell>
         <DataTableCell bordered>
@@ -80,7 +77,8 @@ export default function RowTracker({id,location}){
 
 
 
-// RowAggregate.prototype={
-//     datEl:PropTypes.
-//
-// }
+RowTracker.propTypes={
+    id:PropTypes.string.isRequired,
+    location:PropTypes.string.isRequired
+
+}

@@ -6,6 +6,7 @@ import PropTypes from "prop-types";
 import Loader from "../../../../../Shared/Componets/Loaders/Loader";
 import Error from "../../../../../Shared/Componets/Error/ErrorAPIResult";
 import {isPureDataElement} from "../../../../../Utils/Functions/FormulaFunctions";
+import RowTracker from "./RowTracker";
 
 
    
@@ -83,7 +84,8 @@ export default  function RowAggregate({id,location}){
 
 
 
-// RowAggregate.prototype={
-//     datEl:PropTypes.
-//
-// }
+RowAggregate.propTypes={
+    id:PropTypes.string.isRequired,
+    location:PropTypes.string.isRequired
+
+}

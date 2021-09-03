@@ -37,45 +37,14 @@ const query = {
 
 export default function RelatedDataElements(){
 
-
-    // const {loading, error, data,refetch}  = useDataQuery(query, {variables: {id}})
-    //
-    // useEffect(()=>{refetch({id})},[id])
-
     const numerators=useRecoilValue(indicatorGroupNumeratorDataElements);
     const denominator=useRecoilValue(indicatorGroupDenominatorDataElements)
-
-    console.log(numerators)
-    console.log(denominator)
-
-
-    //
-    //
-    // if(loading){
-    //     return  <Loader text={""} />
-    // }if(error){
-    //     return <Error error={error} />
-    // }
-
 
     return <div>
         <h3>{i18n.t("Related Data elements")} </h3>
         <p>
             {i18n.t("The following is the summary of the data elements used in the group") }
         </p>
-
-        {/*<ul>*/}
-        {/*    {data?.sources?.dataElements?.map((e)=>{*/}
-        {/*        return <li key={e?.id}>*/}
-        {/*            <div>*/}
-        {/*               <b> {e?.displayName} </b>*/}
-        {/*                <RelatedIndicatorTable id={e?.id} />*/}
-        {/*            </div>*/}
-
-        {/*        </li>*/}
-        {/*    })}*/}
-
-        {/*</ul>*/}
 
         <DataTable>
             <TableHead>
@@ -116,10 +85,6 @@ export default function RelatedDataElements(){
                     return <RowTracker key={e} id={e} location={"denominator"}  />
                 })}
 
-
-                {/*{dataElements?.map((dtEle,index) => {*/}
-                {/*    return <RowAggregate key={index} datEl={dtEle} location={dtEle?.location}/>*/}
-                {/*})}*/}
             </TableBody>
 
         </DataTable>
