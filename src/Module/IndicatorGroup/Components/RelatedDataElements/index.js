@@ -21,6 +21,8 @@ import {
     indicatorGroupDenominatorDataElements,
     indicatorGroupNumeratorDataElements
 } from "../../../../Store/IndicatorGroup";
+import RowAggregate from "./Components/RowAggregate";
+import RowTracker from "./Components/RowTracker";
 
 const query = {
     sources:{
@@ -103,8 +105,20 @@ export default function RelatedDataElements(){
                 </DataTableRow>
             </TableHead>
             <TableBody>
+                {numerators?.aggregate?.map((e)=>{
+                    return <RowAggregate key={e} id={e} location={"numerator"} />  })}
+                {numerators?.tracker?.map((e)=>{
+                    return <RowTracker key={e} id={e} location={"numerator"}  />
+                })}
+                {denominator?.aggregate?.map((e)=>{
+                    return <RowAggregate key={e} id={e} location={"denominator"}  />  })}
+                {denominator?.tracker?.map((e)=>{
+                    return <RowTracker key={e} id={e} location={"denominator"}  />
+                })}
+
+
                 {/*{dataElements?.map((dtEle,index) => {*/}
-                {/*    return <Row key={index} datEl={dtEle} location={dtEle?.location}/>*/}
+                {/*    return <RowAggregate key={index} datEl={dtEle} location={dtEle?.location}/>*/}
                 {/*})}*/}
             </TableBody>
 
