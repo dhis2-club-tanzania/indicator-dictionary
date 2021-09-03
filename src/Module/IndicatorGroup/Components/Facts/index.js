@@ -6,6 +6,7 @@ import Error from "../../../../Shared/Componets/Error/ErrorAPIResult";
 import {useRecoilValue} from "recoil";
 import _ from "lodash";
 import {
+    indicatorGroupAggregateDataElements,
     indicatorGroupDataSets,
     indicatorGroupProgramDataElements,
     indicatorGroupPrograms
@@ -34,6 +35,7 @@ export default function Facts({id}){
     let dataSets=useRecoilValue(indicatorGroupDataSets)
     let programs=useRecoilValue(indicatorGroupPrograms)
     let programDtEl=useRecoilValue(indicatorGroupProgramDataElements)
+    let dataElements=useRecoilValue(indicatorGroupAggregateDataElements)
 
     if(loading){
         return  <Loader text={""} />
@@ -44,14 +46,19 @@ export default function Facts({id}){
 
     dataSets=_.uniqWith(dataSets,_.isEqual)
     programs=_.uniqWith(programs,_.isEqual)
+    dataElements=_.uniqWith(dataElements,_.isEqual)
 
-    //build an array of dataElements
+
+
     programDtEl=programDtEl.map((e)=>{
         return {id:e.split(".")[1]??""}
     })
+    dataElements=dataElements.map((e)=>{
+        return {id:e}
+    })
 
-    programDtEl=_.uniqWith(programDtEl,_.isEqual)
-    const allDataElements=_.concat([],programDtEl,dataSets)
+    const allDataElements=_.concat([],programDtEl,dataElements)
+
 
 
     return <div>
@@ -62,7 +69,8 @@ export default function Facts({id}){
             <li> It has {data?.sources?.indicators?.length} indicators     </li>
             <li>It’s data elements belongs to {dataSets?.length} datasets and {programs?.length} program sources of data</li>
             <li>
-                <IndicatorCount dataElementsArray={allDataElements}/> </li>
+                <IndicatorCount dataElementsArray={allDataElements}/>
+            </li>
         </ul>
     </div>
 }

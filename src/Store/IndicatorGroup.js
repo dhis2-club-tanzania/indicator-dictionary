@@ -14,3 +14,7 @@ export const indicatorGroupProgramDataElements=atom({
     key:"programDataElements",
     default:[]
 })
+export const indicatorGroupAggregateDataElements=atom({
+    key:"indicatorGroupAggregateDataElements",
+    default:[]
+})

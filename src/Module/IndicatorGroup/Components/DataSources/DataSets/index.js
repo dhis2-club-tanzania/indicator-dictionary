@@ -8,13 +8,23 @@ import Error from "../../../../../Shared/Componets/Error/ErrorAPIResult";
 import {useGetDataSet} from "../../../../../Utils/Hooks";
 import {useSetRecoilState} from "recoil";
 import _ from "lodash";
-import {indicatorGroupDataSets} from "../../../../../Store/IndicatorGroup";
+import {indicatorGroupAggregateDataElements, indicatorGroupDataSets} from "../../../../../Store/IndicatorGroup";
 
 
 export default  function DataSets({aggregate}){
 
 
     const updateDataSets=useSetRecoilState(indicatorGroupDataSets)
+
+    const updateDataElements=useSetRecoilState(indicatorGroupAggregateDataElements)
+
+   const dt= aggregate.map((e)=>{
+        return (e.split(".")[0])
+
+    })
+
+
+    updateDataElements((prev)=>{return _.concat(prev,dt)})
 
     const engine=useDataEngine()
 
