@@ -6,7 +6,7 @@ import {
     TableHead,
     DataTableBody,
     TableBody,
-    DataTableFoot,
+
     DataTableRow,
     DataTableColumnHeader,
 } from '@dhis2/ui'

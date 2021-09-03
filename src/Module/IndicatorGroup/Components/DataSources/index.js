@@ -9,6 +9,11 @@ import DataSets from "./DataSets";
 import Programs from "./Programs";
 import i18n from '@dhis2/d2-i18n'
 import {getFormulaSources} from "../../../../Utils/Functions/FormulaFunctions";
+import {useSetRecoilState} from "recoil";
+import {
+    indicatorGroupDenominatorDataElements,
+    indicatorGroupNumeratorDataElements
+} from "../../../../Store/IndicatorGroup";
 
 
 const query = {
@@ -28,6 +33,9 @@ export default function DataSources({id}){
 
     useEffect(()=>{refetch({id})},[id])
 
+    const updateNum=useSetRecoilState(indicatorGroupNumeratorDataElements)
+    const updateDen=useSetRecoilState(indicatorGroupDenominatorDataElements)
+
 
     if(loading){
         return  <Loader text={""} />
@@ -36,20 +44,33 @@ export default function DataSources({id}){
     }
 
 
+    let numerator1;
+    let denominator1;
+    let numerator2;
+    let denominator2;
+
+
     //for each indicator, put dataElements from both numerator and den in one array them pass in it
     const sourcesDataElement=data?.sources?.indicators?.map((e)=>{
-        return _.concat([],getFormulaSources(e?.numerator,dataTypesInitials.DATA_ELEMENT),getFormulaSources(e?.denominator,dataTypesInitials.DATA_ELEMENT) )
+         numerator1=getFormulaSources(e?.numerator,dataTypesInitials.DATA_ELEMENT)
+         denominator1=getFormulaSources(e?.denominator,dataTypesInitials.DATA_ELEMENT)
+
+        return _.concat([],numerator1,denominator1)
     })
 
     const sourceProgram=data?.sources?.indicators?.map((e)=>{
+        numerator2=getFormulaSources(e?.numerator,dataTypesInitials.PROGRAM_DATA_ELEMENT)
+        denominator2=getFormulaSources(e?.denominator,dataTypesInitials.PROGRAM_DATA_ELEMENT)
         let ind= _.concat([],getFormulaSources(e?.numerator,dataTypesInitials.PROGRAM_INDICATOR),getFormulaSources(e?.denominator,dataTypesInitials.PROGRAM_INDICATOR) )
         let attr= _.concat([],getFormulaSources(e?.numerator,dataTypesInitials.ATTRIBUTES),getFormulaSources(e?.denominator,dataTypesInitials.ATTRIBUTES) )
-        let prgDtEl= _.concat([],getFormulaSources(e?.numerator,dataTypesInitials.PROGRAM_DATA_ELEMENT),getFormulaSources(e?.denominator,dataTypesInitials.PROGRAM_DATA_ELEMENT) )
+        let prgDtEl= _.concat([],numerator2,denominator2 )
         return {prgInd:ind,attr:attr,prgDtEl:prgDtEl}
 
     })
 
-    // D{uy2gU8kT1jF.EzMxXuVww2z}+A{uy2gU8kT1jF.zDhUuAYrxNC}-I{dSBYyCUjCXd}
+    //for related indicator
+    updateNum({aggregate:numerator1,tracker:numerator2})
+    updateDen({aggregate:denominator1,tracker:denominator2})
 
     return <div>
         <h3>{i18n.t("Data sources (Datasets/Programs)")} </h3>

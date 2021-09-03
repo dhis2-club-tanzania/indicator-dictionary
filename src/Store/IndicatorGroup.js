@@ -18,3 +18,13 @@ export const indicatorGroupAggregateDataElements=atom({
     key:"indicatorGroupAggregateDataElements",
     default:[]
 })
+
+export const indicatorGroupNumeratorDataElements=atom({
+    key:"indicatorGroupNumeratorDataElements",
+    default:{}
+})
+
+export const indicatorGroupDenominatorDataElements=atom({
+    key:"indicatorGroupDenominatorDataElements",
+    default:{}
+})
