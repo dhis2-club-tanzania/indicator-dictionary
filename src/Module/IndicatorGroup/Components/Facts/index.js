@@ -2,13 +2,10 @@ import React, {useEffect} from 'react'
 import {useDataQuery} from "@dhis2/app-runtime";
 import Loader from "../../../../Shared/Componets/Loaders/Loader";
 import Error from "../../../../Shared/Componets/Error/ErrorAPIResult";
-import {
 
-   indicatorGroupDataSets, indicatorGroupPrograms,
-
-} from "../../../../Store";
 import {useRecoilValue} from "recoil";
 import _ from "lodash";
+import {indicatorGroupDataSets, indicatorGroupPrograms} from "../../../../Store/IndicatorGroup";
 
 const query = {
     sources:{
@@ -40,6 +37,9 @@ export default function Facts({id}){
 
     dataSets=_.uniqWith(dataSets,_.isEqual)
     programs=_.uniqWith(programs,_.isEqual)
+
+    console.log(dataSets)
+    console.log(programs)
 
 
     return <div>

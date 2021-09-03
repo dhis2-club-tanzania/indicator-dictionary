@@ -1,18 +1,16 @@
 import React from "react";
 import {useDataEngine} from "@dhis2/app-runtime";
-import {useGetNumDenMatch} from "../../../../../../Utils/Hooks";
-import Loader from "../../../../../../Shared/Componets/Loaders/Loader";
-import Error from "../../../../../../Shared/Componets/Error/ErrorAPIResult";
+import {useGetNumDenMatch} from "../../../Utils/Hooks";
+import Loader from "../Loaders/Loader";
+import Error from "../Error/ErrorAPIResult";
 
 
 
-export default function IndicatorCount({dataElements}){
+export default function IndicatorCount({dataElementsArray}){
 
     const engine=useDataEngine()
 
-
-
-    const onlyIds=dataElements.map((e)=>{
+    const onlyIds=dataElementsArray.map((e)=>{
         return e?.id
     })
 

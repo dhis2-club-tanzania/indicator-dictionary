@@ -6,9 +6,9 @@ import React,{useEffect} from 'react'
 import Loader from "../../../../../Shared/Componets/Loaders/Loader";
 import Error from "../../../../../Shared/Componets/Error/ErrorAPIResult";
 import {useGetDataSet} from "../../../../../Utils/Hooks";
-import {indicatorGroupDataSets} from "../../../../../Store";
 import {useSetRecoilState} from "recoil";
 import _ from "lodash";
+import {indicatorGroupDataSets} from "../../../../../Store/IndicatorGroup";
 
 
 export default  function DataSets({aggregate}){

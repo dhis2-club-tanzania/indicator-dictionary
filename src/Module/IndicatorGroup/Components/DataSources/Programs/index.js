@@ -4,10 +4,10 @@ import PropTypes from "prop-types";
 import React, {useEffect} from 'react'
 import Loader from "../../../../../Shared/Componets/Loaders/Loader";
 import Error from "../../../../../Shared/Componets/Error/ErrorAPIResult";
-import { indicatorGroupPrograms} from "../../../../../Store";
 import {useSetRecoilState} from "recoil";
 import {useGetIndicatorProgramSource} from "../../../../../Utils/Hooks/DataSource";
 import _ from "lodash";
+import {indicatorGroupPrograms} from "../../../../../Store/IndicatorGroup";
 
 
 const query = {
@@ -41,6 +41,7 @@ export default  function Programs({sources}){
         return <Error error={error} />
     }
 
+    console.log(sources)
 
     const res=_.concat([],data?.attr??[],data?.prgInd??[],data?.prgDtEl??[])
 
