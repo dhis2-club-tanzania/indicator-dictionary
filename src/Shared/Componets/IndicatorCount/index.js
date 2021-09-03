@@ -14,6 +14,8 @@ export default function IndicatorCount({dataElementsArray}){
         return e?.id
     })
 
+
+
     const {loading, error, data}=useGetNumDenMatch(onlyIds,engine)
 
     if(loading){
@@ -21,6 +23,8 @@ export default function IndicatorCount({dataElementsArray}){
     }if(error){
         return <Error error={error} />
     }
+
+    console.log(data)
 
     let count=0
     data.matches?.map((e)=>{

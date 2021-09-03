@@ -28,18 +28,12 @@ export default function Facts({id}){
 
     const {loading, error, data,refetch}  = useDataQuery(query, {variables: {id}})
 
+    useEffect(()=>{refetch({id})},[id])
+
+
     let dataSets=useRecoilValue(indicatorGroupDataSets)
     let programs=useRecoilValue(indicatorGroupPrograms)
     let programDtEl=useRecoilValue(indicatorGroupProgramDataElements)
-
-    //build an array of dataElements
-    programDtEl=programDtEl.map((e)=>{
-        return {id:e.split(".")[1]??""}
-    })
-    // console.log(programDtEl)
-    // console.log(dataSets)
-
-    useEffect(()=>{refetch({id})},[id])
 
     if(loading){
         return  <Loader text={""} />
@@ -51,9 +45,13 @@ export default function Facts({id}){
     dataSets=_.uniqWith(dataSets,_.isEqual)
     programs=_.uniqWith(programs,_.isEqual)
 
-    programDtEl=_.uniqWith(programDtEl,_.isEqual)
+    //build an array of dataElements
+    programDtEl=programDtEl.map((e)=>{
+        return {id:e.split(".")[1]??""}
+    })
 
-    const allDataElement=_.concat([],programDtEl,dataSets)
+    programDtEl=_.uniqWith(programDtEl,_.isEqual)
+    const allDataElements=_.concat([],programDtEl,dataSets)
 
 
     return <div>
@@ -64,7 +62,7 @@ export default function Facts({id}){
             <li> It has {data?.sources?.indicators?.length} indicators     </li>
             <li>It’s data elements belongs to {dataSets?.length} datasets and {programs?.length} program sources of data</li>
             <li>
-                <IndicatorCount dataElementsArray={allDataElement}/> </li>
+                <IndicatorCount dataElementsArray={allDataElements}/> </li>
         </ul>
     </div>
 }
