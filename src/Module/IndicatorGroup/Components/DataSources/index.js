@@ -57,7 +57,7 @@ export default function DataSources({id}){
 
         <ul>
             {data?.sources?.indicators?.map((e,index)=>{
-                return <li>{e?.displayName}
+                return <li><b> {e?.displayName} </b>
 
                     <DataSets aggregate={sourcesDataElement[index]} />
                     <Programs sources={sourceProgram[index]} />

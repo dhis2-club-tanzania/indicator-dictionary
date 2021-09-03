@@ -6,7 +6,7 @@ import React,{useEffect} from 'react'
 import Loader from "../../../../../Shared/Componets/Loaders/Loader";
 import Error from "../../../../../Shared/Componets/Error/ErrorAPIResult";
 import {useGetDataSet} from "../../../../../Utils/Hooks";
-import {dataSetDataElementCountState, indicatorGroupDataSetCount} from "../../../../../Store";
+import {indicatorGroupDataSets} from "../../../../../Store";
 import {useSetRecoilState} from "recoil";
 import _ from "lodash";
 
@@ -14,7 +14,7 @@ import _ from "lodash";
 export default  function DataSets({aggregate}){
 
 
-    const updateCount=useSetRecoilState(indicatorGroupDataSetCount)
+    const updateDataSets=useSetRecoilState(indicatorGroupDataSets)
 
     const engine=useDataEngine()
 
@@ -31,11 +31,9 @@ export default  function DataSets({aggregate}){
     }
 
 
-    const res=data?.dataSets;
-
 
    let allDataSets=[];
-    res?.map((e)=>{
+    data?.dataSets?.map((e)=>{
         e.map((el)=>{
             allDataSets.push(el)
         })
@@ -43,25 +41,13 @@ export default  function DataSets({aggregate}){
 
     allDataSets=_.uniqWith(allDataSets,_.isEqual)
 
-    console.log(allDataSets)
 
-    //
-    // let tmp= res?.map((e)=>{
-    //     let inTemp= _.concat([],e)
-    // })
-    // console.log(res)
-    // console.log(tmp)
-
-    // updateCount its used in the facts components
-    let totalCount=0
-    res?.map((e)=>{
-        totalCount+=e?.length
-    })
-    updateCount( (prev)=>{return prev+totalCount} )
+    // update for Count its used in the facts components
+    updateDataSets( (prev)=>{return  _.concat(prev,allDataSets)} )
 
 
     return (<div>
-        <b>Datasets </b>
+        Datasets
         <ul>
             {allDataSets?.map((datset)=>{
                 return <li key={datset?.id}>{datset?.displayName} submitting {datset?.periodType} after every {datset?.timelyDays} days </li>

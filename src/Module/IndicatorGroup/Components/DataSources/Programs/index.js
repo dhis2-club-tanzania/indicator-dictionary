@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import React, {useEffect} from 'react'
 import Loader from "../../../../../Shared/Componets/Loaders/Loader";
 import Error from "../../../../../Shared/Componets/Error/ErrorAPIResult";
-import {indicatorGroupProgramCount, programDataElementCountState} from "../../../../../Store";
+import { indicatorGroupPrograms} from "../../../../../Store";
 import {useSetRecoilState} from "recoil";
 import {useGetIndicatorProgramSource} from "../../../../../Utils/Hooks/DataSource";
 import _ from "lodash";
@@ -28,7 +28,7 @@ const query = {
 export default  function Programs({sources}){
 
 
-    const updateCount=useSetRecoilState(indicatorGroupProgramCount)
+    const updatePrograms=useSetRecoilState(indicatorGroupPrograms)
 
     const engine=useDataEngine()
 
@@ -44,16 +44,16 @@ export default  function Programs({sources}){
 
     const res=_.concat([],data?.attr??[],data?.prgInd??[],data?.prgDtEl??[])
 
-    //updating count its used in the facts component
-    updateCount((prev)=>{return prev+res?.length})
+    const allProgram=_.uniqWith(res,_.isEqual)
 
-    // console.log(res.length)
+    //updating count its used in the facts component
+    updatePrograms((prev)=>{return _.concat(prev,allProgram)})
 
     if(res?.length>0){
         return (<div>
-            <b>Programs </b>
+            Programs
             <ul>
-                {res?.map((dt,index)=>{
+                {allProgram?.map((dt,index)=>{
                     return <li key={index}><b>{dt?.displayName}</b> {i18n.t("submitting records on every event(case or individual)")} </li>
                 })}
             </ul>
