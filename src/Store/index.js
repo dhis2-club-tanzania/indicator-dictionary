@@ -29,3 +29,14 @@ export const programDataElementCountState=atom({
     key:"programDataElementCountState",
     default:0
 })
+
+
+export const indicatorGroupDataSetCount=atom({
+    key:"indicatorGroupDataSetCount",
+    default:0
+})
+
+export const indicatorGroupProgramCount=atom({
+    key:"indicatorGroupProgramCount",
+    default:0
+})

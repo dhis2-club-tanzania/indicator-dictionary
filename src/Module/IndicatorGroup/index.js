@@ -15,12 +15,14 @@ export default function IndicatorGroupPage(props){
 
 
     return  <div style={{display:"flex",flexDirection:"column"}}>
-                <Introduction id={id} />
+                {/*<Introduction id={id} />*/}
                 <DataSources id={id} />
-                {/*<Facts id={id}/>*/}
+
+                <Facts id={id}/>
                 {/*<RelatedIndicator id={id} />*/}
                 {/*<DataElementSIndicator resourceType={"Data Element Group"}/>*/}
-                {/*<AccessibilityAndSharing id={id} resourceType={"dataElementGroups"} />*/}
+
+                {/*<AccessibilityAndSharing id={id} resourceType={"indicatorGroups"} />*/}
             </div>
 }
 
