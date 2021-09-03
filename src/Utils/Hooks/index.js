@@ -82,9 +82,12 @@ export function useGetNumDenMatch(array,engine){
     const [error,setError]=useState(false)
     const [data,setData]=useState()
 
+
+
     useEffect(()=>{
-        let tempArr
+        let tempArr;
         async function fetch(){
+
             tempArr = await getNumDenMatch(engine,array)
         }
         fetch().then(() =>  {
@@ -96,7 +99,7 @@ export function useGetNumDenMatch(array,engine){
             setLoading(false)
             setError(error)
         })
-    },[])
+    },[array?.length])
 
 
 

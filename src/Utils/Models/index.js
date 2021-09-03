@@ -14,7 +14,8 @@ export const dataSourceTypes={
     INDICATOR: "INDICATOR",
     DATA_ELEMENT: "DATA_ELEMENT",
     PROGRAM_INDICATOR:"PROGRAM_INDICATOR",
-    DATA_ELEMENT_GROUP:"DATA_ELEMENT_GROUP"
+    DATA_ELEMENT_GROUP:"DATA_ELEMENT_GROUP",
+    INDICATOR_GROUP:"INDICATOR_GROUP",
 }
 
 export const dataElementDomainTypes={
@@ -31,6 +32,7 @@ export const analyticsTypes={
 
 export const dataTypesInitials={
     DATA_ELEMENT:"#{",
+    PROGRAM_DATA_ELEMENT:"D{",
     PROGRAM_INDICATOR:"I{",
     DATASET_REPORTING_RATES:"R{",
     ATTRIBUTES:"A{",

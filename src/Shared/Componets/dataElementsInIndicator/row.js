@@ -97,7 +97,7 @@ export default  function Row(props){
 
 
 
-// Row.prototype={
+// RowAggregate.prototype={
 //     datEl:PropTypes.
 //
 // }

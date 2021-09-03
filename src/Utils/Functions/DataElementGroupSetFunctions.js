@@ -42,6 +42,7 @@ export async function getNumDenMatch(engine, arr) {
     })
     return await Promise.all(allPromises).then(value => {
         return value.map((val, index) => { //We always return array just for uniformity
+
             return val
         })
     })

@@ -33,7 +33,7 @@ export default function RelatedIndicator({id}){
 
     return <div>
         <h3>{i18n.t("Related Indicators")} </h3>
-        <p>The following is the summary of indicators using the data elements
+        <p>{i18n.t("The following is the summary of indicators using the data elements in this group") }
         </p>
 
         <ul>

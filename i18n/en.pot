@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2021-09-01T07:17:23.412Z\n"
-"PO-Revision-Date: 2021-09-01T07:17:23.412Z\n"
+"POT-Creation-Date: 2021-09-03T13:22:59.136Z\n"
+"PO-Revision-Date: 2021-09-03T13:22:59.136Z\n"
 
 msgid "Analytics Details"
 msgstr "Analytics Details"
@@ -83,6 +83,9 @@ msgstr "Programs"
 msgid "submitting records on every event(case or individual)"
 msgstr "submitting records on every event(case or individual)"
 
+msgid "Related Indicators"
+msgstr "Related Indicators"
+
 msgid "Data element Facts"
 msgstr "Data element Facts"
 
@@ -128,6 +131,13 @@ msgstr "Data elements in this group are captured from the following sources"
 
 msgid "There are no Data Elements in this Data Element group"
 msgstr "There are no Data Elements in this Data Element group"
+
+msgid ""
+"The following is the summary of indicators using the data elements in this "
+"group"
+msgstr ""
+"The following is the summary of indicators using the data elements in this "
+"group"
 
 msgid "Datasets (Reporting rates) in indicator"
 msgstr "Datasets (Reporting rates) in indicator"
@@ -283,6 +293,18 @@ msgstr "Lower"
 msgid "Legends for analysis"
 msgstr "Legends for analysis"
 
+msgid "Indicators in this group are captured from the following sources"
+msgstr "Indicators in this group are captured from the following sources"
+
+msgid "Indicator Group name is  {{variables1}}."
+msgstr "Indicator Group name is  {{variables1}}."
+
+msgid "Related Data elements"
+msgstr "Related Data elements"
+
+msgid "The following is the summary of the data elements used in the group"
+msgstr "The following is the summary of the data elements used in the group"
+
 msgid "Accesibility & Sharing Settings"
 msgstr "Accesibility & Sharing Settings"
 
@@ -307,9 +329,6 @@ msgstr "can"
 msgid "User Group Access"
 msgstr "User Group Access"
 
-msgid "Related Indicators"
-msgstr "Related Indicators"
-
 msgid "This {{variables1}} is not related to any indicator"
 msgstr "This {{variables1}} is not related to any indicator"
 
@@ -322,6 +341,9 @@ msgstr ""
 
 msgid "Type"
 msgstr "Type"
+
+msgid "No description given"
+msgstr "No description given"
 
 msgid "Data elements in {{variables}}"
 msgstr "Data elements in {{variables}}"

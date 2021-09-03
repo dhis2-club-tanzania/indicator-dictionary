@@ -8,10 +8,10 @@ import i18n from "@dhis2/d2-i18n";
 
 const query = {
     dataElementGroups:{
-        resource:"dataElementGroups",
+        resource:"indicatorGroups",
         id: ({id})=>id,
         params:{
-            fields:["id","displayName","displayDescription","displayShortName","code","href"
+            fields:["id","displayName","href"
             ]
         }
     }
@@ -35,9 +35,8 @@ export default function Introduction({id}){
 
     return <div>
         <h3>{i18n.t("Introduction")} </h3>
-        <p> {i18n.t("{{variables1}}  can be described as {{variables2}}.\n" +
-            "            It’s labelled in short as {{variables3}} and has a code of {{variables4}}.",
-            {variables1:res?.displayName,variables2:res?.displayDescription,variables3:res?.displayShortName,variables4:res?.code})}
+        <p> {i18n.t("Indicator Group name is  {{variables1}}.",
+            {variables1:res?.displayName})}
 
         </p>
 

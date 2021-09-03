@@ -3,7 +3,7 @@ import Loader from "../../../../../Shared/Componets/Loaders/Loader";
 import Error from "../../../../../Shared/Componets/Error/ErrorAPIResult";
 import React from "react";
 import { TableHead, TableBody,  DataTable,    DataTableRow,    DataTableCell,    DataTableColumnHeader,} from '@dhis2/ui'
-import DisplayFormula from "../../../../../Shared/Componets/DisplayFormula";
+import DisplayFormula from "../../../../../Shared/Componets/DisplayFormula/Index";
 
 
 

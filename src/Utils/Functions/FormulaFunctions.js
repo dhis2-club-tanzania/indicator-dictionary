@@ -326,7 +326,7 @@ function cleanBrackets(formula){
 
 }
 
-function isPureDataElement(str){
+export function isPureDataElement(str){
     if(str.indexOf(".")==-1){ //didnt find
         return true
     }else{

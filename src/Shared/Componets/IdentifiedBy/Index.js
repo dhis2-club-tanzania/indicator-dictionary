@@ -1,6 +1,5 @@
 import React from "react";
 import PropTypes from "prop-types";
-import Introduction from "../../../Module/ProgramIndicator/Components/Introduction";
 
 
 export default function IdentifiedBy(props){
@@ -14,7 +13,7 @@ export default function IdentifiedBy(props){
 }
 
 
-// IdentifiedBy.PropTypes={
-//     id:PropTypes.string.isRequired,
-//     href:PropTypes.string.isRequired
-// }
+IdentifiedBy.PropTypes={
+    id:PropTypes.string.isRequired,
+    href:PropTypes.string.isRequired
+}
