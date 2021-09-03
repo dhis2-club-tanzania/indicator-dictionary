@@ -10,7 +10,7 @@ export const indicatorGroupPrograms=atom({
     default:[]
 })
 
-export const programDataElements=atom({
+export const indicatorGroupProgramDataElements=atom({
     key:"programDataElements",
     default:[]
 })

@@ -5,7 +5,12 @@ import Error from "../../../../Shared/Componets/Error/ErrorAPIResult";
 
 import {useRecoilValue} from "recoil";
 import _ from "lodash";
-import {indicatorGroupDataSets, indicatorGroupPrograms} from "../../../../Store/IndicatorGroup";
+import {
+    indicatorGroupDataSets,
+    indicatorGroupProgramDataElements,
+    indicatorGroupPrograms
+} from "../../../../Store/IndicatorGroup";
+import IndicatorCount from "../../../../Shared/Componets/IndicatorCount";
 
 const query = {
     sources:{
@@ -25,6 +30,14 @@ export default function Facts({id}){
 
     let dataSets=useRecoilValue(indicatorGroupDataSets)
     let programs=useRecoilValue(indicatorGroupPrograms)
+    let programDtEl=useRecoilValue(indicatorGroupProgramDataElements)
+
+    //build an array of dataElements
+    programDtEl=programDtEl.map((e)=>{
+        return {id:e.split(".")[1]??""}
+    })
+    // console.log(programDtEl)
+    // console.log(dataSets)
 
     useEffect(()=>{refetch({id})},[id])
 
@@ -38,8 +51,9 @@ export default function Facts({id}){
     dataSets=_.uniqWith(dataSets,_.isEqual)
     programs=_.uniqWith(programs,_.isEqual)
 
-    console.log(dataSets)
-    console.log(programs)
+    programDtEl=_.uniqWith(programDtEl,_.isEqual)
+
+    const allDataElement=_.concat([],programDtEl,dataSets)
 
 
     return <div>
@@ -49,8 +63,8 @@ export default function Facts({id}){
         <ul>
             <li> It has {data?.sources?.indicators?.length} indicators     </li>
             <li>It’s data elements belongs to {dataSets?.length} datasets and {programs?.length} program sources of data</li>
-            {/*<li> {}*/}
-            {/*    <IndicatorCount dataElements={data?.sources?.dataElements}/> </li>*/}
+            <li>
+                <IndicatorCount dataElementsArray={allDataElement}/> </li>
         </ul>
     </div>
 }

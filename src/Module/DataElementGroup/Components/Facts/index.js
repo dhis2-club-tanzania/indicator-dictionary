@@ -42,7 +42,7 @@ export default function Facts({id}){
             <li> It has {data?.sources?.dataElements?.length} data Elements     </li>
             <li>It’s data elements belongs to {dataSetCount} dataset and {programCount} program sources of data</li>
             <li>
-                <IndicatorCount dataElements={data?.sources?.dataElements}/> </li>
+                <IndicatorCount dataElementsArray={data?.sources?.dataElements}/> </li>
         </ul>
     </div>
 }
