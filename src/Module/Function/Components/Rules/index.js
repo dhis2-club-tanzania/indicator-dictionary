@@ -14,9 +14,11 @@ import {
     DataTableRow,
     DataTableColumnHeader,
 } from '@dhis2/ui'
+import {displayBool} from "../../../../Utils/Functions/FormulaTopBar";
 
 
 export default function Rules({selected}){
+
 
 
     return <div>
@@ -46,25 +48,27 @@ export default function Rules({selected}){
                 </DataTableRow>
             </TableHead>
             <TableBody>
-                <DataTableRow >
-                    <DataTableCell bordered>
+                {selected?.rules?.map((e)=>{
+                   return <DataTableRow >
+                        <DataTableCell bordered>
+                            {e?.id}
+                        </DataTableCell  >
+                        <DataTableCell bordered>
+                            {e?.name}
+                        </DataTableCell  >
+                        <DataTableCell bordered>
+                            {e?.description}
+                        </DataTableCell  >
+                        <DataTableCell bordered>
+                            {displayBool(e?.isDefault)}
+                        </DataTableCell  >
+                        <DataTableCell bordered>
+                            {JSON.stringify(e?.json)}
+                        </DataTableCell  >
 
-                    </DataTableCell  >
-                    <DataTableCell bordered>
+                    </DataTableRow>
+                })}
 
-                    </DataTableCell  >
-                    <DataTableCell bordered>
-
-                    </DataTableCell  >
-                    <DataTableCell bordered>
-
-                    </DataTableCell  >
-                    <DataTableCell bordered>
-
-                    </DataTableCell  >
-
-
-                </DataTableRow>
             </TableBody>
 
         </DataTable>

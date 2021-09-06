@@ -37,3 +37,14 @@ export function displayNameLength(name){
     }
 
 }
+
+
+export function displayBool(val){
+    if(val){
+        return 'Yes'
+    }else{
+        return 'No'
+    }
+
+
+}
