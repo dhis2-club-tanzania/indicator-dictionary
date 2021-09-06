@@ -14,12 +14,13 @@ export default function FunctionPage({array}){
    const selectedFunction=useRecoilValue(functionDictionarySourceSelector)
     const selected=array[selectedFunction]
 
+
     return <div>
-        <Introduction  />
-        {/*<DataSource id={id} />*/}
-        {/*<Rules id={id} />*/}
-        {/*<Facts id={id} />*/}
-        {/*<ApiEndPoint id={id} />*/}
-        {/*<AccessibilityAndSharingFunction id={id}/>*/}
+        <Introduction selected={selected}  />
+        <DataSource selected={selected}/>
+        <Rules selected={selected} />
+        <Facts selected={selected} />
+        <ApiEndPoint selected={selected} />
+        <AccessibilityAndSharingFunction selected={selected} />
     </div>
 }

@@ -1,7 +1,7 @@
 import React from 'react'
 
 
-export default function Introduction({id}){
+export default function Introduction({selected}){
 
 
     return <div>

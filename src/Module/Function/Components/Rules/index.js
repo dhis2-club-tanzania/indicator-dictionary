@@ -16,7 +16,7 @@ import {
 } from '@dhis2/ui'
 
 
-export default function Rules(){
+export default function Rules({selected}){
 
 
     return <div>

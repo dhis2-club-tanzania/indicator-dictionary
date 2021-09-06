@@ -1,7 +1,7 @@
 import React from 'react'
 import AccessibilityAndSharing from "../../../../Shared/Componets/AccesibilityAndSharing";
 
-export default function AccessibilityAndSharingFunction(){
+export default function AccessibilityAndSharingFunction({selected}){
 
 
     return <div>

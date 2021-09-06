@@ -16,7 +16,7 @@ import {
 } from '@dhis2/ui'
 
 
-export default function DataSource({id}){
+export default function DataSource({selected}){
 
 
     return <div>

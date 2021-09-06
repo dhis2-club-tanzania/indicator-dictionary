@@ -13,7 +13,7 @@ import {
     DataTableColumnHeader,
 } from '@dhis2/ui'
 
-export default function ApiEndPoint(){
+export default function ApiEndPoint({selected}){
 
 
 
