@@ -9,8 +9,6 @@ import TopSection from "./Component/TopSection";
 
 export default function Functions({array}){
 
-
-    console.log(array)
     const engine=useDataEngine()
     const{loading,error,data}=useGetFunctionsDetails(array,engine)
 
