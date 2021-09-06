@@ -1,17 +1,17 @@
-import {dataSourceTypes, dataTypes} from "../../../Utils/Models";
+import {dataSourceTypes, dataTypes} from "../../../../Utils/Models";
 
-import DataElementPage from "../../DataElement";
+import DataElementPage from "../../../DataElement";
 import {useRecoilCallback, useRecoilValue} from "recoil";
 import {
     dataElementsStateDictionary,
     dataSetReportingRatesStateDictionary,
     dataSourceStateDictionary, programIndicatorStateDictionary
-} from "../../../Store";
-import ProgramIndicatorPage from "../../ProgramIndicator";
+} from "../../../../Store";
+import ProgramIndicatorPage from "../../../ProgramIndicator";
 import React, {useEffect} from 'react'
-import IndicatorPage from "../../Indicator/Index";
-import DataElementGroupPage from "../../DataElementGroup";
-import IndicatorGroupPage from "../../IndicatorGroup";
+import IndicatorPage from "../../../Indicator/Index";
+import DataElementGroupPage from "../../../DataElementGroup";
+import IndicatorGroupPage from "../../../IndicatorGroup";
 
 
 export default function DataSourceSelector(props){

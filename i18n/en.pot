@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2021-09-03T13:22:59.136Z\n"
-"PO-Revision-Date: 2021-09-03T13:22:59.136Z\n"
+"POT-Creation-Date: 2021-09-06T08:38:23.669Z\n"
+"PO-Revision-Date: 2021-09-06T08:38:23.669Z\n"
 
 msgid "Analytics Details"
 msgstr "Analytics Details"
@@ -139,6 +139,45 @@ msgstr ""
 "The following is the summary of indicators using the data elements in this "
 "group"
 
+msgid "Endpoint"
+msgstr "Endpoint"
+
+msgid "Appearances"
+msgstr "Appearances"
+
+msgid "Suggesting Factor"
+msgstr "Suggesting Factor"
+
+msgid "Documentation"
+msgstr "Documentation"
+
+msgid "Id"
+msgstr "Id"
+
+msgid "Name"
+msgstr "Name"
+
+msgid "Description"
+msgstr "Description"
+
+msgid "Code"
+msgstr "Code"
+
+msgid "Type"
+msgstr "Type"
+
+msgid "More details"
+msgstr "More details"
+
+msgid "Last updated"
+msgstr "Last updated"
+
+msgid "Default Rule"
+msgstr "Default Rule"
+
+msgid "JSON"
+msgstr "JSON"
+
 msgid "Datasets (Reporting rates) in indicator"
 msgstr "Datasets (Reporting rates) in indicator"
 
@@ -147,9 +186,6 @@ msgstr "There were no Datasets (Reporting rates) in the Indicator Calculations"
 
 msgid "Dataset"
 msgstr "Dataset"
-
-msgid "Description"
-msgstr "Description"
 
 msgid "Timely Submission"
 msgstr "Timely Submission"
@@ -260,12 +296,6 @@ msgstr "Indicator facts"
 msgid "Belongs to the following groups of indicators"
 msgstr "Belongs to the following groups of indicators"
 
-msgid "Name"
-msgstr "Name"
-
-msgid "Code"
-msgstr "Code"
-
 msgid "Indicators"
 msgstr "Indicators"
 
@@ -338,9 +368,6 @@ msgid ""
 msgstr ""
 "Below are set of indicators using this {{variables}} as numerator or "
 "denominator in their calculations."
-
-msgid "Type"
-msgstr "Type"
 
 msgid "No description given"
 msgstr "No description given"

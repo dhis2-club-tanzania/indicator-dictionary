@@ -4,11 +4,12 @@ import {Chip} from '@dhis2/ui'
 import { CircularLoader } from '@dhis2/ui'
 import {useDataEngine} from "@dhis2/app-runtime";
 import IdentifiableObjectDataSource, {displayNameLength, getDataSourceType} from "../../Utils/Functions/FormulaTopBar";
-import DataSourceSelector from "./Components/DataSourceSelector";
+import DataSourceSelector from "./Components/DataSourceSelector/DataSourceSelector";
 import {useRecoilState, useSetRecoilState} from "recoil";
 import {dataSourceStateDictionary} from "../../Store";
 import Error from "../../Shared/Componets/Error/ErrorAPIResult";
 import Loader from "../../Shared/Componets/Loaders/Loader";
+import Functions from "./Components/Functions";
 
 export default function TopBar(props){
 
@@ -80,7 +81,8 @@ export default function TopBar(props){
     if(loading){
        return  <Loader text={""} />
     }if(error){
-        return <Error error={error} />
+        return <Functions array={arrayDataSource} />
+        // return <Error error={error} />
     }
 
 
