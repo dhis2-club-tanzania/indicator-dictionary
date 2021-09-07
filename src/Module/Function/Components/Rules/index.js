@@ -22,8 +22,8 @@ export default function Rules({selected}){
 
 
     return <div>
-        <h3>Function Rules</h3>
-        <p>  The following are available rules used for data analytics</p>
+        <h3>{i18n.t("Function Rules")} </h3>
+        <p> {i18n.t("The following are available rules used for data analytics")} </p>
 
         <DataTable>
             <TableHead>

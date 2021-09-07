@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2021-09-06T08:38:23.669Z\n"
-"PO-Revision-Date: 2021-09-06T08:38:23.669Z\n"
+"POT-Creation-Date: 2021-09-06T13:35:17.385Z\n"
+"PO-Revision-Date: 2021-09-06T13:35:17.385Z\n"
 
 msgid "Analytics Details"
 msgstr "Analytics Details"
@@ -171,6 +171,12 @@ msgstr "More details"
 
 msgid "Last updated"
 msgstr "Last updated"
+
+msgid "Function Rules"
+msgstr "Function Rules"
+
+msgid "The following are available rules used for data analytics"
+msgstr "The following are available rules used for data analytics"
 
 msgid "Default Rule"
 msgstr "Default Rule"

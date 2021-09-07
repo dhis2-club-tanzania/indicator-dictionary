@@ -3,10 +3,12 @@
 export const dataTypes={
     DATA_ELEMENT: 'dataElement',
     PROGRAM_INDICATOR: 'programIndicator',
+    PROGRAM_DATA_ELEMENT: 'programDataElement',
     DATASET_REPORTING_RATES: 'dataSet',
     ATTRIBUTES: 'attribute',
     CONSTANTS: 'constant',
     VARIABLE: 'variable',
+    ORG_UNIT_COUNT: 'orgUnitCount',
     UNDEFINED: 'undefined'
 }
 
@@ -38,6 +40,7 @@ export const dataTypesInitials={
     ATTRIBUTES:"A{",
     CONSTANTS:"C{",
     VARIABLE:"V{",
+    ORG_UNIT_COUNT:"OUG{"
 
 
 }

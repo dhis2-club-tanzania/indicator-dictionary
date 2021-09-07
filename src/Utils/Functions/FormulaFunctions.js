@@ -62,6 +62,23 @@ const query5={
     }
 }
 
+const query6={
+    identifiableObjectsProgram:{
+        resource:"dataElements",
+        id: ({idProgram})=>idProgram,
+        params:{
+            fields:["id","displayName"]
+        }
+    },
+    identifiableObjectsDtEle:{
+        resource:"identifiableObjects",
+        id: ({idDataElement})=>idDataElement,
+        params:{
+            fields:["id","displayName"]
+        }
+    }
+}
+
 export function getFormulaSources(formula,sourceInitial){
     let ind1=0
     let ind2=0
@@ -120,9 +137,13 @@ async function getValueProgramIndicator(engine,id){
 }
 async function getValueDataElementSourceWithCombo(engine,id,idCombo){
    const data=await engine.query(query4,{variables:{id,idCombo}})
-    console.log(data)
     return [data?.dataElementSource, data?.identifiableObjects.displayName]
 }
+async function getValueProgramDataElementWithSource(engine,idProgram,idDataElement){
+    const data=await engine.query(query6,{variables:{idProgram,idDataElement}})
+    return [data?.identifiableObjectsProgram?.displayName, data?.identifiableObjectsDtEle?.displayName]
+}
+
 
 async function getValueDataSource(engine,id){
     const data=await engine.query(query1,{variables:{id}})
@@ -226,11 +247,25 @@ export function getDetailedValueFromApi(engine,id,type){
             }))
         }
     }
+    if(type===dataTypes.PROGRAM_DATA_ELEMENT){
+        return new Promise(((resolve, reject) => {
+            let arr = id.split(".")
+            resolve(getValueProgramDataElementWithSource(engine,arr[0], arr[1]));
+        }))
+    }
+    if(type===dataTypes.ATTRIBUTES){
+        return new Promise(((resolve, reject) => {
+            let arr = id.split(".")
+            resolve(getValueProgramDataElementWithSource(engine,arr[0], arr[1]));
+        }))
+    }
+
     if(type===dataTypes.PROGRAM_INDICATOR){
         return new Promise((resolve, reject) => {
             resolve(getValueProgramIndicator(engine,id))
         })
     }
+
     else{
         return new Promise((resolve, reject) => {
             resolve(getValueIdentifiableObjects(engine,id))
