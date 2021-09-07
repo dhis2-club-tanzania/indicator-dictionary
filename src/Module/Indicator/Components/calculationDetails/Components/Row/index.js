@@ -15,6 +15,7 @@ import DisplaySourceProgramIndicator from "./Components/DisplaySourceProgramIndi
 import {useGetFormulaDataDetailed} from "../../../../../../Utils/Hooks/Indicator";
 import Loader from "../../../../../../Shared/Componets/Loaders/Loader";
 import Error from "../../../../../../Shared/Componets/Error/ErrorAPIResult";
+import DisplaySourceProgramDataElementOrAttribute from "./Components/DisplaySourceProgramDataElementOrAttribute";
 
 
 
@@ -34,6 +35,7 @@ export default function CalculationDetailRow({formula, location}){
     const updateProgramIndicatorHandler= useSetRecoilState(programIndicatorStateDictionary)
     const updateDataSetReportingRatesHandler= useSetRecoilState(dataSetReportingRatesStateDictionary)
 
+
     const {loading,error,data}=useGetFormulaDataDetailed(formula,engine,location)
 
     if(loading){
@@ -45,6 +47,9 @@ export default function CalculationDetailRow({formula, location}){
     console.log(data)
 
     updateDataElementHandler(data?.dataElements)
+    updateProgramIndicatorHandler(data?.programIndicators)
+    updateDataSetReportingRatesHandler(data?.dataSetReportingRates)
+
 
 
     //functions
@@ -132,14 +137,17 @@ export default function CalculationDetailRow({formula, location}){
                 <DataTableCell  bordered width={"50%"}>
 
                     {/*{getFinalWordFormula(formula,dataElementsArray,programIndicatorArray,dataSetReportingRatesArray,[],[])}*/}
-                    {getFinalWordFormula(formula,data?.dataElements,data?.programIndicators,dataSetReportingRatesArray,[],[])}
+                    {getFinalWordFormula(formula,data?.dataElements,data?.programIndicators,data?.dataSetReportingRates,data?.attributes,data?.constants,data?.programDtElement,data?.orgUnitCount)}
 
                 </DataTableCell>
                 <DataTableCell bordered>
                     <div className={classes.sources} >
                         {data?.dataElements?.length>0? <DisplaySourceDataElement title={"Data Elements"} data={data?.dataElements} /> :""}
                         {data?.programIndicators?.length>0?  <DisplaySourceProgramIndicator title={"Program Indicators"} data={data?.programIndicators} />:""}
-                        {dataSetReportingRatesArray.length>0?  <DisplaySourceDataSet title={"Data Sets"} data={dataSetReportingRatesArray} />:""}
+                        {data?.programDtElement?.length>0? <DisplaySourceProgramDataElementOrAttribute title={"Tracker Data Element"} data={data?.programDtElement} />:""}
+                        {data?.attributes?.length>0? <DisplaySourceProgramDataElementOrAttribute title={"Tracker Data Element"} data={data?.attributes} />:""}
+
+                        {data?.dataSetReportingRates?.length>0?  <DisplaySourceDataSet title={"Data Sets"} data={data?.dataSetReportingRates} />:""}
                     </div>
 
                 </DataTableCell>

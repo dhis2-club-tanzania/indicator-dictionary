@@ -1,4 +1,4 @@
-import {dataTypes} from "../Models";
+import {dataTypes, dataTypesInitials} from "../Models";
 
 const query1={
     identifiableObjects:{
@@ -64,7 +64,7 @@ const query5={
 
 const query6={
     identifiableObjectsProgram:{
-        resource:"dataElements",
+        resource:"identifiableObjects",
         id: ({idProgram})=>idProgram,
         params:{
             fields:["id","displayName"]
@@ -84,6 +84,7 @@ export function getFormulaSources(formula,sourceInitial){
     let ind2=0
     let arr=[]
 
+
     while(formula?.search(sourceInitial)>=0){//there is still a dataElement
         ind1=formula.indexOf(sourceInitial) //first occourance
         let subStr= formula.substr(ind1)
@@ -99,7 +100,7 @@ export function getFormulaSources(formula,sourceInitial){
 
     }
 
-    if(sourceInitial==="R{"){
+    if(sourceInitial===dataTypesInitials.DATASET_REPORTING_RATES){
         let resultedArr=[]
         arr.filter((ele)=>{
             resultedArr.push(ele.split(".")[0])  //elements comes as BfMAe6Itzgt.REPORTING_RATE or OsPTWNqq26W.EXPECTED_REPORTS so we do this to just take the id
@@ -160,13 +161,19 @@ export function getFormulaInWordsFromFullSources(formula,arrOfSources) {
     return formula
 }
 
-export function getFinalWordFormula(formula,dataElementsArray,programIndicatorArray,dataSetReportingRatesArray,attributes,constants){
+export function getFinalWordFormula(formula,dataElementsArray,programIndicatorArray,dataSetReportingRatesArray,attributes,constants,programDtElement,orgUnitCount){
 
+
+
+
+    //need to be reduced to a loop
     let final=getFormulaInWordsFromFullSources(formula,dataElementsArray)?.replace(/#/g,"")
     final =getFormulaInWordsFromFullSources(final,programIndicatorArray)
     final =getFormulaInWordsFromFullSources(final,dataSetReportingRatesArray)
     final =getFormulaInWordsFromFullSources(final,attributes)
     final =getFormulaInWordsFromFullSources(final,constants)
+    final=getFormulaInWordsFromFullSources(final,orgUnitCount)
+    final=getFormulaInWordsFromFullSources(final,programDtElement)
 
 
     while(final?.search("I{")>=0) {//removes I
@@ -189,6 +196,10 @@ export function getFinalWordFormula(formula,dataElementsArray,programIndicatorAr
     }
     while(final?.search("V{")>=0) {//removes C
         let indexChar=final.search("V{")
+        final = setCharAt(final, indexChar, "")
+    }
+    while(final?.search("D{")>=0) {//removes C
+        let indexChar=final.search("D{")
         final = setCharAt(final, indexChar, "")
     }
 
@@ -233,6 +244,7 @@ export function getSummaryValueFromApi(engine, id){
 
 
 export function getDetailedValueFromApi(engine,id,type){
+    console.log(id)
     if(type===dataTypes.DATA_ELEMENT){
         if(isPureDataElement(id)){
             //fetch value normally
@@ -248,6 +260,7 @@ export function getDetailedValueFromApi(engine,id,type){
         }
     }
     if(type===dataTypes.PROGRAM_DATA_ELEMENT || type===dataTypes.ATTRIBUTES){
+
         return new Promise(((resolve, reject) => {
             let arr = id.split(".")
             resolve(getValueProgramDataElementWithSource(engine,arr[0], arr[1]));
