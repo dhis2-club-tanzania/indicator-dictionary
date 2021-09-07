@@ -7,7 +7,7 @@ export default function DisplaySourceProgramDataElementOrAttribute({title,data})
 
     return <>
 
-        <h4>{title}</h4>
+
         <ul>
             {data.map((el)=>{
                 return<li  key={el.id}>

@@ -44,7 +44,7 @@ export default function CalculationDetailRow({formula, location}){
         return <Error error={error} />
     }
 
-    console.log(data)
+
 
     updateDataElementHandler(data?.dataElements)
     updateProgramIndicatorHandler(data?.programIndicators)
@@ -143,11 +143,12 @@ export default function CalculationDetailRow({formula, location}){
                 <DataTableCell bordered>
                     <div className={classes.sources} >
                         {data?.dataElements?.length>0? <DisplaySourceDataElement title={"Data Elements"} data={data?.dataElements} /> :""}
+                        {data?.dataSetReportingRates?.length>0?  <DisplaySourceDataSet title={"Data Sets"} data={data?.dataSetReportingRates} />:""}
                         {data?.programIndicators?.length>0?  <DisplaySourceProgramIndicator title={"Program Indicators"} data={data?.programIndicators} />:""}
                         {data?.programDtElement?.length>0? <DisplaySourceProgramDataElementOrAttribute title={"Tracker Data Element"} data={data?.programDtElement} />:""}
                         {data?.attributes?.length>0? <DisplaySourceProgramDataElementOrAttribute title={"Tracker Data Element"} data={data?.attributes} />:""}
 
-                        {data?.dataSetReportingRates?.length>0?  <DisplaySourceDataSet title={"Data Sets"} data={data?.dataSetReportingRates} />:""}
+
                     </div>
 
                 </DataTableCell>

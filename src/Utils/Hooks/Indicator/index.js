@@ -71,7 +71,6 @@ async function getWordData(engine,arr,type,location){ //arr for array of id of d
 
             }
             else { //for orgUnit count, constants and reporting rates
-                console.log(val)
                     return {"id":arr[i],"val":val[0],"location":location}
             }
 

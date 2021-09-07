@@ -10,7 +10,7 @@ export default function DisplaySourceProgramIndicator(props){
 
     return <>
 
-        <h4>{title}</h4>
+
         <ul>
             {data.map((el)=>{
                 return<li  key={el.id}>

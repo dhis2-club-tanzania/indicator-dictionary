@@ -244,7 +244,6 @@ export function getSummaryValueFromApi(engine, id){
 
 
 export function getDetailedValueFromApi(engine,id,type){
-    console.log(id)
     if(type===dataTypes.DATA_ELEMENT){
         if(isPureDataElement(id)){
             //fetch value normally
