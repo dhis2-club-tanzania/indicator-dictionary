@@ -68,7 +68,9 @@ export default function CalculationDetails({id}) {
                         {i18n.t("Numerator")}
 
                     </DataTableCell>
-                    <CalculationDetailRow formula={numDen.numerator} location="numerator"/>
+                    {/*<CalculationDetailRow formula={numDen.numerator} location="numerator"/>*/}
+                    <CalculationDetailRow formula={"+D{uy2gU8kT1jF.g9eOBujte1U}"} location="numerator"/>
+
 
                 </DataTableRow>
                 <DataTableRow>
@@ -77,7 +79,7 @@ export default function CalculationDetails({id}) {
 
                     </DataTableCell>
 
-                    <CalculationDetailRow formula={numDen.denominator} location="denominator"/>
+                    {/*<CalculationDetailRow formula={numDen.denominator} location="denominator"/>*/}
 
                 </DataTableRow>
 

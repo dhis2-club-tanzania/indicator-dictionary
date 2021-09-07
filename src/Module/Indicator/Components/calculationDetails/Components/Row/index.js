@@ -44,6 +44,8 @@ export default function CalculationDetailRow({formula, location}){
 
     console.log(data)
 
+    updateDataElementHandler(data?.dataElements)
+
 
     //functions
     // async function getWordData(arr,type){ //arr for array of id of datas to get their values, type indicates the data type of data eg dataElement=0 program indicator=1, reporting rates=2
@@ -129,12 +131,14 @@ export default function CalculationDetailRow({formula, location}){
     return      <>
                 <DataTableCell  bordered width={"50%"}>
 
-                    {getFinalWordFormula(formula,dataElementsArray,programIndicatorArray,dataSetReportingRatesArray,[],[])}
+                    {/*{getFinalWordFormula(formula,dataElementsArray,programIndicatorArray,dataSetReportingRatesArray,[],[])}*/}
+                    {getFinalWordFormula(formula,data?.dataElements,data?.programIndicators,dataSetReportingRatesArray,[],[])}
+
                 </DataTableCell>
                 <DataTableCell bordered>
                     <div className={classes.sources} >
-                        {dataElementsArray.length>0? <DisplaySourceDataElement title={"Data Elements"} data={dataElementsArray} /> :""}
-                        {programIndicatorArray.length>0?  <DisplaySourceProgramIndicator title={"Program Indicators"} data={programIndicatorArray} />:""}
+                        {data?.dataElements?.length>0? <DisplaySourceDataElement title={"Data Elements"} data={data?.dataElements} /> :""}
+                        {data?.programIndicators?.length>0?  <DisplaySourceProgramIndicator title={"Program Indicators"} data={data?.programIndicators} />:""}
                         {dataSetReportingRatesArray.length>0?  <DisplaySourceDataSet title={"Data Sets"} data={dataSetReportingRatesArray} />:""}
                     </div>
 

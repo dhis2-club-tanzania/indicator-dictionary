@@ -247,13 +247,7 @@ export function getDetailedValueFromApi(engine,id,type){
             }))
         }
     }
-    if(type===dataTypes.PROGRAM_DATA_ELEMENT){
-        return new Promise(((resolve, reject) => {
-            let arr = id.split(".")
-            resolve(getValueProgramDataElementWithSource(engine,arr[0], arr[1]));
-        }))
-    }
-    if(type===dataTypes.ATTRIBUTES){
+    if(type===dataTypes.PROGRAM_DATA_ELEMENT || type===dataTypes.ATTRIBUTES){
         return new Promise(((resolve, reject) => {
             let arr = id.split(".")
             resolve(getValueProgramDataElementWithSource(engine,arr[0], arr[1]));

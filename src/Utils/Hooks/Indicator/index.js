@@ -26,8 +26,8 @@ export function useGetFormulaDataDetailed(formula,engine,location){
 
         }
         fetch().then(() =>  {
-            let result={dataElements:tempArr,programIndicators:tempArr2,dataSetReportingRates:tempArr3,attributes:tempArr4,constants:tempArr5,orgUnitCount:tempArr6}
 
+            let result={dataElements:tempArr,programIndicators:tempArr2,dataSetReportingRates:tempArr3,attributes:tempArr4,constants:tempArr5,orgUnitCount:tempArr6}
             setData(result)
             setLoading(false)
         }).catch((error)=>{
@@ -45,20 +45,19 @@ export function useGetFormulaDataDetailed(formula,engine,location){
 }
 
 async function getWordData(engine,arr,type,location){ //arr for array of id of datas to get their values, type indicates the data type of data eg dataElement=0 program indicator=1, reporting rates=2
-    const allPromises=[];
-    let i=0
-    for(i=0;i<arr.length;i++){
-        const proms=getDetailedValueFromApi(engine,arr[i],type)
-        allPromises.push(proms)
-    }
 
-    return  await Promise.all(allPromises).then(value => {
-        value.map((val,i)=>{
+    const allPromises=arr?.map((e)=>{
+        return getDetailedValueFromApi(engine,e,type)
+    });
+
+    return await Promise.all(allPromises).then(value => {
+       return  value.map((val,i)=>{
+
             if(type===dataTypes.DATA_ELEMENT){
+
                 if(val.length===2){ //array of two elements first element is dataElement second element of array is category option combo
                     return  {id:arr[i],val:val[0].displayName+" "+val[1],location:location,sources:val[0].dataSetElements}
                 }if(val.length===1){   //this is array of one element for data element that are just pure no category options
-
                     return  {id:arr[i],val:val[0].displayName,"location":location,sources:val[0].dataSetElements}
                 }
             }
