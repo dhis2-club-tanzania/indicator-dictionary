@@ -42,11 +42,11 @@ export default function Index({id}) {
 
         <CalculationDetails id={id}/>
 
-        {/*<DataElementSIndicator/>*/}
+        <DataElementSIndicator/>
 
-        {/*<ProgramIndicatorIndicator/>*/}
+        <ProgramIndicatorIndicator/>
 
-        {/*<DatasetsReportingRates/>*/}
+        <DatasetsReportingRates/>
 
         {/*<AccessibilityAndSharing id={id} resourceType={"indicators"} />*/}
 

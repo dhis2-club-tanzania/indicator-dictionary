@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2021-09-06T13:35:17.385Z\n"
-"PO-Revision-Date: 2021-09-06T13:35:17.385Z\n"
+"POT-Creation-Date: 2021-09-08T07:06:05.396Z\n"
+"PO-Revision-Date: 2021-09-08T07:06:05.396Z\n"
 
 msgid "Analytics Details"
 msgstr "Analytics Details"
@@ -240,9 +240,6 @@ msgstr "Period boundaries"
 
 msgid "Groups"
 msgstr "Groups"
-
-msgid "source"
-msgstr "source"
 
 msgid "Calculation details"
 msgstr "Calculation details"
