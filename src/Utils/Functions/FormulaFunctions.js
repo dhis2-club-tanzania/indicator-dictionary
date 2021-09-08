@@ -84,15 +84,17 @@ export function getFormulaSources(formula,sourceInitial){
     let ind2=0
     let arr=[]
 
+    let initialLength=sourceInitial?.length //since we have case for initials like ORG{
 
     while(formula?.search(sourceInitial)>=0){//there is still a dataElement
-        ind1=formula.indexOf(sourceInitial) //first occourance
+        ind1=formula.indexOf(sourceInitial)+initialLength-2 //first occourance
         let subStr= formula.substr(ind1)
         ind2=subStr.indexOf("}")
         ind2=ind2+ind1
 
         let datEl = formula.substring(ind1+2,ind2);
         arr.push(datEl)
+
 
         formula= setCharAt(formula,ind1,"")         //remove {
         formula= setCharAt(formula,ind1-1,"")       //removes #
@@ -163,11 +165,8 @@ export function getFormulaInWordsFromFullSources(formula,arrOfSources) {
 
 export function getFinalWordFormula(formula,dataElementsArray,programIndicatorArray,dataSetReportingRatesArray,attributes,constants,programDtElement,orgUnitCount){
 
-
-
-
     //need to be reduced to a loop
-    let final=getFormulaInWordsFromFullSources(formula,dataElementsArray)?.replace(/#/g,"")
+    let final=getFormulaInWordsFromFullSources(formula,dataElementsArray)
     final =getFormulaInWordsFromFullSources(final,programIndicatorArray)
     final =getFormulaInWordsFromFullSources(final,dataSetReportingRatesArray)
     final =getFormulaInWordsFromFullSources(final,attributes)
@@ -176,32 +175,16 @@ export function getFinalWordFormula(formula,dataElementsArray,programIndicatorAr
     final=getFormulaInWordsFromFullSources(final,programDtElement)
 
 
-    while(final?.search("I{")>=0) {//removes I
-        let indexChar=final.search("I{")
-        final = setCharAt(final, indexChar, "")
-    }
+    //replacing all occurrence of the following globally
+    final=final?.replace(/#{/g,"{")
+    final=final?.replace(/I{/g,"{")
+    final=final?.replace(/D{/g,"{")
+    final=final?.replace(/V{/g,"{")
+    final=final?.replace(/C{/g,"{")
+    final=final?.replace(/A{/g,"{")
+    final=final?.replace(/R{/g,"{")
+    final=final?.replace(/OUG{/g,"{")
 
-    while(final?.search("R{")>=0) {//removes R
-        let indexChar=final.search("R{")
-        final = setCharAt(final, indexChar, "")
-    }
-
-    while(final?.search("A{")>=0) {//removes A
-        let indexChar=final.search("A{")
-        final = setCharAt(final, indexChar, "")
-    }
-    while(final?.search("C{")>=0) {//removes C
-        let indexChar=final.search("C{")
-        final = setCharAt(final, indexChar, "")
-    }
-    while(final?.search("V{")>=0) {//removes C
-        let indexChar=final.search("V{")
-        final = setCharAt(final, indexChar, "")
-    }
-    while(final?.search("D{")>=0) {//removes C
-        let indexChar=final.search("D{")
-        final = setCharAt(final, indexChar, "")
-    }
 
     if(dataSetReportingRatesArray?.length!==0){
         //replace those caps

@@ -32,13 +32,13 @@ export default function Index({id}) {
     }, [id]);
 
     return (<div style={{display: "flex", flexDirection: "column"}}>
-        {/*<Introduction id={id}/>*/}
+        <Introduction id={id}/>
 
-        {/*<DataSource id={id}/>*/}
+        <DataSource id={id}/>
 
-        {/*<IndicatorFacts id={id}/>*/}
+        <IndicatorFacts id={id}/>
 
-        {/*<LegendsAnalysis id={id}/>*/}
+        <LegendsAnalysis id={id}/>
 
         <CalculationDetails id={id}/>
 
@@ -48,7 +48,7 @@ export default function Index({id}) {
 
         <DatasetsReportingRates/>
 
-        {/*<AccessibilityAndSharing id={id} resourceType={"indicators"} />*/}
+        <AccessibilityAndSharing id={id} resourceType={"indicators"} />
 
     </div>)
 }
