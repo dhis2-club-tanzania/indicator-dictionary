@@ -15,7 +15,7 @@ import IndicatorGroupPage from "../../../IndicatorGroup";
 import FunctionPage from "../../../Function";
 
 
-export default function DataSourceSelector(props){
+export default function DataSourceSelector(){
 
     const{id,type}=useRecoilValue(dataSourceStateDictionary);
 
@@ -47,9 +47,10 @@ export default function DataSourceSelector(props){
         if(type===dataSourceTypes.INDICATOR_GROUP){
             return <IndicatorGroupPage id={id} />
         }
-        if(type===dataSourceTypes.FUNCTION){
-            return <FunctionPage id={id} />
+        else{
+            return <FunctionPage  ruleObj={id} functionObj={type} />
         }
+
     }
 
     return <></>

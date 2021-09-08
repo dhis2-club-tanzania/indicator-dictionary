@@ -57,6 +57,28 @@ export function displayNameLength(name){
 
 }
 
+export function idOrRuleSelector(id,obj){
+    if(isPureDataElement(id)){
+        return obj.id
+    }else{
+
+        let ruleId=id.split(".")[1]
+        let ruleObjectSelected=_.filter(obj?.rules,((e)=>{
+            return e?.id===ruleId
+        })) //will return matched object with one element
+
+        return ruleObjectSelected[0]
+    }
+}
+
+
+export function typeOrFunctionSelector(id,obj){
+    if(isPureDataElement(id)){
+        return getDataSourceType(obj.href)
+    }else{
+        return obj
+    }
+}
 
 export function displayBool(val){
     if(val){
