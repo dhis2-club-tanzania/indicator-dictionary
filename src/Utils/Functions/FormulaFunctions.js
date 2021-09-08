@@ -79,6 +79,16 @@ const query6={
     }
 }
 
+
+const query7={
+
+    functions:{
+        resource: 'dataStore/functions',
+        id: ({idFunction})=>idFunction,
+    }
+}
+
+
 export function getFormulaSources(formula,sourceInitial){
     let ind1=0
     let ind2=0
@@ -149,8 +159,14 @@ async function getValueProgramDataElementWithSource(engine,idProgram,idDataEleme
 
 
 async function getValueDataSource(engine,id){
-    const data=await engine.query(query1,{variables:{id}})
-    return [data?.identifiableObjects]
+    if(isPureDataElement(id)){ //its a function
+        const data=await engine.query(query1,{variables:{id}})
+        return [data?.identifiableObjects]
+    }else{
+        const idFunction=id.split(".")[0]
+        const data=await engine.query(query7,{variables:{idFunction}})
+        return [data?.functions]
+    }
 }
 
 export function getFormulaInWordsFromFullSources(formula,arrOfSources) {

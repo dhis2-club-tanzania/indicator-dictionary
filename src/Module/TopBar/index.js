@@ -3,13 +3,16 @@ import {Chip} from '@dhis2/ui'
 
 import { CircularLoader } from '@dhis2/ui'
 import {useDataEngine} from "@dhis2/app-runtime";
-import IdentifiableObjectDataSource, {displayNameLength, getDataSourceType} from "../../Utils/Functions/FormulaTopBar";
+import IdentifiableObjectDataSource, {
+    displayNameLength,
+    displayNameSelector,
+    getDataSourceType
+} from "../../Utils/Functions/FormulaTopBar";
 import DataSourceSelector from "./Components/DataSourceSelector/DataSourceSelector";
 import {useRecoilState, useSetRecoilState} from "recoil";
 import {dataSourceStateDictionary} from "../../Store";
 import Error from "../../Shared/Componets/Error/ErrorAPIResult";
 import Loader from "../../Shared/Componets/Loaders/Loader";
-import Functions from "./Components/Functions";
 
 export default function TopBar(props){
 
@@ -32,6 +35,7 @@ export default function TopBar(props){
           setDataSourcesValues((prevState) =>{
               return prevState.concat(tmp)
           })
+
           updateDataSourceStateDictionaryHandler({id:tmp[0]?.id,type:tmp[0]?.type})
 
       }
@@ -68,9 +72,9 @@ export default function TopBar(props){
              return value.map((obj, index) => {
 
                  return {
-                     id: obj[0].id,
+                     id: arrayDataSource[index],
                      type: getDataSourceType(obj[0].href),
-                     displayName: obj[0].displayName,
+                     displayName:displayNameSelector(arrayDataSource[index],obj[0]),
                      index: index,
                      selected: index===0?true:false
                  }
@@ -81,8 +85,7 @@ export default function TopBar(props){
     if(loading){
        return  <Loader text={""} />
     }if(error){
-        return <Functions array={arrayDataSource} />
-        // return <Error error={error} />
+        return <Error error={error} />
     }
 
 

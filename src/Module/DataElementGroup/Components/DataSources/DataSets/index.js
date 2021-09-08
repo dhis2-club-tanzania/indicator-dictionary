@@ -42,7 +42,7 @@ export default  function DataSets({aggregate}){
     return (<div>
         <ul>
             {aggregate?.map((el,index)=>{
-                return <li>
+                return <li key={el?.id +index}>
                     {el?.displayName}
                     <ul> {res[index]?.length>1?"sources":""}
                     {res[index]?.map((datset)=>{
