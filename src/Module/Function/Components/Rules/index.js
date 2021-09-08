@@ -15,11 +15,15 @@ import {
     DataTableColumnHeader,
 } from '@dhis2/ui'
 import {displayBool} from "../../../../Utils/Functions/FormulaTopBar";
+import _ from "lodash";
 
 
-export default function Rules({selected}){
+export default function Rules({ruleObj,functionObj}){
 
 
+let rules=_.filter(functionObj?.rules??[],((e)=>{
+    return e?.id!==ruleObj?.id
+}))
 
     return <div>
         <h3>{i18n.t("Function Rules")} </h3>
@@ -48,7 +52,7 @@ export default function Rules({selected}){
                 </DataTableRow>
             </TableHead>
             <TableBody>
-                {selected?.rules?.map((e)=>{
+                {rules?.map((e)=>{
                    return <DataTableRow >
                         <DataTableCell bordered>
                             {e?.id}

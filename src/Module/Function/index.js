@@ -12,14 +12,14 @@ import AccessibilityAndSharing from "./Components/AccessibilityAndSharing";
 
 
 export default function FunctionPage({ruleObj,functionObj}){
-
-    console.log(ruleObj)
-    console.log(functionObj)
+    //
+    // console.log(ruleObj)
+    // console.log(functionObj)
 
     return <div>
         <Introduction ruleObj={ruleObj} functionObj={functionObj}  />
-        {/*<DataSource selected={selected}/>*/}
-        {/*<Rules selected={selected} />*/}
+        {/*<DataSource json={ruleObj?.json}/>*/}
+        <Rules ruleObj={ruleObj} functionObj={functionObj} />
         {/*<Facts functionObj={functionObj} />*/}
         {/*<ApiEndPoint selected={selected} />*/}
 

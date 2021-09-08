@@ -24,3 +24,12 @@ async function getDetails(engine,id){
     const data=await engine.query(query,{variables:{id}})
     return data?.functions
 }
+
+
+function findAllIdsFromJson(json){
+    // let str=json.stringify()
+
+
+
+    //split to by "
+}

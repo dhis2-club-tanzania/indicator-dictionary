@@ -16,7 +16,8 @@ import {
 } from '@dhis2/ui'
 
 
-export default function DataSource({selected}){
+export default function DataSource({json}){
+
 
 
     return <div>
@@ -24,7 +25,6 @@ export default function DataSource({selected}){
         <p>Function have rules calculating from multiple data sources. Here are few data sources observed
 
         </p>
-        {"{parse expressions on rules JSON for 11chars uid phrases, in object keys and values to search their identifiable objects and list them here}"}
 
         <DataTable>
             <TableHead>
