@@ -27,6 +27,9 @@ function displayDataType(resourceType){
         if(resourceType==="indicators"){
             return " Indicator "
         }
+        if(resourceType==="dataStore/functions"){
+            return " Function "
+        }
     }
 }
 
@@ -34,7 +37,7 @@ function accessAndSharingQuery(resourceType) {
     query.sources.resource=resourceType
 }
 
-export default function     AccessibilityAndSharing(props){
+export default function AccessibilityAndSharing(props){
     const id=props.id
     const resourceType=props.resourceType
 

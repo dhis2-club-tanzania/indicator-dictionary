@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2021-09-08T07:06:05.396Z\n"
-"PO-Revision-Date: 2021-09-08T07:06:05.396Z\n"
+"POT-Creation-Date: 2021-09-08T11:33:47.108Z\n"
+"PO-Revision-Date: 2021-09-08T11:33:47.108Z\n"
 
 msgid "Analytics Details"
 msgstr "Analytics Details"
@@ -171,6 +171,18 @@ msgstr "More details"
 
 msgid "Last updated"
 msgstr "Last updated"
+
+msgid "It’s using function analytics library"
+msgstr "It’s using function analytics library"
+
+msgid "It’s using jquery api library "
+msgstr "It’s using jquery api library "
+
+msgid "Performs ajax promises"
+msgstr "Performs ajax promises"
+
+msgid "Fetches from DHIS2 API without function analytics"
+msgstr "Fetches from DHIS2 API without function analytics"
 
 msgid "Function Rules"
 msgstr "Function Rules"

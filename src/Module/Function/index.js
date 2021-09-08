@@ -7,6 +7,8 @@ import ApiEndPoint from "./Components/ApiEndPoint";
 import AccessibilityAndSharingFunction from "./Components/AccessibilityAndSharing";
 import {functionDictionarySourceSelector} from "../../Store/FunctionDictionary";
 import {useRecoilValue} from "recoil";
+import AccessibilityAndSharing from "./Components/AccessibilityAndSharing";
+
 
 
 export default function FunctionPage({ruleObj,functionObj}){
@@ -18,8 +20,9 @@ export default function FunctionPage({ruleObj,functionObj}){
         <Introduction ruleObj={ruleObj} functionObj={functionObj}  />
         {/*<DataSource selected={selected}/>*/}
         {/*<Rules selected={selected} />*/}
-        {/*<Facts selected={selected} />*/}
+        {/*<Facts functionObj={functionObj} />*/}
         {/*<ApiEndPoint selected={selected} />*/}
-        {/*<AccessibilityAndSharingFunction selected={selected} />*/}
+
+        <AccessibilityAndSharing id={functionObj?.id} />
     </div>
 }
