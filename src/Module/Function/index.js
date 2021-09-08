@@ -11,12 +11,11 @@ import {useRecoilValue} from "recoil";
 
 export default function FunctionPage({ruleObj,functionObj}){
 
-   // const selectedFunction=useRecoilValue(functionDictionarySourceSelector)
     console.log(ruleObj)
     console.log(functionObj)
 
     return <div>
-        {/*<Introduction ruleObj={selected}  />*/}
+        <Introduction ruleObj={ruleObj} functionObj={functionObj}  />
         {/*<DataSource selected={selected}/>*/}
         {/*<Rules selected={selected} />*/}
         {/*<Facts selected={selected} />*/}
