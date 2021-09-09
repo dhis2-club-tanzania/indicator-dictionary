@@ -40,8 +40,6 @@ export default function DataSource({json}){
         return <Error error={error} />
     }
 
-    console.log(data)
-
     return <div>
         <h3>Data Sources</h3>
         <p>Function have rules calculating from multiple data sources. Here are few data sources observed
@@ -77,7 +75,7 @@ export default function DataSource({json}){
             </TableHead>
             <TableBody>
                 {data?.idDetails?.map((e)=>{
-                    return  <DataTableRow >
+                    return  <DataTableRow key={e.id} >
                         <DataTableCell bordered>
                             {e?.id}
                         </DataTableCell  >

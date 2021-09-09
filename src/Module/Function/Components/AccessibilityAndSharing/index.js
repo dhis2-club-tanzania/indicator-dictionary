@@ -7,6 +7,7 @@ import React, {useEffect} from 'react'
 import {displayAccessPermission} from "../../../../Utils/Functions/DataElementDictionaryFunctions";
 import Loader from "../../../../Shared/Componets/Loaders/Loader";
 import Error from "../../../../Shared/Componets/Error/ErrorAPIResult";
+import OtherDetails from "./Componets/OtherDetails";
 
 
 
@@ -41,66 +42,21 @@ export default function AccessibilityAndSharing({id}){
     }
 
 
+    console.log(result)
+
     return(<div>
         <h3>{i18n.t("Accesibility & Sharing Settings")}  </h3>
-        <p>            {i18n.t("This Function was first created on")}   <i> {new Date(result?.created).toLocaleString("en-GB")}</i> {i18n.t("by")}   <b>{result?.user?.displayName} </b> {i18n.t("and last updated on")}   <i>{new Date(result?.lastUpdated).toLocaleString("en-GB")}</i> {i18n.t("by")}   <b>{result?.lastUpdatedBy?.displayName}</b> .
+        <p>            {i18n.t("This Function was first created on")}   <i> {new Date(result?.created).toLocaleString("en-GB")}</i> {i18n.t(result?.user?.displayName?"by":"")}   <b>{result?.user?.displayName} </b> {i18n.t("and last updated on")}   <i>{new Date(result?.lastUpdated).toLocaleString("en-GB")}</i> {i18n.t(result?.lastUpdatedBy?.displayName?"by":"")}   <b>{result?.lastUpdatedBy?.displayName}</b> .
 
         </p>
-        <p>
-             {i18n.t("Function will be visible for users with the following access:")}
-
-        </p>
-        <DataTable>
-            <TableHead>
-                <DataTableRow>
-
-                    <DataTableColumnHeader>
-
-                    </DataTableColumnHeader>
-                    <DataTableColumnHeader>
-                        {i18n.t("Details")}
-                    </DataTableColumnHeader>
+        {result?.userAccesses?.length>0 && result?.userGroupAccesses?.length>0
+            ?
+            <OtherDetails result={result} />
+            :
+            ""
+        }
 
 
-                </DataTableRow>
-            </TableHead>
-            <TableBody>
-                <DataTableRow >
-
-                    <DataTableCell bordered tag="th" >
-                        {i18n.t("User Access")}
-                    </DataTableCell>
-                    <DataTableCell bordered>
-                        {i18n.t(result?.userAccesses?.length===0?"No access granted":"")}
-                        <ul>
-
-                            {result?.userAccesses.map((dt)=>{
-
-                                return <li key={dt.id}>{dt?.displayName}  {i18n.t("can")}  <i>{displayAccessPermission(dt.access)}  </i> </li>
-                            })}
-                        </ul>
-
-                    </DataTableCell>
-
-                </DataTableRow>
-                <DataTableRow >
-
-                    <DataTableCell bordered tag="th" >
-                        {i18n.t("User Group Access")}
-                    </DataTableCell>
-                    <DataTableCell bordered>
-                        {i18n.t(result?.userGroupAccesses?.length===0?"No access granted":"")}
-                        <ul>
-                            {result?.userGroupAccesses.map((dt)=>{
-                                return <li key={dt.id}>{dt?.displayName} {i18n.t("can")}  <i>{displayAccessPermission(dt.access)}</i> </li>
-                            })}
-                        </ul>
-                    </DataTableCell>
-
-                </DataTableRow>
-
-            </TableBody>
-        </DataTable>
     </div>)
 }
 

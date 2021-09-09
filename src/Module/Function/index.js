@@ -17,12 +17,12 @@ export default function FunctionPage({ruleObj,functionObj}){
 
 
     return <div>
-        {/*<Introduction ruleObj={ruleObj} functionObj={functionObj}  />*/}
+        <Introduction ruleObj={ruleObj} functionObj={functionObj}  />
         <DataSource json={ruleObj?.json}/>
-        {/*<Rules ruleObj={ruleObj} functionObj={functionObj} />*/}
-        {/*<Facts functionObj={functionObj} />*/}
+        <Rules ruleObj={ruleObj} functionObj={functionObj} />
+        <Facts functionObj={functionObj} />
         {/*<ApiEndPoint selected={selected} />*/}
 
-        {/*<AccessibilityAndSharing id={functionObj?.id} />*/}
+        <AccessibilityAndSharing id={functionObj?.id} />
     </div>
 }

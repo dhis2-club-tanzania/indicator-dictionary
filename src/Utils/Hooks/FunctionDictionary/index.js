@@ -53,7 +53,7 @@ export function useGetIdDetails(array,engine){
             setLoading(false)
             setError(error)
         })
-    },[])
+    },[JSON.stringify(array)])
 
     return{
         loading,
