@@ -1,4 +1,4 @@
-import {dataTypes} from "../Models";
+import {dataTypes, dataTypesInitials} from "../Models";
 
 const query1={
     identifiableObjects:{
@@ -62,13 +62,42 @@ const query5={
     }
 }
 
+const query6={
+    identifiableObjectsProgram:{
+        resource:"identifiableObjects",
+        id: ({idProgram})=>idProgram,
+        params:{
+            fields:["id","displayName"]
+        }
+    },
+    identifiableObjectsDtEle:{
+        resource:"identifiableObjects",
+        id: ({idDataElement})=>idDataElement,
+        params:{
+            fields:["id","displayName"]
+        }
+    }
+}
+
+
+const query7={
+
+    functions:{
+        resource: 'dataStore/functions',
+        id: ({idFunction})=>idFunction,
+    }
+}
+
+
 export function getFormulaSources(formula,sourceInitial){
     let ind1=0
     let ind2=0
     let arr=[]
 
+    let initialLength=sourceInitial?.length //since we have case for initials like ORG{
+
     while(formula?.search(sourceInitial)>=0){//there is still a dataElement
-        ind1=formula.indexOf(sourceInitial) //first occourance
+        ind1=formula.indexOf(sourceInitial)+initialLength-2 //first occourance
         let subStr= formula.substr(ind1)
         ind2=subStr.indexOf("}")
         ind2=ind2+ind1
@@ -76,13 +105,14 @@ export function getFormulaSources(formula,sourceInitial){
         let datEl = formula.substring(ind1+2,ind2);
         arr.push(datEl)
 
+
         formula= setCharAt(formula,ind1,"")         //remove {
         formula= setCharAt(formula,ind1-1,"")       //removes #
         formula=setCharAt(formula,ind2-2,"")          //removes }
 
     }
 
-    if(sourceInitial==="R{"){
+    if(sourceInitial===dataTypesInitials.DATASET_REPORTING_RATES){
         let resultedArr=[]
         arr.filter((ele)=>{
             resultedArr.push(ele.split(".")[0])  //elements comes as BfMAe6Itzgt.REPORTING_RATE or OsPTWNqq26W.EXPECTED_REPORTS so we do this to just take the id
@@ -120,13 +150,23 @@ async function getValueProgramIndicator(engine,id){
 }
 async function getValueDataElementSourceWithCombo(engine,id,idCombo){
    const data=await engine.query(query4,{variables:{id,idCombo}})
-    console.log(data)
     return [data?.dataElementSource, data?.identifiableObjects.displayName]
 }
+async function getValueProgramDataElementWithSource(engine,idProgram,idDataElement){
+    const data=await engine.query(query6,{variables:{idProgram,idDataElement}})
+    return [data?.identifiableObjectsProgram?.displayName, data?.identifiableObjectsDtEle?.displayName]
+}
+
 
 async function getValueDataSource(engine,id){
-    const data=await engine.query(query1,{variables:{id}})
-    return [data?.identifiableObjects]
+    if(isPureDataElement(id)){ //its a function
+        const data=await engine.query(query1,{variables:{id}})
+        return [data?.identifiableObjects]
+    }else{
+        const idFunction=id.split(".")[0]
+        const data=await engine.query(query7,{variables:{idFunction}})
+        return [data?.functions]
+    }
 }
 
 export function getFormulaInWordsFromFullSources(formula,arrOfSources) {
@@ -139,37 +179,28 @@ export function getFormulaInWordsFromFullSources(formula,arrOfSources) {
     return formula
 }
 
-export function getFinalWordFormula(formula,dataElementsArray,programIndicatorArray,dataSetReportingRatesArray,attributes,constants){
+export function getFinalWordFormula(formula,dataElementsArray,programIndicatorArray,dataSetReportingRatesArray,attributes,constants,programDtElement,orgUnitCount){
 
-    let final=getFormulaInWordsFromFullSources(formula,dataElementsArray)?.replace(/#/g,"")
+    //need to be reduced to a loop
+    let final=getFormulaInWordsFromFullSources(formula,dataElementsArray)
     final =getFormulaInWordsFromFullSources(final,programIndicatorArray)
     final =getFormulaInWordsFromFullSources(final,dataSetReportingRatesArray)
     final =getFormulaInWordsFromFullSources(final,attributes)
     final =getFormulaInWordsFromFullSources(final,constants)
+    final=getFormulaInWordsFromFullSources(final,orgUnitCount)
+    final=getFormulaInWordsFromFullSources(final,programDtElement)
 
 
-    while(final?.search("I{")>=0) {//removes I
-        let indexChar=final.search("I{")
-        final = setCharAt(final, indexChar, "")
-    }
+    //replacing all occurrence of the following globally
+    final=final?.replace(/#{/g,"{")
+    final=final?.replace(/I{/g,"{")
+    final=final?.replace(/D{/g,"{")
+    final=final?.replace(/V{/g,"{")
+    final=final?.replace(/C{/g,"{")
+    final=final?.replace(/A{/g,"{")
+    final=final?.replace(/R{/g,"{")
+    final=final?.replace(/OUG{/g,"{")
 
-    while(final?.search("R{")>=0) {//removes R
-        let indexChar=final.search("R{")
-        final = setCharAt(final, indexChar, "")
-    }
-
-    while(final?.search("A{")>=0) {//removes A
-        let indexChar=final.search("A{")
-        final = setCharAt(final, indexChar, "")
-    }
-    while(final?.search("C{")>=0) {//removes C
-        let indexChar=final.search("C{")
-        final = setCharAt(final, indexChar, "")
-    }
-    while(final?.search("V{")>=0) {//removes C
-        let indexChar=final.search("V{")
-        final = setCharAt(final, indexChar, "")
-    }
 
     if(dataSetReportingRatesArray?.length!==0){
         //replace those caps
@@ -226,11 +257,20 @@ export function getDetailedValueFromApi(engine,id,type){
             }))
         }
     }
+    if(type===dataTypes.PROGRAM_DATA_ELEMENT || type===dataTypes.ATTRIBUTES){
+
+        return new Promise(((resolve, reject) => {
+            let arr = id.split(".")
+            resolve(getValueProgramDataElementWithSource(engine,arr[0], arr[1]));
+        }))
+    }
+
     if(type===dataTypes.PROGRAM_INDICATOR){
         return new Promise((resolve, reject) => {
             resolve(getValueProgramIndicator(engine,id))
         })
     }
+
     else{
         return new Promise((resolve, reject) => {
             resolve(getValueIdentifiableObjects(engine,id))
@@ -332,4 +372,16 @@ export function isPureDataElement(str){
     }else{
         return false;
     }
+}
+
+export function formatBytes(bytes, decimals = 2) {
+    if (bytes === 0) return '0 Bytes';
+
+    const k = 1024;
+    const dm = decimals < 0 ? 0 : decimals;
+    const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
+
+    const i = Math.floor(Math.log(bytes) / Math.log(k));
+
+    return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
 }

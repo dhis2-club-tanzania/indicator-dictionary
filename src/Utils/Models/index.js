@@ -3,10 +3,12 @@
 export const dataTypes={
     DATA_ELEMENT: 'dataElement',
     PROGRAM_INDICATOR: 'programIndicator',
+    PROGRAM_DATA_ELEMENT: 'programDataElement',
     DATASET_REPORTING_RATES: 'dataSet',
     ATTRIBUTES: 'attribute',
     CONSTANTS: 'constant',
     VARIABLE: 'variable',
+    ORG_UNIT_COUNT: 'orgUnitCount',
     UNDEFINED: 'undefined'
 }
 
@@ -16,6 +18,8 @@ export const dataSourceTypes={
     PROGRAM_INDICATOR:"PROGRAM_INDICATOR",
     DATA_ELEMENT_GROUP:"DATA_ELEMENT_GROUP",
     INDICATOR_GROUP:"INDICATOR_GROUP",
+    FUNCTION:"FUNCTION",
+    DATASET:"DATASET"
 }
 
 export const dataElementDomainTypes={
@@ -38,6 +42,7 @@ export const dataTypesInitials={
     ATTRIBUTES:"A{",
     CONSTANTS:"C{",
     VARIABLE:"V{",
+    ORG_UNIT_COUNT:"OUG{"
 
 
 }

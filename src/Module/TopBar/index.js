@@ -3,8 +3,12 @@ import {Chip} from '@dhis2/ui'
 
 import { CircularLoader } from '@dhis2/ui'
 import {useDataEngine} from "@dhis2/app-runtime";
-import IdentifiableObjectDataSource, {displayNameLength, getDataSourceType} from "../../Utils/Functions/FormulaTopBar";
-import DataSourceSelector from "./Components/DataSourceSelector";
+import IdentifiableObjectDataSource, {
+    displayNameLength,
+    displayNameSelector,
+    getDataSourceType, idOrRuleSelector, typeOrFunctionSelector
+} from "../../Utils/Functions/FormulaTopBar";
+import DataSourceSelector from "./Components/DataSourceSelector/DataSourceSelector";
 import {useRecoilState, useSetRecoilState} from "recoil";
 import {dataSourceStateDictionary} from "../../Store";
 import Error from "../../Shared/Componets/Error/ErrorAPIResult";
@@ -31,6 +35,7 @@ export default function TopBar(props){
           setDataSourcesValues((prevState) =>{
               return prevState.concat(tmp)
           })
+
           updateDataSourceStateDictionaryHandler({id:tmp[0]?.id,type:tmp[0]?.type})
 
       }
@@ -67,9 +72,9 @@ export default function TopBar(props){
              return value.map((obj, index) => {
 
                  return {
-                     id: obj[0].id,
-                     type: getDataSourceType(obj[0].href),
-                     displayName: obj[0].displayName,
+                     id: idOrRuleSelector(arrayDataSource[index],obj[0]),
+                     type: typeOrFunctionSelector(arrayDataSource[index],obj[0]),
+                     displayName:displayNameSelector(arrayDataSource[index],obj[0]),
                      index: index,
                      selected: index===0?true:false
                  }
@@ -87,7 +92,7 @@ export default function TopBar(props){
     return<div>
 
         {dataSourceValues?.map((dt,index)=>{
-            return <Chip key={dt.id} selected={dt.selected} onClick={()=>{
+            return <Chip key={index} selected={dt.selected} onClick={()=>{
                 updateDataSourceStateDictionaryHandler({id:dt.id,type:dt.type})
                 updateSelected(index)
             }}>{displayNameLength(dt.displayName)}</Chip>
