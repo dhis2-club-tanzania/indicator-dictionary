@@ -42,7 +42,6 @@ export default function AccessibilityAndSharing({id}){
     }
 
 
-    console.log(result)
 
     return(<div>
         <h3>{i18n.t("Accesibility & Sharing Settings")}  </h3>

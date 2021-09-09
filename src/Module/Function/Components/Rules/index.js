@@ -53,7 +53,7 @@ let rules=_.filter(functionObj?.rules??[],((e)=>{
             </TableHead>
             <TableBody>
                 {rules?.map((e)=>{
-                   return <DataTableRow >
+                   return <DataTableRow key={e?.id} >
                         <DataTableCell bordered>
                             {e?.id}
                         </DataTableCell  >

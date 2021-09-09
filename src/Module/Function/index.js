@@ -12,8 +12,6 @@ import AccessibilityAndSharing from "./Components/AccessibilityAndSharing";
 
 
 export default function FunctionPage({ruleObj,functionObj}){
-    //  console.log(ruleObj)
-    // console.log(functionObj)
 
 
     return <div>
