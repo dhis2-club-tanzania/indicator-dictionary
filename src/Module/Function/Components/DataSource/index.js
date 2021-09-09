@@ -19,7 +19,7 @@ import {useDataEngine} from "@dhis2/app-runtime";
 import {useGetIdDetails} from "../../../../Utils/Hooks/FunctionDictionary";
 import Loader from "../../../../Shared/Componets/Loaders/Loader";
 import Error from "../../../../Shared/Componets/Error/ErrorAPIResult";
-import MoreDetails from "./Componets/MoreDetails";
+
 import {dateTimeDisplay} from "../../../../Utils/Functions/Shared";
 
 
@@ -94,7 +94,8 @@ export default function DataSource({json}){
                             {displayType(e?.href)}
                         </DataTableCell  >
                         <DataTableCell bordered>
-                            <MoreDetails href={e?.href} />
+                            <i> <a style={{textDecoration:"none"}} href={e?.href +".json"} target={"_blank"} >{e?.href +".json"}</a> </i>
+
                         </DataTableCell  >
                         <DataTableCell bordered>
                             {dateTimeDisplay(e?.lastUpdated)}

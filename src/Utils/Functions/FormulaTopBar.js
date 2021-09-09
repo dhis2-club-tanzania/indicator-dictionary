@@ -29,6 +29,9 @@ export function getDataSourceType(formula){
     if(formula?.search("dataStore/function")>=0){
         return dataSourceTypes.FUNCTION
     }
+    if(formula?.search("dataSets")>=0){
+        return dataSourceTypes.DATASET
+    }
 }
 
 

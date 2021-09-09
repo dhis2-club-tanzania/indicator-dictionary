@@ -93,6 +93,7 @@ export function getAllId(json){
 export function displayType(href){
 
      switch (getDataSourceType(href)) {
+
          case dataSourceTypes.DATA_ELEMENT:
              return "Data Element"
              break;
@@ -101,7 +102,28 @@ export function displayType(href){
              return "Indicator"
              break;
 
+         case dataSourceTypes.PROGRAM_INDICATOR:
+             return "Program Indicator"
+             break;
+
+         case dataSourceTypes.DATA_ELEMENT_GROUP:
+             return "Data Element Group"
+             break;
+
+         case dataSourceTypes.INDICATOR_GROUP:
+             return "Indicator Group"
+             break;
+
+         case dataSourceTypes.FUNCTION:
+             return "Function"
+             break;
+
+         case dataSourceTypes.DATASET:
+             return "Dataset"
+             break;
+
          default:
+             return 'Other'
      }
 
 }
