@@ -15,14 +15,32 @@ import {
     DataTableColumnHeader,
 } from '@dhis2/ui'
 import {getAllId} from "../../../../Utils/Functions/FunctionDictionary";
+import {useDataEngine} from "@dhis2/app-runtime";
+import {useGetIdDetails} from "../../../../Utils/Hooks/FunctionDictionary";
+import Loader from "../../../../Shared/Componets/Loaders/Loader";
+import Error from "../../../../Shared/Componets/Error/ErrorAPIResult";
 
 
 export default function DataSource({json}){
 
 
     let jsonToUse=JSON.stringify(json)?.replace(/\s/g,'')
+    let arrayIdToUse=getAllId(jsonToUse)
+    console.log(arrayIdToUse)
 
-    console.log(getAllId(jsonToUse))
+    const engine=useDataEngine()
+
+
+    const{loading,error,data}=useGetIdDetails(arrayIdToUse,engine)
+
+    if(loading){
+        return  <Loader text={""} />
+    }if(error){
+        return <Error error={error} />
+    }
+
+    console.log(data)
+
 
 
     return <div>
@@ -59,6 +77,7 @@ export default function DataSource({json}){
                 </DataTableRow>
             </TableHead>
             <TableBody>
+
                 <DataTableRow >
                     <DataTableCell bordered>
 

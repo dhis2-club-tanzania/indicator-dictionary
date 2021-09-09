@@ -1,13 +1,42 @@
-const query={
-
-    functions:{
-        resource: 'dataStore/functions',
-        id: ({id})=>id,
+// const query={
+//
+//     functions:{
+//         resource: 'dataStore/functions',
+//         id: ({id})=>id,
+//     }
+// }
+const query= {
+    identifiableObjects: {
+        resource: "identifiableObjects",
+        id: ({id}) => id,
+        params: {
+            fields: ["id", "displayName", "href", "description", "code", "lastUpdated"]
+        }
     }
 }
 
 
-export async function getFunctionDetails(engine,arr){
+//
+// export async function getFunctionDetails(engine,arr){
+//     let allPromises = arr?.map((id) => {
+//         return new Promise((resolve, reject) => {
+//             resolve(getDetails(engine, id))
+//         })
+//     })
+//     return await Promise.all(allPromises).then(value => {
+//         return value.map((val, index) => {
+//             return val
+//         })
+//     })
+// }
+
+async function getDetails(engine,id){
+    const data=await engine.query(query,{variables:{id}})
+    return data?.identifiableObjects
+}
+
+
+export async function getIdDetails(engine,arr){
     let allPromises = arr?.map((id) => {
         return new Promise((resolve, reject) => {
             resolve(getDetails(engine, id))
@@ -18,11 +47,6 @@ export async function getFunctionDetails(engine,arr){
             return val
         })
     })
-}
-
-async function getDetails(engine,id){
-    const data=await engine.query(query,{variables:{id}})
-    return data?.functions
 }
 
 
