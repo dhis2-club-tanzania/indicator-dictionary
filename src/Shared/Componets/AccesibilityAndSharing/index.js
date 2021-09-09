@@ -6,6 +6,7 @@ import React, {useEffect} from 'react'
 import {displayAccessPermission} from "../../../Utils/Functions/DataElementDictionaryFunctions";
 import Error from "../Error/ErrorAPIResult";
 import Loader from "../Loaders/Loader";
+import {dateTimeDisplay} from "../../../Utils/Functions/Shared";
 
 
 
@@ -63,7 +64,7 @@ export default function AccessibilityAndSharing(props){
         <h3>{i18n.t("Accesibility & Sharing Settings")}  </h3>
         <p> {i18n.t("This")}
 
-            { displayDataType(resourceType) } {i18n.t("was first created on")}   <i> {new Date(result?.created).toLocaleString("en-GB")}</i> {i18n.t("by")}   <b>{result?.user?.displayName} </b> {i18n.t("and last updated on")}   <i>{new Date(result?.lastUpdated).toLocaleString("en-GB")}</i> {i18n.t("by")}   <b>{result?.lastUpdatedBy?.displayName}</b> .
+            { displayDataType(resourceType) } {i18n.t("was first created on")}   <i> { dateTimeDisplay(result?.created)}</i> {i18n.t("by")}   <b>{result?.user?.displayName} </b> {i18n.t("and last updated on")}   <i>{ dateTimeDisplay(result?.lastUpdated)}</i> {i18n.t("by")}   <b>{result?.lastUpdatedBy?.displayName}</b> .
 
         </p>
         <p>

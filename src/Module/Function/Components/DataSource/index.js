@@ -14,11 +14,13 @@ import {
     DataTableRow,
     DataTableColumnHeader,
 } from '@dhis2/ui'
-import {getAllId} from "../../../../Utils/Functions/FunctionDictionary";
+import {displayType, getAllId} from "../../../../Utils/Functions/FunctionDictionary";
 import {useDataEngine} from "@dhis2/app-runtime";
 import {useGetIdDetails} from "../../../../Utils/Hooks/FunctionDictionary";
 import Loader from "../../../../Shared/Componets/Loaders/Loader";
 import Error from "../../../../Shared/Componets/Error/ErrorAPIResult";
+import MoreDetails from "./Componets/MoreDetails";
+import {dateTimeDisplay} from "../../../../Utils/Functions/Shared";
 
 
 export default function DataSource({json}){
@@ -26,7 +28,6 @@ export default function DataSource({json}){
 
     let jsonToUse=JSON.stringify(json)?.replace(/\s/g,'')
     let arrayIdToUse=getAllId(jsonToUse)
-    console.log(arrayIdToUse)
 
     const engine=useDataEngine()
 
@@ -40,8 +41,6 @@ export default function DataSource({json}){
     }
 
     console.log(data)
-
-
 
     return <div>
         <h3>Data Sources</h3>
@@ -77,31 +76,33 @@ export default function DataSource({json}){
                 </DataTableRow>
             </TableHead>
             <TableBody>
+                {data?.idDetails?.map((e)=>{
+                    return  <DataTableRow >
+                        <DataTableCell bordered>
+                            {e?.id}
+                        </DataTableCell  >
+                        <DataTableCell bordered>
+                            {e?.displayName}
+                        </DataTableCell  >
+                        <DataTableCell bordered>
+                            {e?.description ?? 'No description'}
+                        </DataTableCell  >
+                        <DataTableCell bordered>
+                            {e?.code ?? 'no code'}
+                        </DataTableCell  >
+                        <DataTableCell bordered>
+                            {displayType(e?.href)}
+                        </DataTableCell  >
+                        <DataTableCell bordered>
+                            <MoreDetails href={e?.href} />
+                        </DataTableCell  >
+                        <DataTableCell bordered>
+                            {dateTimeDisplay(e?.lastUpdated)}
+                        </DataTableCell  >
 
-                <DataTableRow >
-                    <DataTableCell bordered>
+                    </DataTableRow>
+                })}
 
-                    </DataTableCell  >
-                    <DataTableCell bordered>
-
-                    </DataTableCell  >
-                    <DataTableCell bordered>
-
-                    </DataTableCell  >
-                    <DataTableCell bordered>
-
-                    </DataTableCell  >
-                    <DataTableCell bordered>
-
-                    </DataTableCell  >
-                    <DataTableCell bordered>
-
-                    </DataTableCell  >
-                    <DataTableCell bordered>
-
-                    </DataTableCell  >
-
-                </DataTableRow>
             </TableBody>
 
         </DataTable>

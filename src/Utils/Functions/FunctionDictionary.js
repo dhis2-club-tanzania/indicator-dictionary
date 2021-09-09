@@ -5,6 +5,9 @@
 //         id: ({id})=>id,
 //     }
 // }
+import {getDataSourceType} from "./FormulaTopBar";
+import {dataSourceTypes} from "../Models";
+
 const query= {
     identifiableObjects: {
         resource: "identifiableObjects",
@@ -50,6 +53,8 @@ export async function getIdDetails(engine,arr){
 }
 
 
+
+
 function findUid(str){ //find something that starts as an UId
     let re=/[a-zA-Z]/g
     let pos=str?.search(re)
@@ -82,5 +87,21 @@ export function getAllId(json){
 
     }
     return allId
+
+}
+
+export function displayType(href){
+
+     switch (getDataSourceType(href)) {
+         case dataSourceTypes.DATA_ELEMENT:
+             return "Data Element"
+             break;
+
+         case dataSourceTypes.INDICATOR:
+             return "Indicator"
+             break;
+
+         default:
+     }
 
 }
