@@ -26,10 +26,37 @@ async function getDetails(engine,id){
 }
 
 
-function findAllIdsFromJson(json){
-    // let str=json.stringify()
+function findUid(str){ //find something that starts as an UId
+    let re=/[a-zA-Z]/g
+    let pos=str?.search(re)
+    return pos
+}
+function isValidUId(testStr){
+    let res =testStr.search("^[A-Za-z0-9]+$")  //using search method is faster
+    return res>=0 //if it finds anything that is not listed in the regex it returns -1
+}
 
+export function getAllId(json){
+    let allId=[]
+    let str=json
+    let pos=findUid(str?.toString())
 
+    while(pos >=0 ){
+        str=str.substring(pos)
+        let testStr=str.substring(0,11)
 
-    //split to by "
+        if( isValidUId(testStr) ){
+            allId.push(testStr)
+            str=str.substring(11)
+        }
+        else {
+            let failInd=str.search(/[ `!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/) //helps to reduce string length much faster
+
+            str=str.substring(failInd)
+        }
+        pos=findUid(str)
+
+    }
+    return allId
+
 }

@@ -14,10 +14,15 @@ import {
     DataTableRow,
     DataTableColumnHeader,
 } from '@dhis2/ui'
+import {getAllId} from "../../../../Utils/Functions/FunctionDictionary";
 
 
 export default function DataSource({json}){
 
+
+    let jsonToUse=JSON.stringify(json)?.replace(/\s/g,'')
+
+    console.log(getAllId(jsonToUse))
 
 
     return <div>

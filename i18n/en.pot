@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2021-09-08T11:33:47.108Z\n"
-"PO-Revision-Date: 2021-09-08T11:33:47.108Z\n"
+"POT-Creation-Date: 2021-09-09T06:52:00.379Z\n"
+"PO-Revision-Date: 2021-09-09T06:52:00.379Z\n"
 
 msgid "Analytics Details"
 msgstr "Analytics Details"
@@ -138,6 +138,27 @@ msgid ""
 msgstr ""
 "The following is the summary of indicators using the data elements in this "
 "group"
+
+msgid "Accesibility & Sharing Settings"
+msgstr "Accesibility & Sharing Settings"
+
+msgid "This Function was first created on"
+msgstr "This Function was first created on"
+
+msgid "by"
+msgstr "by"
+
+msgid "and last updated on"
+msgstr "and last updated on"
+
+msgid "User Access"
+msgstr "User Access"
+
+msgid "can"
+msgstr "can"
+
+msgid "User Group Access"
+msgstr "User Group Access"
 
 msgid "Endpoint"
 msgstr "Endpoint"
@@ -350,29 +371,11 @@ msgstr "Related Data elements"
 msgid "The following is the summary of the data elements used in the group"
 msgstr "The following is the summary of the data elements used in the group"
 
-msgid "Accesibility & Sharing Settings"
-msgstr "Accesibility & Sharing Settings"
-
 msgid "This"
 msgstr "This"
 
 msgid "was first created on"
 msgstr "was first created on"
-
-msgid "by"
-msgstr "by"
-
-msgid "and last updated on"
-msgstr "and last updated on"
-
-msgid "User Access"
-msgstr "User Access"
-
-msgid "can"
-msgstr "can"
-
-msgid "User Group Access"
-msgstr "User Group Access"
 
 msgid "This {{variables1}} is not related to any indicator"
 msgstr "This {{variables1}} is not related to any indicator"
