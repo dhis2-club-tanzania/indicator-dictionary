@@ -9,20 +9,23 @@ import IdentifiableObjectDataSource, {
     getDataSourceType, idOrRuleSelector, typeOrFunctionSelector
 } from "../../Utils/Functions/FormulaTopBar";
 import DataSourceSelector from "./Components/DataSourceSelector/DataSourceSelector";
-import {useRecoilState, useSetRecoilState} from "recoil";
+import {useRecoilState, useRecoilValue, useSetRecoilState} from "recoil";
 import {dataSourceStateDictionary} from "../../Store";
 import Error from "../../Shared/Componets/Error/ErrorAPIResult";
 import Loader from "../../Shared/Componets/Loaders/Loader";
+import {dataSourcesTopBar} from "../../Store/TopBar";
 
-export default function TopBar(props){
+export default function ChipsSection(){
+
+
 
     //variables
     const[dataSourceValues,setDataSourcesValues]=useState([]);
 
-    const [currentSelected,updateDataSourceStateDictionaryHandler]= useRecoilState(dataSourceStateDictionary)
+    const updateDataSourceStateDictionaryHandler= useSetRecoilState(dataSourceStateDictionary)
+    const arrayDataSource=useRecoilValue(dataSourcesTopBar)
 
-
-    const arrayDataSource=props.dataSources;  //these are arrays of ids
+    console.log(arrayDataSource)
 
     const [loading,setLoading]=useState()
     const [error,setError]=useState()
@@ -51,7 +54,7 @@ export default function TopBar(props){
            setError(error)
        })
 
-    },[])
+    },[JSON.stringify(arrayDataSource)])
 
 
     function updateSelected(index){
