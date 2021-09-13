@@ -3,11 +3,10 @@ import {dataSourceTypes} from "../Models";
 import _ from "lodash";
 
 export default function IdentifiableObjectDataSource(engine,arrId){ //returns array of promises
-    return arrId.map((id)=>{
+    return arrId?.map((id)=>{
         return getValueDataSourcePromise(engine,id)
     })
 }
-
 
 export function getDataSourceType(formula){
 

@@ -14,6 +14,7 @@ import {dataSourceStateDictionary} from "../../Store";
 import Error from "../../Shared/Componets/Error/ErrorAPIResult";
 import Loader from "../../Shared/Componets/Loaders/Loader";
 import {dataSourcesTopBar} from "../../Store/TopBar";
+import _ from "lodash";
 
 export default function ChipsSection(){
 
@@ -21,34 +22,30 @@ export default function ChipsSection(){
 
     //variables
     const[dataSourceValues,setDataSourcesValues]=useState([]);
+    const [loading,setLoading]=useState(true)
+    const [error,setError]=useState(false)
+
 
     const updateDataSourceStateDictionaryHandler= useSetRecoilState(dataSourceStateDictionary)
     const arrayDataSource=useRecoilValue(dataSourcesTopBar)
 
-    console.log(arrayDataSource)
-
-    const [loading,setLoading]=useState()
-    const [error,setError]=useState()
 
     //hooks
     const engine=useDataEngine()
     useEffect(()=>{
       async function fetch(){
-          const tmp=await getDataSourceValues(engine,arrayDataSource)
-          setDataSourcesValues((prevState) =>{
-              return prevState.concat(tmp)
-          })
-
-          updateDataSourceStateDictionaryHandler({id:tmp[0]?.id,type:tmp[0]?.type})
+          return  await getDataSourceValues(engine,arrayDataSource)
 
       }
-        setLoading(true)
-        setError(false)
-       fetch().then(()=>{
+       fetch().then((tmp)=>{
+           // setDataSourcesValues((prevState) =>{
+           //     return prevState.concat(tmp)
+           // })
+           setDataSourcesValues(() =>{
+               return _.concat([],tmp)
+           })
+           updateDataSourceStateDictionaryHandler({id:tmp[0]?.id,type:tmp[0]?.type})
            setLoading(false)
-
-
-
        }).catch((error)=>{
            setLoading(false)
            setError(error)
