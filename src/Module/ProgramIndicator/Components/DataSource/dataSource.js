@@ -5,6 +5,7 @@ import { useEffect} from 'react'
 
 import Loader from "../../../../Shared/Componets/Loaders/Loader";
 import Error from "../../../../Shared/Componets/Error/ErrorAPIResult";
+import i18n from '@dhis2/d2-i18n'
 
 const query = {
     sources:{
@@ -33,13 +34,12 @@ export default  function DataSource({id}) {
     }
 
     return (
-        <div>
-           Program Indicator is captured from with following program
+        <div> {i18n.t("Program Indicator is captured from with following program")}
+
             <ul>
                 <li>
-                {data?.sources?.program?.displayName} submitting records on every event
-            </li>
-
+                    {i18n.t("{{variables}} submitting records on every event",{variables:data?.sources?.program?.displayName})}
+                </li>
 
             </ul>
 

@@ -79,9 +79,7 @@ const query6={
     }
 }
 
-
 const query7={
-
     functions:{
         resource: 'dataStore/functions',
         id: ({idFunction})=>idFunction,
@@ -345,11 +343,6 @@ export async function getWordDataForAll(engine,arr,loc){
 
     }
 }
-
-
-
-
-
 
 
 function cleanBrackets(formula){

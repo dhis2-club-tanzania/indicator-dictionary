@@ -6,6 +6,7 @@ import { CircularLoader } from '@dhis2/ui'
 import Loader from "../../../../Shared/Componets/Loaders/Loader";
 import Error from "../../../../Shared/Componets/Error/ErrorAPIResult";
 import IdentifiedBy from "../../../../Shared/Componets/IdentifiedBy/Index";
+import i18n from '@dhis2/d2-i18n'
 
 const query = {
     programIndicators:{
@@ -37,11 +38,21 @@ export default function Introduction({id}){
 
     return ( <div>
 
-        <h3>Introduction</h3>
+        <h3>{i18n.t("Introduction")} </h3>
 
             <p>
 
-                {res?.displayName} is a {res?.aggregationType} indicator, described as {res?.displayDescription}. It’s labelled in short as {res?.displayShortName} and has a code of {res?.code}. In analytics it displays up to {res?.decimals} decimals. {res?.displayInForm?"It is also set to display in form":"It is not set to display in form"}
+                {i18n.t("{{variables1}} is a {{variables2}} indicator, described as {{variables3}}. It’s labelled in short as {{variables4}} and has a code of {{variables5}}. In analytics it displays up to {{variables6}} decimals." ,
+                    {
+                        variables1:res?.displayName,
+                        variables2:res?.aggregationType,
+                        variables3:res?.displayDescription,
+                        variables4:res?.displayShortName,
+                        variables5:res?.code,
+                        variables6:res?.decimals
+                    }
+                    )}
+                {res?.displayInForm? i18n.t("It is also set to display in form"):""}
 
 
             </p>
@@ -53,7 +64,7 @@ export default function Introduction({id}){
 }
 
 
-//
-// Introduction.PropTypes={
-//     id:PropTypes.string.isRequired
-// }
+
+Introduction.PropTypes={
+    id:PropTypes.string.isRequired
+}

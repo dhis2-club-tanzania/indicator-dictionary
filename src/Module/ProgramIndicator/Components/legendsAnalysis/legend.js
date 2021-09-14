@@ -10,7 +10,7 @@ import {
     DataTableCell,
     DataTableColumnHeader,
 } from '@dhis2/ui'
-
+import i18n from '@dhis2/d2-i18n'
 
 
 export default function Legend(props){
@@ -29,16 +29,16 @@ export default function Legend(props){
                     <TableHead>
                         <DataTableRow>
                             <DataTableColumnHeader>
-                                Class
+                                 {i18n.t("Class")}
                             </DataTableColumnHeader>
                             <DataTableColumnHeader>
-                                Upper
+                                 {i18n.t("Upper")}
                             </DataTableColumnHeader>
                             <DataTableColumnHeader>
-                                Lower
+                                 {i18n.t("Lower")}
                             </DataTableColumnHeader>
                             <DataTableColumnHeader >
-                                Color
+                                 {i18n.t("Color")}
                             </DataTableColumnHeader>
                         </DataTableRow>
                     </TableHead>
@@ -46,25 +46,25 @@ export default function Legend(props){
 
                         {legendSet?.legends.map((legend)=>{
                             return <DataTableRow key={legend.id}>
-                                <DataTableCell bordered>
-                                    {legend?.displayName}
-                                </DataTableCell >
-                                <DataTableCell bordered>
-                                    {legend?.endValue}
-                                </DataTableCell>
-                                <DataTableCell bordered>
-                                    {legend?.startValue}
-                                </DataTableCell>
-                                <DataTableCell bordered >
-                                    <div style={{
-                                        background: legend?.color,
-                                        width:"inherit",
-                                        height:50
-                                    }}>
+                                        <DataTableCell bordered>
+                                            {legend?.displayName}
+                                        </DataTableCell >
+                                        <DataTableCell bordered>
+                                            {legend?.endValue}
+                                        </DataTableCell>
+                                        <DataTableCell bordered>
+                                            {legend?.startValue}
+                                        </DataTableCell>
+                                        <DataTableCell bordered >
+                                            <div style={{
+                                                background: legend?.color,
+                                                width:"inherit",
+                                                height:50
+                                            }}>
 
-                                    </div>
-                                </DataTableCell>
-                            </DataTableRow>
+                                            </div>
+                                        </DataTableCell>
+                                    </DataTableRow>
 
                         })}
 
