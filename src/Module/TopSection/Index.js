@@ -78,7 +78,6 @@ export default function TopSection({handlePrint}){
     }
 
 
-
     return <div>
         <div className={classes.container} >
             <div>

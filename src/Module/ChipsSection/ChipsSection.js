@@ -54,9 +54,6 @@ export default function ChipsSection({componentRef}){
         }
     }
 
-
-
-
     return<div>
 
         {dataSourceValues?.map((dt,index)=>{
@@ -65,8 +62,6 @@ export default function ChipsSection({componentRef}){
                 updateSelected(index)
             }}>{displayNameLength(dt.displayName)}</Chip>
         })}
-
-
 
         <div className={classes.printSection} ref={componentRef} >
             <DataSourceSelector  />

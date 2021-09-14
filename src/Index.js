@@ -23,7 +23,7 @@ export default function Index(){
     })
 
     return ( <div>
-        <TopSection handlePrint={handlePrint} />
+         <TopSection handlePrint={handlePrint} />
             <ChipsSection componentRef={componentRef}  />
     </div>
 
