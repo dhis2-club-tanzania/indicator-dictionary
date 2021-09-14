@@ -44,9 +44,9 @@ export default  function DataSets({aggregate}){
             {aggregate?.map((el,index)=>{
                 return <li key={el?.id +index}>
                     {el?.displayName}
-                    <ul> {res[index]?.length>1?"sources":""}
+                    <ul> {res[index]?.length>1? i18n.t("sources"):""}
                     {res[index]?.map((datset)=>{
-                        return <li key={datset?.id}>{datset?.displayName} submitting {datset?.periodType} after every {datset?.timelyDays} days </li>
+                        return <li key={datset?.id}>{datset?.displayName} {i18n.t(" submitting ")}  {datset?.periodType} {i18n.t(" after every ")}   {datset?.timelyDays} {i18n.t("days")}   </li>
 
                     })}
                     </ul>

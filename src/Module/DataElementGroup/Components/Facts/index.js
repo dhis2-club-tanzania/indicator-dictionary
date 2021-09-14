@@ -5,6 +5,7 @@ import Error from "../../../../Shared/Componets/Error/ErrorAPIResult";
 import {dataSetDataElementCountState, programDataElementCountState} from "../../../../Store";
 import {useRecoilValue} from "recoil";
 import IndicatorCount from "../../../../Shared/Componets/IndicatorCount";
+import i18n from '@dhis2/d2-i18n'
 
 const query = {
     sources:{
@@ -35,12 +36,25 @@ export default function Facts({id}){
 
 
     return <div>
-        <h3>Data element group Facts
+        <h3>
+            {i18n.t(" Data element group Facts")}
         </h3>
 
         <ul>
-            <li> It has {data?.sources?.dataElements?.length} data Elements     </li>
-            <li>It’s data elements belongs to {dataSetCount} dataset and {programCount} program sources of data</li>
+            <li> {i18n.t("It has {{variables}} data Elements",
+                            {
+                                variables:data?.sources?.dataElements?.length
+                            }
+                        )
+                }
+            </li>
+            <li> {i18n.t("It’s data elements belongs to {{variables}} dataset and {{variables2}} program sources of data",
+                        {
+                            variables:dataSetCount,
+                            variables2:programCount
+                        }
+                    )}
+            </li>
             <li>
                 <IndicatorCount dataElementsArray={data?.sources?.dataElements}/> </li>
         </ul>
