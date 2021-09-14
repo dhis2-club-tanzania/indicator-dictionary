@@ -25,6 +25,9 @@ const MyApp = () => (
                         {/*<Route path="/indicator/:id">*/}
                         {/*    <Index />*/}
                         {/*</Route>*/}
+                        <Route path="/function" exact >
+                            <FunctionIndex />
+                        </Route>
                         <Route path="/function/:id" exact >
                            <FunctionIndex />
                         </Route>

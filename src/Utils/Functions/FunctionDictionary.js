@@ -18,6 +18,14 @@ const query= {
     }
 }
 
+const query2={
+
+    functions:{
+        resource: 'dataStore/functions',
+
+    }
+}
+
 
 //
 // export async function getFunctionDetails(engine,arr){
@@ -36,6 +44,11 @@ const query= {
 async function getDetails(engine,id){
     const data=await engine.query(query,{variables:{id}})
     return data?.identifiableObjects
+}
+
+export async function getAllFunctions(engine){
+    const data=await engine.query(query2)
+    return data?.functions
 }
 
 
