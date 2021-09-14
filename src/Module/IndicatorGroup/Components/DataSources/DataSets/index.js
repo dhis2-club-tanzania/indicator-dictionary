@@ -57,10 +57,10 @@ export default  function DataSets({aggregate}){
 
 
     return (<div>
-        Datasets
+        {i18n.t("Datasets")}
         <ul>
             {allDataSets?.map((datset)=>{
-                return <li key={datset?.id}>{datset?.displayName} submitting {datset?.periodType} after every {datset?.timelyDays} days </li>
+                return <li key={datset?.id}>{datset?.displayName} {i18n.t(" submitting ")}  {datset?.periodType} {i18n.t(" after every ")} {datset?.timelyDays} {i18n.t(" days")}  </li>
             })}
        </ul>
 

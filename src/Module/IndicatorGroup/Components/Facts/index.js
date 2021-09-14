@@ -12,6 +12,7 @@ import {
     indicatorGroupPrograms
 } from "../../../../Store/IndicatorGroup";
 import IndicatorCount from "../../../../Shared/Componets/IndicatorCount";
+import i18n from '@dhis2/d2-i18n'
 
 const query = {
     sources:{
@@ -62,12 +63,16 @@ export default function Facts({id}){
 
 
     return <div>
-        <h3>Indicator group Facts
+        <h3>
+            {i18n.t("Indicator group Facts")}
         </h3>
 
         <ul>
-            <li> It has {data?.sources?.indicators?.length} indicators     </li>
-            <li>It’s data elements belongs to {dataSets?.length} datasets and {programs?.length} program sources of data</li>
+            <li> {i18n.t(" It has {{variables}} indicators",{variables:data?.sources?.indicators?.length})}  </li>
+            <li>{i18n.t(" It’s data elements belongs to {{variables}} datasets and {{variables2}} program sources of data",{
+                variables:dataSets?.length,variables2:programs?.length
+            })}
+            </li>
             <li>
                 <IndicatorCount dataElementsArray={allDataElements}/>
             </li>
