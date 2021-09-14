@@ -13,7 +13,6 @@ import AccessibilityAndSharing from "./Components/AccessibilityAndSharing";
 
 export default function FunctionPage({ruleObj,functionObj}){
 
-
     return <div>
         <Introduction ruleObj={ruleObj} functionObj={functionObj}  />
         <DataSource json={ruleObj?.json}/>

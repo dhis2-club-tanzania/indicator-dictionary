@@ -40,6 +40,9 @@ export default function TopSection(){
     },[])
 
 
+    const  debounceInputHandler=_.debounce(inputHandler,1000)
+    const debounceRadioSelectorHandler=_.debounce(updateRadioSelector,700)
+
     function inputHandler(str){
         setSearchKeyWord(str)
     }
@@ -79,30 +82,30 @@ export default function TopSection(){
         <div className={classes.container} >
             <div>
                 <Field label="Search">
-                    <Input label="An second input" name="input2" onChange={(e)=>{inputHandler(e.target.value)}} />
+                    <Input label="An second input" name="input2" onChange={(e)=>{debounceInputHandler(e.target.value)}} />
                 </Field>
             </div>
 
             <div className={classes.topComponents}>Search in:</div>
 
             <div className={classes.topComponents}>
-                <Radio  checked={false}  label="Data Element"  onChange={()=>{updateRadioSelector(0)}} checked={radioSelector[0]}   />
+                <Radio  checked={false}  label="Data Element"  onChange={()=>{debounceRadioSelectorHandler(0)}} checked={radioSelector[0]}   />
 
             </div>
             <div className={classes.topComponents}>
-                <Radio  checked={false}  label="Data Element Group"  onChange={()=>{updateRadioSelector(1)}} checked={radioSelector[1]}  />
+                <Radio  checked={false}  label="Data Element Group"  onChange={()=>{debounceRadioSelectorHandler(1)}} checked={radioSelector[1]}  />
 
             </div>
             <div className={classes.topComponents}>
-                <Radio  checked={false}  label="Indicator"  checked={radioSelector[2]} onChange={()=>{updateRadioSelector(2)}}    />
+                <Radio  checked={false}  label="Indicator"  checked={radioSelector[2]} onChange={()=>{debounceRadioSelectorHandler(2)}}    />
 
             </div>
             <div className={classes.topComponents}>
-                <Radio  checked={false}  label="Indicator Group" checked={radioSelector[3]} onChange={()=>{updateRadioSelector(3)}}  />
+                <Radio  checked={false}  label="Indicator Group" checked={radioSelector[3]} onChange={()=>{debounceRadioSelectorHandler(3)}}  />
 
             </div>
             <div className={classes.topComponents} >
-                <Radio  checked={false}  label="Function"  checked={radioSelector[4]} onChange={()=>{updateRadioSelector(4)}} />
+                <Radio  checked={false}  label="Function"  checked={radioSelector[4]} onChange={()=>{debounceRadioSelectorHandler(4)}} />
 
             </div>
 
