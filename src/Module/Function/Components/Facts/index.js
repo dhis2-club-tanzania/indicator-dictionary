@@ -8,11 +8,18 @@ export default function Facts({functionObj}){
     let selected=functionObj
 
     return <div>
-        <h3>Function Facts</h3>
+        <h3>{i18n.t("")} Function Facts</h3>
 
         <ul>
-            <li> It is approximately {formatBytes(Buffer.byteLength(selected?.function,'utf-8'),2) } in size</li>
-            <li>It has {selected?.rules?.length} associated rules</li>
+            <li>
+                {
+                    i18n.t("It is approximately {{variables}}  in size",
+                        {
+                            variables:formatBytes(Buffer.byteLength(selected?.function,'utf-8'),2)
+                        })
+                }
+            </li>
+            <li>{i18n.t("")} It has {selected?.rules?.length} associated rules</li>
             {selected?.function?.search('Fn')>=0? <li>{i18n.t("It’s using function analytics library")}</li>:"" }
             {selected?.function?.search('$.')>=0? <li>{i18n.t("It’s using jquery api library ")}</li>:"" }
             {selected?.function?.search('$.ajax')>=0? <li>{i18n.t("Performs ajax promises")}</li>:"" }

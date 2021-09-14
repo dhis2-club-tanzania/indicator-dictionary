@@ -41,8 +41,10 @@ export default function DataSource({json}){
     }
 
     return <div>
-        <h3>Data Sources</h3>
-        <p>Function have rules calculating from multiple data sources. Here are few data sources observed
+        <h3>{i18n.t("Data Sources")} </h3>
+        <p>
+            {i18n.t("Function have rules calculating from multiple data sources. Here are few data sources observed")}
+
 
         </p>
 
