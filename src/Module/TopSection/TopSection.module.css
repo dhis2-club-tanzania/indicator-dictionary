@@ -10,3 +10,8 @@
 .topComponents{
     padding-left: 10px;
 }
+
+.printButton{
+    margin-left: auto;
+    align-content:end;
+}

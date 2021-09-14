@@ -15,10 +15,12 @@ import Error from "../../Shared/Componets/Error/ErrorAPIResult";
 import Loader from "../../Shared/Componets/Loaders/Loader";
 import {dataSourcesTopBar} from "../../Store/TopBar";
 import _ from "lodash";
+import classes from './Components/chipsSection.module.css'
 
 import { useReactToPrint } from 'react-to-print';
 
-export default function ChipsSection(){
+
+export default function ChipsSection({componentRef}){
 
     const arrayDataSource=useRecoilValue(dataSourcesTopBar)
     const updateDataSourceStateDictionaryHandler= useSetRecoilState(dataSourceStateDictionary)
@@ -52,11 +54,7 @@ export default function ChipsSection(){
         }
     }
 
-    const componentRef = useRef();
 
-    const handlePrint=useReactToPrint({
-        content:()=>componentRef.current
-    })
 
 
     return<div>
@@ -69,9 +67,11 @@ export default function ChipsSection(){
         })}
 
 
-        <div><button onClick={handlePrint}>print</button></div>
 
-        <DataSourceSelector ref={componentRef}  />
+        <div className={classes.printSection} ref={componentRef} >
+            <DataSourceSelector  />
+        </div>
+
     </div>
 
 

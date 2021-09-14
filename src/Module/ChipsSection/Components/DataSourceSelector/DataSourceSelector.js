@@ -12,6 +12,7 @@ import React, {useEffect} from 'react'
 import IndicatorPage from "../../../Indicator/Index";
 import DataElementGroupPage from "../../../DataElementGroup";
 import IndicatorGroupPage from "../../../IndicatorGroup";
+import classes from '../chipsSection.module.css'
 import FunctionPage from "../../../Function";
 
 
@@ -53,7 +54,9 @@ export default function DataSourceSelector(){
 
     }
 
-    return <></>
+    return <>
+
+    </>
 
 
 }

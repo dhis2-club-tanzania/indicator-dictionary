@@ -14,8 +14,9 @@ import {selector, useRecoilState, useRecoilValue, useSetRecoilState} from "recoi
 import {searchKeywordTopBar, selectedRadioSearchTopBar} from "../../Store/TopBar";
 import {forEach} from "lodash";
 import _ from "lodash";
+import {useReactToPrint} from "react-to-print";
 
-export default function TopSection(){
+export default function TopSection({handlePrint}){
 
 
     const engine=useDataEngine();
@@ -109,6 +110,11 @@ export default function TopSection(){
 
             </div>
 
+            <div className={classes.printButton}>
+                <Button  onClick={handlePrint} >
+                    Print
+                </Button>
+            </div>
 
 
         </div>

@@ -1,0 +1,11 @@
+
+
+@media print {
+    .printSection{
+        margin: 48px 24px;
+
+    }
+    table, img, svg {
+        break-before: avoid-page;
+    }
+}
