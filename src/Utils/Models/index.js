@@ -13,13 +13,13 @@ export const dataTypes={
 }
 
 export const dataSourceTypes={
-    INDICATOR: "INDICATOR",
-    DATA_ELEMENT: "DATA_ELEMENT",
-    PROGRAM_INDICATOR:"PROGRAM_INDICATOR",
-    DATA_ELEMENT_GROUP:"DATA_ELEMENT_GROUP",
-    INDICATOR_GROUP:"INDICATOR_GROUP",
-    FUNCTION:"FUNCTION",
-    DATASET:"DATASET"
+    INDICATOR: "indicator",
+    DATA_ELEMENT: "dataElement",
+    PROGRAM_INDICATOR:"programIndicator",
+    DATA_ELEMENT_GROUP:"dataElementGroup",
+    INDICATOR_GROUP:"indicatorGroup",
+    FUNCTION:"function",
+    DATASET:"dataSet"
 }
 
 export const dataElementDomainTypes={
