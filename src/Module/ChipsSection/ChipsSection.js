@@ -18,76 +18,36 @@ import _ from "lodash";
 
 export default function ChipsSection(){
 
-
+    const arrayDataSource=useRecoilValue(dataSourcesTopBar)
+    const updateDataSourceStateDictionaryHandler= useSetRecoilState(dataSourceStateDictionary)
 
     //variables
     const[dataSourceValues,setDataSourcesValues]=useState([]);
-    const [loading,setLoading]=useState(true)
-    const [error,setError]=useState(false)
+    const [selected,setSelected]=useState(0)
 
-
-    const updateDataSourceStateDictionaryHandler= useSetRecoilState(dataSourceStateDictionary)
-    const arrayDataSource=useRecoilValue(dataSourcesTopBar)
-
-
-    //hooks
-    const engine=useDataEngine()
     useEffect(()=>{
-      async function fetch(){
-          return  await getDataSourceValues(engine,arrayDataSource)
-
-      }
-       fetch().then((tmp)=>{
-           // setDataSourcesValues((prevState) =>{
-           //     return prevState.concat(tmp)
-           // })
-           setDataSourcesValues(() =>{
-               return _.concat([],tmp)
-           })
-           updateDataSourceStateDictionaryHandler({id:tmp[0]?.id,type:tmp[0]?.type})
-           setLoading(false)
-       }).catch((error)=>{
-           setLoading(false)
-           setError(error)
-       })
-
+        let dataSources=arrayDataSource?.map((e,index)=>{
+            return {id:e?.id,type:getDataSourceType(e?.href),displayName:e?.displayName,index:index,selected:index===0?true:false}
+        })
+        setDataSourcesValues(dataSources)
     },[JSON.stringify(arrayDataSource)])
 
 
     function updateSelected(index){
-        if(dataSourceValues.length>0){
-            dataSourceValues.forEach((dt)=>{
-                dt.selected=false
-            })
 
-            dataSourceValues[index].selected=true
+        if(dataSourceValues.length>0){
+            let dt=dataSourceValues;
+            dt.forEach((e)=>{
+                e.selected=false
+            })
+            dt[index].selected=true
+
+            setDataSourcesValues(dt)
+            setSelected((prev)=>{  //to trigger reload
+                return prev+1
+            })
         }
     }
-
-
-    //functions
-  async function getDataSourceValues(engine,arrayDataSource){
-        let promisArr= IdentifiableObjectDataSource(engine,arrayDataSource)
-        return await Promise.all(promisArr).then(value => {
-             return value.map((obj, index) => {
-
-                 return {
-                     id: idOrRuleSelector(arrayDataSource[index],obj[0]),
-                     type: typeOrFunctionSelector(arrayDataSource[index],obj[0]),
-                     displayName:displayNameSelector(arrayDataSource[index],obj[0]),
-                     index: index,
-                     selected: index===0?true:false
-                 }
-             })
-        })
-    }
-
-    if(loading){
-       return  <Loader text={""} />
-    }if(error){
-        return <Error error={error} />
-    }
-
 
     return<div>
 
@@ -97,6 +57,8 @@ export default function ChipsSection(){
                 updateSelected(index)
             }}>{displayNameLength(dt.displayName)}</Chip>
         })}
+
+
 
         <DataSourceSelector />
     </div>

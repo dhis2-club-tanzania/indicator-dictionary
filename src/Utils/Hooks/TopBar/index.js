@@ -7,7 +7,7 @@ const query={
         resource: 'dataElements',
         params: ({keyword}) => ({
             fields: [
-                'id','displayName'
+                'id','displayName',"href"
             ],
             pageSize:10,
             filter:[`id:like:${keyword}`,`displayName:like:${keyword}`],
@@ -21,7 +21,7 @@ const query2={
         resource: 'indicators',
         params: ({keyword}) => ({
             fields: [
-                'id','displayName'
+                'id','displayName',"href"
             ],
             pageSize:10,
             filter:[`id:like:${keyword}`,`displayName:like:${keyword}`],
@@ -35,7 +35,7 @@ const query3={
         resource: 'programIndicators',
         params: ({keyword}) => ({
             fields: [
-                'id','displayName'
+                'id','displayName',"href"
             ],
             pageSize:10,
             filter:[`id:like:${keyword}`,`displayName:like:${keyword}`],
@@ -49,7 +49,7 @@ const query4={
         resource: 'dataElementGroups',
         params: ({keyword}) => ({
             fields: [
-                'id','displayName'
+                'id','displayName',"href"
             ],
             pageSize:10,
             filter:[`id:like:${keyword}`,`displayName:like:${keyword}`],
@@ -63,7 +63,7 @@ const query5={
         resource: 'indicatorGroups',
         params: ({keyword}) => ({
             fields: [
-                'id','displayName'
+                'id','displayName',"href"
             ],
             pageSize:10,
             filter:[`id:like:${keyword}`,`displayName:like:${keyword}`],

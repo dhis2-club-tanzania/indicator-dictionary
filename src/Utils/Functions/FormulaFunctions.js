@@ -99,7 +99,7 @@ export function getFormulaSources(formula,sourceInitial){
     while(formula?.search(sourceInitial)>=0){//there is still a dataElement
         ind1=formula.indexOf(sourceInitial)+initialLength-2 //first occourance
         let subStr= formula.substr(ind1)
-        ind2=subStr.indexOf("}")
+        ind2=subStr?.indexOf("}")
         ind2=ind2+ind1
 
         let datEl = formula.substring(ind1+2,ind2);
@@ -367,7 +367,7 @@ function cleanBrackets(formula){
 }
 
 export function isPureDataElement(str){
-    if(str.indexOf(".")==-1){ //didnt find
+    if(str?.indexOf(".")==-1){ //didnt find
         return true
     }else{
         return false;

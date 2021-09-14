@@ -53,7 +53,7 @@ export function displayNameSelector(id,obj){
 
 export function displayNameLength(name){
     if(name?.length>18){
-        return name.substr(0,16)+"..."
+        return name?.substr(0,16)+"..."
     }else{
         return name;
     }
@@ -82,6 +82,7 @@ export function typeOrFunctionSelector(id,obj){
         return obj
     }
 }
+
 
 export function displayBool(val){
     if(val){

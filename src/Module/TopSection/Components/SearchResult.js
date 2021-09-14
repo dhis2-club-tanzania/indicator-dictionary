@@ -26,9 +26,9 @@ function onClickItemHandler(e){
            //     e?.id!==temp[3]?.id;
            // })
             prev=prev.slice(0,5)
-            res=_.concat([],e?.id,prev)
+            res=_.concat([],e,prev)
         }else{
-            res=_.concat([],e?.id,prev)
+            res=_.concat([],e,prev)
         }
         return  res
 
