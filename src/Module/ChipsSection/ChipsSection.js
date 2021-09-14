@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useState,useRef} from "react";
 import {Chip} from '@dhis2/ui'
 
 import { CircularLoader } from '@dhis2/ui'
@@ -16,6 +16,8 @@ import Loader from "../../Shared/Componets/Loaders/Loader";
 import {dataSourcesTopBar} from "../../Store/TopBar";
 import _ from "lodash";
 
+import { useReactToPrint } from 'react-to-print';
+
 export default function ChipsSection(){
 
     const arrayDataSource=useRecoilValue(dataSourcesTopBar)
@@ -30,6 +32,7 @@ export default function ChipsSection(){
             return {id:e?.id,type:getDataSourceType(e?.href),displayName:e?.displayName,index:index,selected:index===0?true:false}
         })
         setDataSourcesValues(dataSources)
+        updateDataSourceStateDictionaryHandler( {id:dataSources[0]?.id,type:dataSources[0]?.type})
     },[JSON.stringify(arrayDataSource)])
 
 
@@ -49,6 +52,13 @@ export default function ChipsSection(){
         }
     }
 
+    const componentRef = useRef();
+
+    const handlePrint=useReactToPrint({
+        content:()=>componentRef.current
+    })
+
+
     return<div>
 
         {dataSourceValues?.map((dt,index)=>{
@@ -59,8 +69,9 @@ export default function ChipsSection(){
         })}
 
 
+        <div><button onClick={handlePrint}>print</button></div>
 
-        <DataSourceSelector />
+        <DataSourceSelector ref={componentRef}  />
     </div>
 
 
