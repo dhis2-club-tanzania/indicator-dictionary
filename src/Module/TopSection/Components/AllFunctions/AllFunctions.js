@@ -17,7 +17,6 @@ export default function AllFunctions(){
         return <Error error={error} />
     }
 
-    console.log(data)
 
     return <div>
         <ul>
