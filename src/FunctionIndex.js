@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useRef} from 'react'
 import {
 
     useParams
@@ -8,21 +8,26 @@ import FunctionSelector from "./Module/TopSection/Components/AllFunctions/Compon
 import _ from "lodash";
 import SearchComponent from "./Module/TopSection/Components/AllFunctions/Components/SearchComponent";
 import DisplaySearchResult from "./Module/TopSection/Components/AllFunctions/Components/DisplaySearchResult";
+import {useReactToPrint} from "react-to-print";
 export default function FunctionIndex(){
-
-
 
     let { id } = useParams();
 
     //use selector to get the particular rule and function body from the store atom with all the functions
 
+    const componentRef = useRef();
+
+    const handlePrint=useReactToPrint({
+
+        content:()=>componentRef.current
+    })
 
 
     return <div>
-         <SearchComponent />
+         <SearchComponent handlePrint={handlePrint} />
         <DisplaySearchResult />
         <AllFunctions selected={id} />
-        <FunctionSelector />
+        <FunctionSelector componentRef={componentRef} />
     </div>
 
 

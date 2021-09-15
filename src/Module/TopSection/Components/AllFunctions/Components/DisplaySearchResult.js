@@ -17,7 +17,6 @@ export default function DisplaySearchResult(){
 
     function sendToRuleDictionaryHandler(ruleObj,functionObj){
         updateOneFunctionSelected(true)
-        // updateShowFunctionResult(false)
         setSearchResult((prev)=>{
             return []
         })

@@ -17,12 +17,8 @@ export default function OneFunction({id}){
 
     const engine=useDataEngine()
     const{loading,error,data}=useGetFunctionsDetails(engine,[id]);
-
     const updateOneFunctionSelected=useSetRecoilState(oneFunctionSelected)
-
     const updateFunctionsRulesListHandler=useSetRecoilState(allFunctionsRulesInStore);
-    // const updateShowFunctionResult=useSetRecoilState(showFunctionsSearchResult);
-
     const updateDataSourceStateDictionaryHandler= useSetRecoilState(dataSourceStateDictionary)
 
     if(loading){
@@ -41,19 +37,15 @@ export default function OneFunction({id}){
         return {rule:e,function:result}
     })
 
-
-
     updateFunctionsRulesListHandler((prev)=>{
         return _.concat([],prev,resRule)
     })
 
     function sendToRuleDictionaryHandler(ruleObj,functionObj){
         updateOneFunctionSelected(true)
-        // updateShowFunctionResult(false)
+
         updateDataSourceStateDictionaryHandler({id:ruleObj,type:functionObj})
     }
-
-
 
        return <ul> <b>{result?.name}</b>
             {resRule?.map((e)=>{

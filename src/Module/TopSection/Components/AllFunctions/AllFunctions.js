@@ -15,50 +15,26 @@ import {
 import {dataTypes} from "../../../../Utils/Models";
 
 
-export default function AllFunctions({selected}){
+export default function AllFunctions({selected}) {
 
-    const engine=useDataEngine()
-    const{loading,error,data}=useGetAllFunctionsId(engine);
+    const engine = useDataEngine()
+    const {loading, error, data} = useGetAllFunctionsId(engine);
 
-    const functionSelected=useRecoilValue(oneFunctionSelected)
-    const showAllFunction=useRecoilValue(showAllFunctions)
+    const functionSelected = useRecoilValue(oneFunctionSelected)
+    const showAllFunction = useRecoilValue(showAllFunctions)
 
 
-
-    if(loading){
-        return  <Loader text={""} />
-    }if(error){
-        return <Error error={error} />
+    if (loading) {
+        return <Loader text={""}/>
+    }
+    if (error) {
+        return <Error error={error}/>
     }
 
+    return !functionSelected && showAllFunction && <ul>
+        {data?.map((e) => {
+            return <OneFunction id={e}/>
+        })}
+    </ul>
 
-
-
-//show this when none is clicked      and search result is empty
-return !functionSelected && showAllFunction && <ul>
-            {data?.map((e)=>{
-                return  <OneFunction id={e} />
-            })}
-        </ul>
-
-
-
-    // return showResult && (searchString!="" || typeof searchString !=dataTypes.UNDEFINED) ?
-    //         <div>
-    //
-    //
-    //         <ul>
-    //             {data?.map((e)=>{
-    //                 return  <OneFunction id={e} />
-    //             })}
-    //         </ul>
-    //         </div>
-    //     :
-    //         <div>
-    //         <div>
-    //             <Field label="Search">
-    //                 <Input label="An second input" name="input2" onChange={(e)=>{debounceInputHandler(e.target.value)}} />
-    //             </Field>
-    //         </div>
-    //         </div>
 }

@@ -4,13 +4,15 @@ import {useRecoilValue} from "recoil";
 import {dataSourceStateDictionary} from "../../../../../Store";
 
 
-export default function FunctionSelector(){
+export default function FunctionSelector({componentRef}){
 
     const{id,type}=useRecoilValue(dataSourceStateDictionary);
 
 
     if(id && type){
-        return  <FunctionPage ruleObj={id} functionObj={type} />
+        return <div ref={componentRef}>
+            <FunctionPage ruleObj={id} functionObj={type} />
+        </div>
     }
 
    return <></>
