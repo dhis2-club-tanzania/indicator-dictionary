@@ -16,3 +16,18 @@ export const showFunctionsSearchResult=atom({
     key:"showFunctionsSearchResult",
     default:true
 })
+
+export const searchedResultRules=atom({
+    key:"searchedResultRules",
+    default:[]
+})
+
+export const oneFunctionSelected=atom({
+    key:"oneFunctionSelected",
+    default:false
+})
+
+export const showAllFunctions=atom({
+    key:"showAllFunctions",
+    default:true
+})

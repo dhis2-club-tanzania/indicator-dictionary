@@ -6,8 +6,12 @@ import {useGetAllFunctionsId} from "../../../../Utils/Hooks/FunctionDictionary";
 import OneFunction from "./Components/OneFunction";
 import { Field, Input} from '@dhis2/ui'
 import _ from "lodash";
-import {useRecoilValue} from "recoil";
-import {showFunctionsSearchResult} from "../../../../Store/FunctionDictionary";
+import {useRecoilValue, useSetRecoilState} from "recoil";
+import {
+    allFunctionsRulesInStore, oneFunctionSelected,
+    searchedResultRules, showAllFunctions,
+    showFunctionsSearchResult
+} from "../../../../Store/FunctionDictionary";
 import {dataTypes} from "../../../../Utils/Models";
 
 
@@ -16,9 +20,10 @@ export default function AllFunctions({selected}){
     const engine=useDataEngine()
     const{loading,error,data}=useGetAllFunctionsId(engine);
 
-    const showResult=useRecoilValue(showFunctionsSearchResult)
+    const functionSelected=useRecoilValue(oneFunctionSelected)
+    const showAllFunction=useRecoilValue(showAllFunctions)
 
-    let searchString=""
+
 
     if(loading){
         return  <Loader text={""} />
@@ -27,40 +32,33 @@ export default function AllFunctions({selected}){
     }
 
 
-    const  debounceInputHandler=_.debounce(inputHandler,1000)
-
-    function inputHandler(str){
-        console.log("SDF")
-        console.log(str)
-        searchString=str
-    }
 
 
-    return showResult && (searchString!="" || typeof searchString !=dataTypes.UNDEFINED) ?
-            <div>
-            <div>
-                <Field label="Search">
-                    <Input label="An second input" name="input2" onChange={(e)=>{debounceInputHandler(e?.target?.value)}} />
-                </Field>
-            </div>
+//show this when none is clicked      and search result is empty
+return !functionSelected && showAllFunction && <ul>
+            {data?.map((e)=>{
+                return  <OneFunction id={e} />
+            })}
+        </ul>
 
 
 
-            <ul>
-                {data?.map((e)=>{
-                    return  <OneFunction id={e} />
-                })}
-            </ul>
-            </div>
-        :
-            <div>
-            <div>
-                <Field label="Search">
-                    <Input label="An second input" name="input2" onChange={(e)=>{debounceInputHandler(e.target.value)}} />
-                </Field>
-            </div>
-
-
-
-            </div>
+    // return showResult && (searchString!="" || typeof searchString !=dataTypes.UNDEFINED) ?
+    //         <div>
+    //
+    //
+    //         <ul>
+    //             {data?.map((e)=>{
+    //                 return  <OneFunction id={e} />
+    //             })}
+    //         </ul>
+    //         </div>
+    //     :
+    //         <div>
+    //         <div>
+    //             <Field label="Search">
+    //                 <Input label="An second input" name="input2" onChange={(e)=>{debounceInputHandler(e.target.value)}} />
+    //             </Field>
+    //         </div>
+    //         </div>
 }

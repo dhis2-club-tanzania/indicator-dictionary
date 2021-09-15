@@ -3,7 +3,11 @@ import {useGetAllFunctionsId, useGetFunctionsDetails} from "../../../../../Utils
 import Loader from "../../../../../Shared/Componets/Loaders/Loader";
 import Error from "../../../../../Shared/Componets/Error/ErrorAPIResult";
 import React, {useState,useEffect} from "react";
-import {allFunctionsRulesInStore, showFunctionsSearchResult} from "../../../../../Store/FunctionDictionary";
+import {
+    allFunctionsRulesInStore,
+    oneFunctionSelected,
+    showFunctionsSearchResult
+} from "../../../../../Store/FunctionDictionary";
 import {useSetRecoilState} from "recoil";
 import _ from "lodash";
 import {dataSourceStateDictionary} from "../../../../../Store";
@@ -14,10 +18,10 @@ export default function OneFunction({id}){
     const engine=useDataEngine()
     const{loading,error,data}=useGetFunctionsDetails(engine,[id]);
 
-    const [showList,setShowList]=useState(true)
+    const updateOneFunctionSelected=useSetRecoilState(oneFunctionSelected)
 
     const updateFunctionsRulesListHandler=useSetRecoilState(allFunctionsRulesInStore);
-    const updateShowFunctionResult=useSetRecoilState(showFunctionsSearchResult);
+    // const updateShowFunctionResult=useSetRecoilState(showFunctionsSearchResult);
 
     const updateDataSourceStateDictionaryHandler= useSetRecoilState(dataSourceStateDictionary)
 
@@ -26,6 +30,7 @@ export default function OneFunction({id}){
     }if(error){
         return <Error error={error} />
     }
+
     let result=data[0]
     let resRule=[]
 
@@ -36,9 +41,6 @@ export default function OneFunction({id}){
         return {rule:e,function:result}
     })
 
-    // useEffect(()=>{
-    //     setShowList(true)
-    // },[])
 
 
     updateFunctionsRulesListHandler((prev)=>{
@@ -46,20 +48,19 @@ export default function OneFunction({id}){
     })
 
     function sendToRuleDictionaryHandler(ruleObj,functionObj){
-        setShowList(false)
-        updateShowFunctionResult(false)
+        updateOneFunctionSelected(true)
+        // updateShowFunctionResult(false)
         updateDataSourceStateDictionaryHandler({id:ruleObj,type:functionObj})
     }
 
 
-    if(showList){
+
        return <ul> <b>{result?.name}</b>
             {resRule?.map((e)=>{
                 return <li key={resRule.id} onClick={()=> sendToRuleDictionaryHandler(e.rule,result)} >{e?.rule?.name}</li>
             })}</ul>
 
-    }
 
 
-    return <></>
+
 }

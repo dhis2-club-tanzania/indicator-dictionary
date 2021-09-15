@@ -51,7 +51,6 @@ export default function TopSection({handlePrint}){
     }
 
     function navigateToFunctionHandler(){
-        console.log("ds")
         history.push("/functions")
 
     }
