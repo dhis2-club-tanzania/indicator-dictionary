@@ -33,7 +33,9 @@ export default function Introduction({id}){
 
     let res=data?.dataElementGroups
 
+
     return <div>
+        <h2>{res?.displayName}</h2>
         <h3>{i18n.t("Introduction")} </h3>
         <p> {i18n.t("{{variables1}}  can be described as {{variables2}}.\n" +
             "            It’s labelled in short as {{variables3}} and has a code of {{variables4}}.",

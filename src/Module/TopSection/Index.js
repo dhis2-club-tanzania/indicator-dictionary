@@ -14,11 +14,13 @@ import {selector, useRecoilState, useRecoilValue, useSetRecoilState} from "recoi
 import {searchKeywordTopBar, selectedRadioSearchTopBar} from "../../Store/TopBar";
 import {forEach} from "lodash";
 import _ from "lodash";
+import { useHistory } from "react-router-dom";
 import {useReactToPrint} from "react-to-print";
 
 export default function TopSection({handlePrint}){
 
 
+    const history = useHistory();
     const engine=useDataEngine();
     const [searchKeyWord,setSearchKeyWord]= useRecoilState(searchKeywordTopBar)
     const [selectedSource,setSelectedSource]=useRecoilState(selectedRadioSearchTopBar);
@@ -48,6 +50,12 @@ export default function TopSection({handlePrint}){
         setSearchKeyWord(str)
     }
 
+    function navigateToFunctionHandler(){
+        console.log("ds")
+        history.push("/functions")
+
+    }
+
     function updateRadioSelector(index){
         let tmp=[0,0,0,0,0]
         tmp[index]=1
@@ -67,7 +75,6 @@ export default function TopSection({handlePrint}){
         if(index==4){
             setSelectedSource(dataSourceTypes.FUNCTION)
         }
-
     }
 
 
@@ -105,7 +112,7 @@ export default function TopSection({handlePrint}){
 
             </div>
             <div className={classes.topComponents} >
-                <Radio  checked={false}  label="Function"  checked={radioSelector[4]} onChange={()=>{debounceRadioSelectorHandler(4)}} />
+                <Button  checked={false}   checked={radioSelector[4]} onClick={navigateToFunctionHandler} > Functions </Button>
 
             </div>
 

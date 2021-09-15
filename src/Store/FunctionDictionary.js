@@ -5,3 +5,14 @@ export const functionDictionarySourceSelector=atom({
     key:"functionDictionarySourceSelector",
     default:0
 })
+
+
+export const allFunctionsRulesInStore=atom({
+    key:"allFunctionsInStore",
+    default:[]
+})
+
+export const showFunctionsSearchResult=atom({
+    key:"showFunctionsSearchResult",
+    default:true
+})

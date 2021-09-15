@@ -34,6 +34,7 @@ export default function Introduction({id}){
     let res=data?.dataElementGroups
 
     return <div>
+        <h2>{res?.displayName}</h2>
         <h3>{i18n.t("Introduction")} </h3>
         <p> {i18n.t("Indicator Group name is  {{variables1}}.",
             {variables1:res?.displayName})}

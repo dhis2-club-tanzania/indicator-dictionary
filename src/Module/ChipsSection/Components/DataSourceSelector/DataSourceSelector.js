@@ -63,6 +63,7 @@ export default function DataSourceSelector(){
         if(type===dataSourceTypes.INDICATOR_GROUP){
             return <IndicatorGroupPage id={id} />
         }
+
         // else{
         //     return <FunctionPage  ruleObj={id} functionObj={type} />
         // }

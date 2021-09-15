@@ -25,10 +25,10 @@ const MyApp = () => (
                         {/*<Route path="/indicator/:id">*/}
                         {/*    <Index />*/}
                         {/*</Route>*/}
-                        <Route path="/function" exact >
+                        <Route path="/functions" exact >
                             <FunctionIndex />
                         </Route>
-                        <Route path="/function/:id" exact >
+                        <Route path="/functions/:id" exact >
                            <FunctionIndex />
                         </Route>
                     </Switch>

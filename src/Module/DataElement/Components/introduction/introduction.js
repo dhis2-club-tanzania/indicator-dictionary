@@ -40,6 +40,7 @@ export default function Introduction({id}){
 
     return ( <div>
 
+            <h2>{res?.displayName}</h2>
         <h3> {i18n.t("Introduction")} </h3>
 
             <p>

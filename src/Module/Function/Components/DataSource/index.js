@@ -31,7 +31,6 @@ export default function DataSource({json}){
 
     const engine=useDataEngine()
 
-
     const{loading,error,data}=useGetIdDetails(arrayIdToUse,engine)
 
     if(loading){
