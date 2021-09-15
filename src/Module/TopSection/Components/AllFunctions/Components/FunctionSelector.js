@@ -2,6 +2,7 @@ import React from "react";
 import FunctionPage from "../../../../Function";
 import {useRecoilValue} from "recoil";
 import {dataSourceStateDictionary} from "../../../../../Store";
+import classes from "../../../../ChipsSection/Components/chipsSection.module.css";
 
 
 export default function FunctionSelector({componentRef}){
@@ -10,7 +11,7 @@ export default function FunctionSelector({componentRef}){
 
 
     if(id && type){
-        return <div ref={componentRef}>
+        return <div className={classes.printSection} ref={componentRef}>
             <FunctionPage ruleObj={id} functionObj={type} />
         </div>
     }

@@ -32,6 +32,7 @@ export default function AllFunctions({selected}) {
     }
 
     return !functionSelected && showAllFunction && <ul>
+        All Functions and their rules
         {data?.map((e) => {
             return <OneFunction id={e}/>
         })}
