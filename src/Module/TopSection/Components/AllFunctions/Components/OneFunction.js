@@ -34,7 +34,7 @@ export default function OneFunction({id}){
         return e
     })
     resRule=allRules.map((e)=>{
-        return {rule:e,function:result}
+        return {rule:e ,function:result,displayName:e?.name+", "+result?.displayName}
     })
 
     updateFunctionsRulesListHandler((prev)=>{
@@ -43,13 +43,12 @@ export default function OneFunction({id}){
 
     function sendToRuleDictionaryHandler(ruleObj,functionObj){
         updateOneFunctionSelected(true)
-
         updateDataSourceStateDictionaryHandler({id:ruleObj,type:functionObj})
     }
 
-       return <ul> <b>{result?.name}</b>
+       return <ul>
             {resRule?.map((e)=>{
-                return <li key={resRule.id} onClick={()=> sendToRuleDictionaryHandler(e.rule,result)} >{e?.rule?.name}</li>
+                return <li key={resRule.id} onClick={()=> sendToRuleDictionaryHandler(e.rule,result)} >{e?.displayName}</li>
             })}</ul>
 
 
