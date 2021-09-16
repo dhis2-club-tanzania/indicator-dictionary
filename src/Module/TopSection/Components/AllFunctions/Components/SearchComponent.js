@@ -7,22 +7,33 @@ import {
     searchedResultRules,
     showAllFunctions, showFunctionsSearchResult
 } from "../../../../../Store/FunctionDictionary";
-import {useSetRecoilState,useRecoilValue} from "recoil";
+import {useSetRecoilState, useRecoilValue, useRecoilCallback} from "recoil";
 import classes from "./Search.module.css";
+import {useHistory} from "react-router-dom";
 
 
 export default function SearchComponent({handlePrint}){
 
+    const history = useHistory();
     const  debounceInputHandler=_.debounce(inputHandler,1000)
     const debouncedLooseFocus=_.debounce(onLoseFocusHandler,100)
 
     const allRules=useRecoilValue(allFunctionsRulesInStore)
     const updateFunctionsRulesListHandler=useSetRecoilState(searchedResultRules)
     const updateShowAllFunctions=useSetRecoilState(showAllFunctions)
-
     const updateShowFunctionsSearchResult=useSetRecoilState(showFunctionsSearchResult)
-
     const updateOneFunctionSelected=useSetRecoilState(oneFunctionSelected)
+
+
+
+    const resetAllOnFunctions = useRecoilCallback(({reset}) => () => {
+        reset(allFunctionsRulesInStore)
+        reset(showFunctionsSearchResult)
+        reset(searchedResultRules)
+        reset(oneFunctionSelected)
+        reset(showAllFunctions)
+    })
+
 
     function inputHandler(str){
         updateShowAllFunctions(false)
@@ -55,6 +66,11 @@ export default function SearchComponent({handlePrint}){
 
     }
 
+    function otherMetadataHandler() {
+        resetAllOnFunctions()
+        history.push("/")
+    }
+
     return  <div className={classes.container}>
         <div>
             <Field label="Search">
@@ -63,10 +79,19 @@ export default function SearchComponent({handlePrint}){
 
         </div>
 
+
         <div className={classes.printButton}>
+            <span style={{marginRight:12}}>
+                 <Button  onClick={otherMetadataHandler}>
+                Other Metadata
+            </Button>
+            </span>
+
             <Button  onClick={handlePrint} >
                 Print
             </Button>
+
+
         </div>
 
     </div>

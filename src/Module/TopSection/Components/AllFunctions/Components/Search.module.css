@@ -10,4 +10,7 @@
 .printButton{
     margin-left: auto;
     align-content:end;
+    flex-direction: row;
+
+
 }

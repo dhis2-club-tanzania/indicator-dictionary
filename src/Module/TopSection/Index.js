@@ -10,12 +10,17 @@ import {dataSourceTypes, dataTypes} from "../../Utils/Models";
 import {useDataEngine} from "@dhis2/app-runtime";
 import Loader from "../../Shared/Componets/Loaders/Loader";
 import Error from "../../Shared/Componets/Error/ErrorAPIResult";
-import {selector, useRecoilState, useRecoilValue, useSetRecoilState} from "recoil";
+import {selector, useRecoilCallback, useRecoilState, useRecoilValue, useSetRecoilState} from "recoil";
 import {searchKeywordTopBar, selectedRadioSearchTopBar} from "../../Store/TopBar";
 import {forEach} from "lodash";
 import _ from "lodash";
 import { useHistory } from "react-router-dom";
 import {useReactToPrint} from "react-to-print";
+import {
+    allFunctionsRulesInStore, oneFunctionSelected,
+    searchedResultRules, showAllFunctions,
+    showFunctionsSearchResult
+} from "../../Store/FunctionDictionary";
 
 export default function TopSection({handlePrint}){
 
@@ -26,16 +31,17 @@ export default function TopSection({handlePrint}){
     const [selectedSource,setSelectedSource]=useRecoilState(selectedRadioSearchTopBar);
 
     const{loading,error,data}=useGetSearchResult(searchKeyWord,selectedSource,engine)
-    // let{loading,error,data}=useGetSearchResult("U4t3B3oUp71",dataSourceTypes.INDICATOR,engine)
+
+    const resetAllOnFunctions = useRecoilCallback(({reset}) => () => {
+        reset(allFunctionsRulesInStore)
+        reset(showFunctionsSearchResult)
+        reset(searchedResultRules)
+        reset(oneFunctionSelected)
+        reset(showAllFunctions)
+    })
 
 
-    // useEffect(()=>{
-    //
-    //
-    // },[searchKeyWord,selectedSource])
-
-
-    const [radioSelector,setRadioSelector]=useState([0,0,0,0,0])
+    const [radioSelector,setRadioSelector]=useState([0,0,0,0])
 
 
     useEffect(()=>{
@@ -50,13 +56,14 @@ export default function TopSection({handlePrint}){
         setSearchKeyWord(str)
     }
 
+
     function navigateToFunctionHandler(){
         history.push("/functions")
 
     }
 
     function updateRadioSelector(index){
-        let tmp=[0,0,0,0,0]
+        let tmp=[0,0,0,0]
         tmp[index]=1
         setRadioSelector(tmp)
         if(index==0){
@@ -71,9 +78,7 @@ export default function TopSection({handlePrint}){
         if(index==3){
             setSelectedSource(dataSourceTypes.DATA_ELEMENT_GROUP)
         }
-        if(index==4){
-            setSelectedSource(dataSourceTypes.FUNCTION)
-        }
+
     }
 
 
@@ -83,6 +88,7 @@ export default function TopSection({handlePrint}){
         return <Error error={error} />
     }
 
+    resetAllOnFunctions()
 
     return <div>
         <div className={classes.container} >
@@ -110,12 +116,14 @@ export default function TopSection({handlePrint}){
                 <Radio  checked={false}  label="Indicator Group" checked={radioSelector[3]} onChange={()=>{debounceRadioSelectorHandler(3)}}  />
 
             </div>
-            <div className={classes.topComponents} >
-                <Button  checked={false}   checked={radioSelector[4]} onClick={navigateToFunctionHandler} > Functions </Button>
 
-            </div>
 
             <div className={classes.printButton}>
+                  <span style={{marginRight:12}}>
+                       <Button  checked={false}    onClick={navigateToFunctionHandler} > Functions </Button>
+
+                  </span>
+
                 <Button  onClick={handlePrint} >
                     Print
                 </Button>
