@@ -4,14 +4,14 @@ import { Field } from '@dhis2/ui'
 import {Input} from "@material-ui/core";
 import { Modal,ButtonStrip,Button,ModalTitle,ModalContent,ModalActions, Radio } from '@dhis2/ui'
 import SearchResult from "./Components/SearchResult.js";
-import classes from "./TopSection.module.css"
-import {useGetSearchResult} from "../../Utils/Hooks/TopBar";
-import {dataSourceTypes, dataTypes} from "../../Utils/Models";
+import classes from "../../TopSection.module.css"
+import {useGetSearchResult} from "../../../../Utils/Hooks/TopBar";
+import {dataSourceTypes, dataTypes} from "../../../../Utils/Models";
 import {useDataEngine} from "@dhis2/app-runtime";
-import Loader from "../../Shared/Componets/Loaders/Loader";
-import Error from "../../Shared/Componets/Error/ErrorAPIResult";
+import Loader from "../../../../Shared/Componets/Loaders/Loader";
+import Error from "../../../../Shared/Componets/Error/ErrorAPIResult";
 import {selector, useRecoilCallback, useRecoilState, useRecoilValue, useSetRecoilState} from "recoil";
-import {searchKeywordTopBar, selectedRadioSearchTopBar} from "../../Store/TopBar";
+import {searchKeywordTopBar, selectedRadioSearchTopBar} from "../../../../Store/TopBar";
 import {forEach} from "lodash";
 import _ from "lodash";
 import { useHistory } from "react-router-dom";
@@ -20,7 +20,7 @@ import {
     allFunctionsRulesInStore, oneFunctionSelected,
     searchedResultRules, showAllFunctions,
     showFunctionsSearchResult
-} from "../../Store/FunctionDictionary";
+} from "../../../../Store/FunctionDictionary";
 
 export default function TopSection({handlePrint}){
 
@@ -38,6 +38,7 @@ export default function TopSection({handlePrint}){
         reset(searchedResultRules)
         reset(oneFunctionSelected)
         reset(showAllFunctions)
+        reset(searchKeywordTopBar)
     })
 
 
@@ -46,6 +47,10 @@ export default function TopSection({handlePrint}){
 
     useEffect(()=>{
         updateRadioSelector(0)
+        return ()=>{
+            resetAllOnFunctions()
+        }
+
     },[])
 
 
@@ -88,7 +93,7 @@ export default function TopSection({handlePrint}){
         return <Error error={error} />
     }
 
-    resetAllOnFunctions()
+
 
     return <div>
         <div className={classes.container} >

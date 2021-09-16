@@ -3,11 +3,11 @@ import {
 
     useParams
 } from "react-router-dom";
-import AllFunctions from "./Module/TopSection/Components/AllFunctions/AllFunctions";
-import FunctionSelector from "./Module/TopSection/Components/AllFunctions/Components/FunctionSelector";
+import AllFunctions from "./Module/TopSection/Components/Functions/AllFunctions";
+import FunctionSelector from "./Module/TopSection/Components/Functions/Components/FunctionSelector";
 import _ from "lodash";
-import SearchComponent from "./Module/TopSection/Components/AllFunctions/Components/SearchComponent";
-import DisplaySearchResult from "./Module/TopSection/Components/AllFunctions/Components/DisplaySearchResult";
+import SearchComponent from "./Module/TopSection/Components/Functions/Components/SearchComponent";
+import DisplaySearchResult from "./Module/TopSection/Components/Functions/Components/DisplaySearchResult";
 import {useReactToPrint} from "react-to-print";
 export default function FunctionIndex(){
 

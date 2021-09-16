@@ -1,8 +1,8 @@
-import {displayNameLength} from "../../../Utils/Functions/FormulaTopBar";
+import {displayNameLength} from "../../../../../Utils/Functions/FormulaTopBar";
 import React, {useState,useEffect} from "react";
 import {Chip} from '@dhis2/ui'
 import {useSetRecoilState} from "recoil";
-import {dataSourcesTopBar} from "../../../Store/TopBar";
+import {dataSourcesTopBar} from "../../../../../Store/TopBar";
 import _ from "lodash";
 
 export default function SearchResult({result}){

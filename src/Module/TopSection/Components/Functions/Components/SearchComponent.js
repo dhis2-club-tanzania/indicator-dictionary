@@ -10,6 +10,7 @@ import {
 import {useSetRecoilState, useRecoilValue, useRecoilCallback} from "recoil";
 import classes from "./Search.module.css";
 import {useHistory} from "react-router-dom";
+import {searchKeywordTopBar} from "../../../../../Store/TopBar";
 
 
 export default function SearchComponent({handlePrint}){
@@ -32,6 +33,7 @@ export default function SearchComponent({handlePrint}){
         reset(searchedResultRules)
         reset(oneFunctionSelected)
         reset(showAllFunctions)
+        reset(searchKeywordTopBar)
     })
 
 
