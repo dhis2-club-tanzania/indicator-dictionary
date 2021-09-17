@@ -11,6 +11,7 @@ import Layout from './layouts/layout';
 import {RecoilRoot} from "recoil";
 import Index from "./Index";
 import FunctionIndex from "./FunctionIndex";
+import AllMetaData from "./Routes/AllMetaData/AllMetaData";
 
 
 const MyApp = () => (
@@ -22,6 +23,10 @@ const MyApp = () => (
                         <Route path="/" exact >
                             <Index />
                         </Route>
+                        <Route path="/:metaDataType/:id" exact>
+                            <AllMetaData />
+                        </Route>
+
                         {/*<Route path="/indicator/:id">*/}
                         {/*    <Index />*/}
                         {/*</Route>*/}

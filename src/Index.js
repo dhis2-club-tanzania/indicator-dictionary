@@ -9,7 +9,7 @@ export default function Index(){
 
 
     const componentRef = useRef();
-
+    localStorage.removeItem("chips")
     const handlePrint=useReactToPrint({
         content:()=>componentRef.current
     })

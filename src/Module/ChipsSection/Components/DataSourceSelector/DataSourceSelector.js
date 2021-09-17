@@ -47,6 +47,7 @@ export default function DataSourceSelector(){
         };
     }, [id]);
 
+
     if(type!==dataTypes.UNDEFINED){
         if(type===dataSourceTypes.INDICATOR){
             return  <IndicatorPage id={id} />
@@ -64,9 +65,6 @@ export default function DataSourceSelector(){
             return <IndicatorGroupPage id={id} />
         }
 
-        // else{
-        //     return <FunctionPage  ruleObj={id} functionObj={type} />
-        // }
 
     }
 
