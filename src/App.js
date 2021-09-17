@@ -10,6 +10,7 @@ import Layout from './layouts/layout';
 
 import {RecoilRoot} from "recoil";
 import Index from "./Index";
+import FunctionIndex from "./FunctionIndex";
 
 
 const MyApp = () => (
@@ -24,6 +25,12 @@ const MyApp = () => (
                         {/*<Route path="/indicator/:id">*/}
                         {/*    <Index />*/}
                         {/*</Route>*/}
+                        <Route path="/functions" exact >
+                            <FunctionIndex />
+                        </Route>
+                        <Route path="/functions/:id" exact >
+                           <FunctionIndex />
+                        </Route>
                     </Switch>
                 </Layout>
             </HashRouter>

@@ -31,7 +31,6 @@ export default function DataSource({json}){
 
     const engine=useDataEngine()
 
-
     const{loading,error,data}=useGetIdDetails(arrayIdToUse,engine)
 
     if(loading){
@@ -40,9 +39,16 @@ export default function DataSource({json}){
         return <Error error={error} />
     }
 
+    if (data?.idDetails?.length===0){
+        return <></>
+    }
+
+
     return <div>
-        <h3>Data Sources</h3>
-        <p>Function have rules calculating from multiple data sources. Here are few data sources observed
+        <h3>{i18n.t("Data Sources")} </h3>
+        <p>
+            {i18n.t("Function have rules calculating from multiple data sources. Here are few data sources observed")}
+
 
         </p>
 

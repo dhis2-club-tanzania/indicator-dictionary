@@ -3,11 +3,10 @@ import {dataSourceTypes} from "../Models";
 import _ from "lodash";
 
 export default function IdentifiableObjectDataSource(engine,arrId){ //returns array of promises
-    return arrId.map((id)=>{
+    return arrId?.map((id)=>{
         return getValueDataSourcePromise(engine,id)
     })
 }
-
 
 export function getDataSourceType(formula){
 
@@ -54,7 +53,7 @@ export function displayNameSelector(id,obj){
 
 export function displayNameLength(name){
     if(name?.length>18){
-        return name.substr(0,16)+"..."
+        return name?.substr(0,16)+"..."
     }else{
         return name;
     }
@@ -83,6 +82,7 @@ export function typeOrFunctionSelector(id,obj){
         return obj
     }
 }
+
 
 export function displayBool(val){
     if(val){

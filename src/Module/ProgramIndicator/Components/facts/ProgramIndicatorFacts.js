@@ -14,6 +14,7 @@ import IndicatorGroupRow from './indicatorGroupRow'
 import { CircularLoader } from '@dhis2/ui'
 import { useDataQuery } from '@dhis2/app-runtime'
 import React, { useEffect} from 'react'
+import i18n from '@dhis2/d2-i18n'
 
 import PropTypes from "prop-types";
 import Loader from "../../../../Shared/Componets/Loaders/Loader";
@@ -44,14 +45,14 @@ export default function ProgramIndicatorFacts({id}){
 
 
     if(data?.indicatorGroups?.programIndicatorGroups?.length===0){
-         return <p>There are no indicator facts associated with this Program Indicator</p>
+         return <p>{i18n.t("There are no indicator facts associated with this Program Indicator")} </p>
      }
  
 
     return (<div>
-        <h3>Program Indicator facts</h3>
+        <h3>{i18n.t("Program Indicator facts")} </h3>
 
-        <p>Belongs to the following program groups of indicators</p>
+        <p>{i18n.t("Belongs to the following program groups of indicators")} </p>
 
         <div>
 
@@ -60,16 +61,16 @@ export default function ProgramIndicatorFacts({id}){
     <TableHead>
         <DataTableRow>
             <DataTableColumnHeader>
-               #
+                {i18n.t("#")}
             </DataTableColumnHeader>
             <DataTableColumnHeader>
-               Name
+                {i18n.t("Name")}
             </DataTableColumnHeader>
             <DataTableColumnHeader>
-              Code
+               {i18n.t("Code")}
             </DataTableColumnHeader>
             <DataTableColumnHeader>
-            Indicators
+             {i18n.t("Indicators")}
             </DataTableColumnHeader>
 
         </DataTableRow>

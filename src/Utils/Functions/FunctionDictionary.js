@@ -18,24 +18,50 @@ const query= {
     }
 }
 
+const query2={
+
+    functions:{
+        resource: 'dataStore/functions',
+
+    }
+}
+
+const query3={
+
+    functionDetails:{
+        resource: 'dataStore/functions',
+        id: ({id}) => id,
+    }
+}
+
 
 //
-// export async function getFunctionDetails(engine,arr){
-//     let allPromises = arr?.map((id) => {
-//         return new Promise((resolve, reject) => {
-//             resolve(getDetails(engine, id))
-//         })
-//     })
-//     return await Promise.all(allPromises).then(value => {
-//         return value.map((val, index) => {
-//             return val
-//         })
-//     })
-// }
+export async function getFunctionDetails(engine,arr){
+    let allPromises = arr?.map((id) => {
+        return new Promise((resolve, reject) => {
+            resolve(getDetailsFunctionFromApi(engine, id))
+        })
+    })
+    return await Promise.all(allPromises).then(value => {
+        return value.map((val, index) => {
+            return val
+        })
+    })
+}
+
+async function getDetailsFunctionFromApi(engine,id){
+    const data=await engine.query(query3,{variables:{id}})
+    return data?.functionDetails
+}
 
 async function getDetails(engine,id){
     const data=await engine.query(query,{variables:{id}})
     return data?.identifiableObjects
+}
+
+export async function getAllFunctions(engine){
+    const data=await engine.query(query2)
+    return data?.functions
 }
 
 

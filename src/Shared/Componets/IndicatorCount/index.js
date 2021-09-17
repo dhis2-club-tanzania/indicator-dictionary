@@ -3,6 +3,7 @@ import {useDataEngine} from "@dhis2/app-runtime";
 import {useGetNumDenMatch} from "../../../Utils/Hooks";
 import Loader from "../Loaders/Loader";
 import Error from "../Error/ErrorAPIResult";
+import i18n from '@dhis2/d2-i18n'
 
 
 
@@ -31,7 +32,11 @@ export default function IndicatorCount({dataElementsArray}){
     })
 
 
-    return <>It’s data elements belongs to {count} indicators using it as numerator/denominator</>
+    return <>{
+            i18n.t("It’s data elements belongs to {{variables}} indicators using it as numerator/denominator",
+                    {variables:count}
+            ) }
+            </>
 
 }
 

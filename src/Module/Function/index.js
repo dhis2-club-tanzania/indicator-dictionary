@@ -15,6 +15,7 @@ export default function FunctionPage({ruleObj,functionObj}){
 
 
     return <div>
+          <h2 >{ruleObj.name}</h2>
         <Introduction ruleObj={ruleObj} functionObj={functionObj}  />
         <DataSource json={ruleObj?.json}/>
         <Rules ruleObj={ruleObj} functionObj={functionObj} />

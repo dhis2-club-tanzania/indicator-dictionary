@@ -1,4 +1,4 @@
-import { CircularLoader } from '@dhis2/ui'
+import i18n from '@dhis2/d2-i18n'
 import { useDataQuery } from '@dhis2/app-runtime'
 import Legend from './legend'
 import React, { useEffect} from 'react'
@@ -30,16 +30,18 @@ export default function LegendsAnalysis({id}){
 
 
     if(data?.legendAnalysis?.legendSets?.length===0){
-       return <><p>There are no legends associated with these Program Indicator</p></> //no legends sets
+       return <>
+           <p>{i18n.t("There are no legends associated with these Program Indicator")} </p>
+       </> //no legends sets
      }
 
      const legendSet=data?.legendAnalysis?.legendSets
 
      return (
        <div>
-          <h3>Legends for analysis</h3>
+          <h3>{i18n.t("Legends for analysis")} </h3>
           <p>
-              Uses {legendSet?.length} legends for for analysis, spread accross multiple cut-off points of interest, existing legends are:
+              {i18n.t("Uses {{variables}} legends for for analysis, spread across multiple cut-off points of interest, existing legends are:",{variables:legendSet?.length})}
           </p>
           <ul>
             {legendSet?.map((legendSet)=>{

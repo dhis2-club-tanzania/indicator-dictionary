@@ -79,9 +79,7 @@ const query6={
     }
 }
 
-
 const query7={
-
     functions:{
         resource: 'dataStore/functions',
         id: ({idFunction})=>idFunction,
@@ -99,7 +97,7 @@ export function getFormulaSources(formula,sourceInitial){
     while(formula?.search(sourceInitial)>=0){//there is still a dataElement
         ind1=formula.indexOf(sourceInitial)+initialLength-2 //first occourance
         let subStr= formula.substr(ind1)
-        ind2=subStr.indexOf("}")
+        ind2=subStr?.indexOf("}")
         ind2=ind2+ind1
 
         let datEl = formula.substring(ind1+2,ind2);
@@ -241,7 +239,6 @@ export function getSummaryValueFromApi(engine, id){
 }
 
 
-
 export function getDetailedValueFromApi(engine,id,type){
     if(type===dataTypes.DATA_ELEMENT){
         if(isPureDataElement(id)){
@@ -347,11 +344,6 @@ export async function getWordDataForAll(engine,arr,loc){
 }
 
 
-
-
-
-
-
 function cleanBrackets(formula){
     if(typeof(formula) !=dataTypes.UNDEFINED){
         let arr= formula.split("{");
@@ -367,7 +359,7 @@ function cleanBrackets(formula){
 }
 
 export function isPureDataElement(str){
-    if(str.indexOf(".")==-1){ //didnt find
+    if(str?.indexOf(".")==-1){ //didnt find
         return true
     }else{
         return false;
