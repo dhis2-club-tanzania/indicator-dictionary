@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2021-09-15T07:41:17.788Z\n"
-"PO-Revision-Date: 2021-09-15T07:41:17.788Z\n"
+"POT-Creation-Date: 2021-09-17T05:43:22.432Z\n"
+"PO-Revision-Date: 2021-09-17T05:43:22.432Z\n"
 
 msgid "Analytics Details"
 msgstr "Analytics Details"
@@ -67,9 +67,6 @@ msgstr "no color"
 
 msgid "no icon"
 msgstr "no icon"
-
-msgid "no comments"
-msgstr "no comments"
 
 msgid "No legends assigned"
 msgstr "No legends assigned"
@@ -508,6 +505,9 @@ msgstr "show more"
 
 msgid "There are no legends associated with these Program Indicator"
 msgstr "There are no legends associated with these Program Indicator"
+
+msgid "Accessibility & Sharing Settings"
+msgstr "Accessibility & Sharing Settings"
 
 msgid "This"
 msgstr "This"

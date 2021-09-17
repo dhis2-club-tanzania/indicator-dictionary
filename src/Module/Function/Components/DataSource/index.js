@@ -39,6 +39,11 @@ export default function DataSource({json}){
         return <Error error={error} />
     }
 
+    if (data?.idDetails?.length===0){
+        return <></>
+    }
+
+
     return <div>
         <h3>{i18n.t("Data Sources")} </h3>
         <p>

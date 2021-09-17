@@ -47,15 +47,17 @@ export default function TopSection({handlePrint}){
 
     useEffect(()=>{
         updateRadioSelector(0)
+        setSearchKeyWord("")
         return ()=>{
             resetAllOnFunctions()
         }
+
 
     },[])
 
 
     const  debounceInputHandler=_.debounce(inputHandler,1000)
-    const debounceRadioSelectorHandler=_.debounce(updateRadioSelector,700)
+    const debounceRadioSelectorHandler=_.debounce(updateRadioSelector,500)
 
     function inputHandler(str){
         setSearchKeyWord(str)

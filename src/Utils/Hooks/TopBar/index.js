@@ -73,7 +73,6 @@ const query5={
 }
 
 
-
 export function useGetSearchResult(keyword,type,engine){
     const [loading,setLoading]=useState(true)
     const [error,setError]=useState(false)
@@ -86,7 +85,7 @@ export function useGetSearchResult(keyword,type,engine){
             if(keyword!==""){
                 return await getResult(keyword, engine, type);
             }
-
+            // return await getResult(keyword, engine, type);
         }
         fetch().then((res)=>{
             setLoading(false)
@@ -96,7 +95,6 @@ export function useGetSearchResult(keyword,type,engine){
             setLoading(false)
             setError(error)
         })
-
 
     },[keyword,type])
     return{

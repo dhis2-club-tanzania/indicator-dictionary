@@ -38,7 +38,6 @@ export default function CalculationDetails({id}) {
     }
     if (error) {
         return <Error error={error} />
-
     }
     const numDen = data.calculation
 
