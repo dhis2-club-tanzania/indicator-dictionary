@@ -57,7 +57,7 @@ export default function TopSection({handlePrint}){
 
 
     const  debounceInputHandler=_.debounce(inputHandler,1000)
-    const debounceRadioSelectorHandler=_.debounce(updateRadioSelector,500)
+    const debounceRadioSelectorHandler=_.debounce(updateRadioSelector,1)
 
     function inputHandler(str){
         setSearchKeyWord(str)

@@ -18,11 +18,13 @@ import _ from "lodash";
 import classes from './Components/chipsSection.module.css'
 
 import { useReactToPrint } from 'react-to-print';
+import {useHistory} from "react-router-dom";
 
 
 export default function ChipsSection({componentRef}){
 
-    const arrayDataSource=useRecoilValue(dataSourcesTopBar)
+    const history= useHistory()
+    const arrayDataSource=JSON.parse(localStorage.getItem("chips"))??[]
     const updateDataSourceStateDictionaryHandler= useSetRecoilState(dataSourceStateDictionary)
 
     //variables
@@ -31,7 +33,7 @@ export default function ChipsSection({componentRef}){
 
     useEffect(()=>{
         let dataSources=arrayDataSource?.map((e,index)=>{
-            return {id:e?.id,type:getDataSourceType(e?.href),displayName:e?.displayName,index:index,selected:index===0?true:false}
+            return {id:e?.id,type:e?.type,displayName:e?.displayName,index:index,selected:index===0?true:false}
         })
         setDataSourcesValues(dataSources)
         updateDataSourceStateDictionaryHandler( {id:dataSources[0]?.id,type:dataSources[0]?.type})
@@ -39,14 +41,12 @@ export default function ChipsSection({componentRef}){
 
 
     function updateSelected(index){
-
         if(dataSourceValues.length>0){
             let dt=dataSourceValues;
             dt.forEach((e)=>{
                 e.selected=false
             })
             dt[index].selected=true
-
             setDataSourcesValues(dt)
             setSelected((prev)=>{  //to trigger reload
                 return prev+1
@@ -54,17 +54,21 @@ export default function ChipsSection({componentRef}){
         }
     }
 
+
     return<div>
 
         {dataSourceValues?.map((dt,index)=>{
             return <Chip key={index} selected={dt.selected} onClick={()=>{
+                const type= dt?.type
+                const id=dt?.id
+                history.push(`/${type}/${id}`)
                 updateDataSourceStateDictionaryHandler({id:dt.id,type:dt.type})
                 updateSelected(index)
             }}>{displayNameLength(dt.displayName)}</Chip>
         })}
 
         <div className={classes.printSection} ref={componentRef} >
-            <DataSourceSelector  />
+            {/*<DataSourceSelector  />*/}
         </div>
 
     </div>
