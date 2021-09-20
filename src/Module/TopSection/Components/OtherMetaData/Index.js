@@ -52,7 +52,6 @@ export default function TopSection({handlePrint}){
             resetAllOnFunctions()
         }
 
-
     },[])
 
 
@@ -83,7 +82,7 @@ export default function TopSection({handlePrint}){
             setSelectedSource(dataSourceTypes.INDICATOR)
         }
         if(index==3){
-            setSelectedSource(dataSourceTypes.DATA_ELEMENT_GROUP)
+            setSelectedSource(dataSourceTypes.INDICATOR_GROUP)
         }
 
     }

@@ -24,14 +24,13 @@ export default function Introduction({id}){
 
     useEffect(()=>{refetch({id})},[id])
 
+    let res=data?.dataElementGroups
+
     if(loading){
         return  <Loader text={""} />
     }if(error){
         return <Error error={error} />
     }
-
-
-    let res=data?.dataElementGroups
 
     return <div>
         <h2>{res?.displayName}</h2>

@@ -18,9 +18,8 @@ export default  function DataSets({aggregate}){
 
     const updateDataElements=useSetRecoilState(indicatorGroupAggregateDataElements)
 
-   const dt= aggregate.map((e)=>{
+   const dt= aggregate?.map((e)=>{
         return (e.split(".")[0])
-
     })
 
 
@@ -28,11 +27,25 @@ export default  function DataSets({aggregate}){
 
     const engine=useDataEngine()
 
-    let onlyIds=aggregate.map((el)=>{
+    let onlyIds=aggregate?.map((el)=>{
         return el?.split(".")[0] //since id may come as with . to indicate with category comb
     })
 
     const {loading,error,data}=useGetDataSet(onlyIds,engine)
+
+    useEffect(() => {
+        let allDataSets=[];
+        data?.dataSets?.map((e)=>{
+            e.map((el)=>{
+                allDataSets.push(el)
+            })
+        })
+        allDataSets=_.uniqWith(allDataSets,_.isEqual)
+        // update for Count its used in the facts components
+        updateDataSets( (prev)=>{return  _.concat(prev,allDataSets)} )
+
+    },[data])
+
 
     if(loading){
         return  <Loader text={""} />
@@ -40,20 +53,6 @@ export default  function DataSets({aggregate}){
         return <Error error={error} />
     }
 
-
-
-   let allDataSets=[];
-    data?.dataSets?.map((e)=>{
-        e.map((el)=>{
-            allDataSets.push(el)
-        })
-    })
-
-    allDataSets=_.uniqWith(allDataSets,_.isEqual)
-
-
-    // update for Count its used in the facts components
-    updateDataSets( (prev)=>{return  _.concat(prev,allDataSets)} )
 
 
     return (<div>

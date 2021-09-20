@@ -1,13 +1,15 @@
 import {useDataQuery} from "@dhis2/app-runtime";
-import {useEffect} from "react";
+import {useEffect,useMemo} from "react";
 import Loader from "../../../../Shared/Componets/Loaders/Loader";
 import Error from "../../../../Shared/Componets/Error/ErrorAPIResult";
 import React from 'react'
-import _ from 'lodash'
+
+import {filter} from 'lodash'
 import {dataElementDomainTypes} from "../../../../Utils/Models";
 import DataSets from "./DataSets";
 import Programs from "./Programs";
 import i18n from '@dhis2/d2-i18n'
+import PropTypes from "prop-types";
 
 
 const query = {
@@ -27,6 +29,9 @@ export default function DataSources({id}){
 
     useEffect(()=>{refetch({id})},[id])
 
+    const tracker= useMemo(() => filter(data?.sources?.dataElements,(el)=>{return el?.domainType===dataElementDomainTypes.TRACKER}), [data]);
+    const aggregate = useMemo(()=> filter(data?.sources?.dataElements,(el)=>{return el?.domainType===dataElementDomainTypes.AGGREGATE}),[data])
+
 
     if(loading){
         return  <Loader text={""} />
@@ -34,10 +39,7 @@ export default function DataSources({id}){
         return <Error error={error} />
     }
 
-    let traker= _.filter(data?.sources?.dataElements,(el)=>{return el?.domainType===dataElementDomainTypes.TRACKER})
-    let aggregate=_.filter(data?.sources?.dataElements,(el)=>{return el?.domainType===dataElementDomainTypes.AGGREGATE})
-
-    return <div>
+   return <div>
         <h3>{i18n.t("Data sources (Datasets/Programs)")} </h3>
         <p> {i18n.t("Data elements in this group are captured from the following sources")}    </p>
 
@@ -49,9 +51,9 @@ export default function DataSources({id}){
 
             }
 
-            {traker?.length>0?<h4>{i18n.t("For Tracker Data Elements:")} </h4>:""}
-            {traker?.length>0?
-                traker.map((el)=>{
+            {tracker?.length>0?<h4>{i18n.t("For Tracker Data Elements:")} </h4>:""}
+            {tracker?.length>0?
+                tracker.map((el)=>{
                     return <Programs id={el?.id} name={el?.displayName} />
                 }):""
             }
@@ -59,4 +61,9 @@ export default function DataSources({id}){
 
 
     </div>
+}
+
+
+DataSources.prototype={
+    id:PropTypes.string.isRequired
 }

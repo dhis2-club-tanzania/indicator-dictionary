@@ -19,21 +19,23 @@ export default  function Programs({sources}){
 
     const {loading, error, data}=useGetIndicatorProgramSource(sources,engine)
 
+    useEffect(() => {
+        updateProgramDataElements((prev)=>{return _.concat(prev,sources?.prgDtEl)})
+
+        const res=_.concat([],data?.attr??[],data?.prgInd??[],data?.prgDtEl??[])
+        const allProgram=_.uniqWith(res,_.isEqual)
+
+        //updating count its used in the facts component
+        updatePrograms((prev)=>{return _.concat(prev,allProgram)})
+
+    }, [data]);
+
 
     if(loading){
         return  <Loader text={""} />
     }if(error){
         return <Error error={error} />
     }
-
-    updateProgramDataElements((prev)=>{return _.concat(prev,sources?.prgDtEl)})
-
-
-    const res=_.concat([],data?.attr??[],data?.prgInd??[],data?.prgDtEl??[])
-    const allProgram=_.uniqWith(res,_.isEqual)
-
-    //updating count its used in the facts component
-    updatePrograms((prev)=>{return _.concat(prev,allProgram)})
 
     if(res?.length>0){
         return (<div>

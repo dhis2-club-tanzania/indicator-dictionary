@@ -8,10 +8,17 @@
     "build": "d2-app-scripts build",
     "start": "d2-app-scripts start",
     "test": "d2-app-scripts test",
-    "deploy": "d2-app-scripts deploy"
+    "deploy": "d2-app-scripts deploy",
+
+    "lint": "yarn d2-style check",
+    "lint:staged": "yarn lint --staged",
+
+    "format": "yarn d2-style apply",
+    "format:staged": "yarn format --staged"
   },
   "devDependencies": {
     "@dhis2/cli-app-scripts": "^7.2.1",
+    "@dhis2/cli-style": "^9.2.1",
     "@material-ui/icons": "^4.11.2",
     "cz-conventional-changelog": "3.3.0"
   },
