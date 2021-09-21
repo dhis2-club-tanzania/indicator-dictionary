@@ -1,14 +1,14 @@
 
 import {useDataEngine, useDataQuery} from "@dhis2/app-runtime";
 import i18n from "@dhis2/d2-i18n";
+import _ from "lodash";
 import PropTypes from "prop-types";
 import React,{useEffect} from 'react'
-import Loader from "../../../../../Shared/Componets/Loaders/Loader";
-import Error from "../../../../../Shared/Componets/Error/ErrorAPIResult";
-import {useGetDataSet} from "../../../../../Utils/Hooks";
 import {useSetRecoilState} from "recoil";
-import _ from "lodash";
+import Error from "../../../../../Shared/Componets/Error/ErrorAPIResult";
+import Loader from "../../../../../Shared/Componets/Loaders/Loader";
 import {indicatorGroupAggregateDataElements, indicatorGroupDataSets} from "../../../../../Store/IndicatorGroup";
+import {useGetDataSet} from "../../../../../Utils/Hooks";
 
 
 export default  function DataSets({aggregate}){
@@ -27,14 +27,14 @@ export default  function DataSets({aggregate}){
 
     const engine=useDataEngine()
 
-    let onlyIds=aggregate?.map((el)=>{
+    const onlyIds=aggregate?.map((el)=>{
         return el?.split(".")[0] //since id may come as with . to indicate with category comb
     })
 
     const {loading,error,data}=useGetDataSet(onlyIds,engine)
-
+    let allDataSets=[];
     useEffect(() => {
-        let allDataSets=[];
+
         data?.dataSets?.map((e)=>{
             e.map((el)=>{
                 allDataSets.push(el)
@@ -46,13 +46,11 @@ export default  function DataSets({aggregate}){
 
     },[data])
 
-
     if(loading){
         return  <Loader text={""} />
     }if(error){
         return <Error error={error} />
     }
-
 
 
     return (<div>
@@ -62,13 +60,10 @@ export default  function DataSets({aggregate}){
                 return <li key={datset?.id}>{datset?.displayName} {i18n.t(" submitting ")}  {datset?.periodType} {i18n.t(" after every ")} {datset?.timelyDays} {i18n.t(" days")}  </li>
             })}
        </ul>
-
-
-
     </div>)
 
 }
 
 DataSets.propTypes={
-    id:PropTypes.string.isRequired
+    aggregate:PropTypes.array.isRequired
 }

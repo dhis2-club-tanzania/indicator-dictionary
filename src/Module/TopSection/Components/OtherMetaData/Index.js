@@ -1,26 +1,25 @@
 
-import React, {useState,useEffect,useRef} from "react";
-import { Field } from '@dhis2/ui'
-import {Input} from "@material-ui/core";
-import { Modal,ButtonStrip,Button,ModalTitle,ModalContent,ModalActions, Radio } from '@dhis2/ui'
-import SearchResult from "./Components/SearchResult.js";
-import classes from "../../TopSection.module.css"
-import {useGetSearchResult} from "../../../../Utils/Hooks/TopBar";
-import {dataSourceTypes, dataTypes} from "../../../../Utils/Models";
 import {useDataEngine} from "@dhis2/app-runtime";
-import Loader from "../../../../Shared/Componets/Loaders/Loader";
-import Error from "../../../../Shared/Componets/Error/ErrorAPIResult";
-import {selector, useRecoilCallback, useRecoilState, useRecoilValue, useSetRecoilState} from "recoil";
-import {searchKeywordTopBar, selectedRadioSearchTopBar} from "../../../../Store/TopBar";
-import {forEach} from "lodash";
-import _ from "lodash";
+import { Modal,ButtonStrip,Button,ModalTitle,ModalContent,ModalActions, Radio , Field } from '@dhis2/ui'
+import {Input} from "@material-ui/core";
+import _, {forEach} from "lodash";
+
+import React, {useState,useEffect,useRef} from "react";
 import { useHistory } from "react-router-dom";
 import {useReactToPrint} from "react-to-print";
+import {selector, useRecoilCallback, useRecoilState, useRecoilValue, useSetRecoilState} from "recoil";
+import Error from "../../../../Shared/Componets/Error/ErrorAPIResult";
+import Loader from "../../../../Shared/Componets/Loaders/Loader";
 import {
     allFunctionsRulesInStore, oneFunctionSelected,
     searchedResultRules, showAllFunctions,
     showFunctionsSearchResult
 } from "../../../../Store/FunctionDictionary";
+import {searchKeywordTopBar, selectedRadioSearchTopBar} from "../../../../Store/TopBar";
+import {useGetSearchResult} from "../../../../Utils/Hooks/TopBar";
+import {dataSourceTypes, dataTypes} from "../../../../Utils/Models";
+import classes from "../../TopSection.module.css"
+import SearchResult from "./Components/SearchResult.js";
 
 export default function TopSection({handlePrint}){
 
@@ -69,7 +68,7 @@ export default function TopSection({handlePrint}){
     }
 
     function updateRadioSelector(index){
-        let tmp=[0,0,0,0]
+        const tmp=[0,0,0,0]
         tmp[index]=1
         setRadioSelector(tmp)
         if(index==0){
@@ -83,6 +82,9 @@ export default function TopSection({handlePrint}){
         }
         if(index==3){
             setSelectedSource(dataSourceTypes.INDICATOR_GROUP)
+        }
+        if(index==4){
+            setSelectedSource(dataSourceTypes.PROGRAM_INDICATOR)
         }
 
     }
@@ -122,7 +124,10 @@ export default function TopSection({handlePrint}){
                 <Radio  checked={false}  label="Indicator Group" checked={radioSelector[3]} onChange={()=>{debounceRadioSelectorHandler(3)}}  />
 
             </div>
+            <div className={classes.topComponents}>
+                <Radio  checked={false}  label="Program Indicator" checked={radioSelector[4]} onChange={()=>{debounceRadioSelectorHandler(4)}}  />
 
+            </div>
 
             <div className={classes.printButton}>
                   <span style={{marginRight:12}}>
